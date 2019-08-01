@@ -1,19 +1,19 @@
-# app.r
-# written by JuG
-# August 01 2019
-
-
-#' Do something
-#' @author JuG
-#' @description
-#' @param
-#' @details
-#' @examples
+#' # app.r
+#' # written by JuG
+#' # August 01 2019
 #'
 #'
-#' @return
-#' @export
-
-if(!require('shiny')){install.packages('shiny')}
-library(shiny)
-shinyApp(ui, server)
+#' #' Do something
+#' #' @author JuG
+#' #' @description
+#' #' @param
+#' #' @details
+#' #' @examples
+#' #'
+#' #'
+#' #' @return
+#' #' @export
+#'
+#' #if(!require('shiny')){install.packages('shiny')}
+#' #library(shiny)
+#' #shinyApp(ui, server)
