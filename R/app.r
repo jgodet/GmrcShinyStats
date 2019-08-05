@@ -14,8 +14,8 @@
 #' @return
 #' @export
 
-los <- function(){
-  if(!require('shiny')){install.packages('shiny')}
-  library(shiny)
-  shinyApp(ui, server)
-}
+
+if(!require('shiny')){install.packages('shiny')}
+library(shiny)
+shinyApp(ui, server)
+
