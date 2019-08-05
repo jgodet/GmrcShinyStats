@@ -4,9 +4,9 @@
 ####    FONCTIONS UTILES
 ########################################################################################################################
 
-#source("./R/CodeSansDependance.R")
-#source("./R/fonctions.R")
-#source("./R/miseEnForme.R")
+source("./R/CodeSansDependance.R")
+source("./R/fonctions.R")
+source("./R/miseEnForme.R")
 
 
 list.of.packages <- c("shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
