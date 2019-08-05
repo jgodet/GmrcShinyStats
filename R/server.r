@@ -8,6 +8,7 @@ source("./R/CodeSansDependance.R")
 source("./R/fonctions.R")
 source("./R/miseEnForme.R")
 
+
 list.of.packages <- c("shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
@@ -35,6 +36,7 @@ server <- shinyServer(function(input, output, session) {
          session$onSessionEnded(function() {
               stopApp()
           })
+
 
 
 
@@ -147,7 +149,7 @@ server <- shinyServer(function(input, output, session) {
     #   updateTextInput(session, "path",  value = file.choose2())
     # })
     #
-    volumes = getVolumes()
+    volumes = getVolumes()()
     observe({
       shinyFileChoose(input, "Btn_GetFile", roots = volumes, session = session)
 
@@ -2646,6 +2648,9 @@ output$LandisEtKoch2 <- renderTable({
   # }
   # return(list(shape=theta[1], rate=theta[2]))
 # }
+
+
+
 
 
 

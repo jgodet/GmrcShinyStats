@@ -15,7 +15,12 @@
 #' @export
 
 
-if(!require('shiny')){install.packages('shiny')}
-library(shiny)
-shinyApp(ui, server)
+
+los <- function(){
+
+ library(shiny)
+  if(!require('shiny')){install.packages('shiny')}
+  require(shiny)
+ shinyApp(ui, server)
+}
 

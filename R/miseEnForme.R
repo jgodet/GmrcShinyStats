@@ -1,13 +1,15 @@
-pasDeBase <-   fluidPage(
-  h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible" ),
-  p("Pour charger une base de données, rendez-vous sur l'onglet Base de Données en haut de cette page.")
+pasDeBase <-  function(){
+  fluidPage(
+h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible" ),
+p("Pour charger une base de données, rendez-vous sur l'onglet Base de Données en haut de cette page.")
 )
+}
 
 
 ###################################################
 #####   PAGE 3      ###############################
 ###################################################
-univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
+univarie <- function(){fluidPage(navbarPage(title = NULL,id="descriptif",
 
             tabPanel("Informations BDD",
                      fluidPage(
@@ -100,13 +102,13 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
 )# fin navbarPage
 
 )
-
+}
 #######################################################################
 #####   PAGE 4 CROISEMENTS INFERENCE   ###############################
 #######################################################################
 
 
-CroisementsInference<-
+CroisementsInference<-function(){
          fluidPage(navbarPage(id="Panel 2.x",title = NULL,
 
                      tabPanel("Croisement 2 à 2",
@@ -232,12 +234,12 @@ CroisementsInference<-
   ) # fin tabPanel tableau Croisement
                      ) # fin tabset
          )
-
+}
 ############################################################
 #####  page 5 survie              ##########################
 ############################################################
 
-analyseDeSurvie<-
+analyseDeSurvie<-function(){
   fluidPage(
     titlePanel("Analyses de survie"),
     sidebarLayout(
@@ -283,13 +285,13 @@ analyseDeSurvie<-
     )# fin sidebarlayout
   )# fin fluidpage
 
-
+}
 ############################################################
 #####  page 6 tests diagnostique  ##########################
 ############################################################
 
 
-testsDiagnostiques<-
+testsDiagnostiques<- function(){
   fluidPage(
 
 navbarPage("",
@@ -374,13 +376,13 @@ navbarPage("",
             )
 )
 
-
+}
 
 
 ############################################################
 #####  page 7 tests diagnostique    ########################
 ############################################################
-concordanceAvecBase<-
+concordanceAvecBase<-function(){
 fluidPage(
   titlePanel("Analyse de concordance entre 2 lecteurs"),
   sidebarLayout(
@@ -444,9 +446,9 @@ fluidPage(
   )# fin sidebarlayout
 )# fin fluidpage
 
+}
 
-
-concordanceSansBase<-
+concordanceSansBase<- function(){
   fluidPage(
     titlePanel("Analyse de concordance entre 2 lecteurs"),
     sidebarLayout(
@@ -496,7 +498,7 @@ concordanceSansBase<-
 
     )# fin sidebarlayout
   )# fin fluidpage
-
+}
 
 
 

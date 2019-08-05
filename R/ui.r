@@ -413,5 +413,5 @@ ui <- shinyUI(navbarPage(
 
 
   )# fin navbarpage
-)# fin shinyUI
+)
 
