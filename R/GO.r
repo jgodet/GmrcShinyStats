@@ -15,8 +15,11 @@
 #' @export
 
 GO <- function(){
-  print(getwd())
-  require(shiny)
-  shiny::runApp(GmrcShinyStats::app(),launch.browser = T)
+  appDir <- system.file("shinyStuff", "myapp", package = "GmrcShinyStats")
+  if( appDir == ""){
+    stop("Could not find directory. Try re-installing `GmrcShinyStats`.", call. = FALSE)
+  }
+
+  shiny::runApp(appDir, display.mode = "normal",launch.browser = T)
   #q(save="no")
 }
