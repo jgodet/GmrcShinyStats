@@ -11,10 +11,10 @@
 
 list.of.packages <- c("shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+if(length(new.packages)>0){install.packages(new.packages)}
 #library(markdown)
 library(ggplot2)
-  library(shiny)
+library(shiny)
 library(dplyr)
 #library(knitr)
 #library(FactoMineR)
