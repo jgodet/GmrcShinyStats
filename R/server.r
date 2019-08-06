@@ -4,9 +4,9 @@
 ####    FONCTIONS UTILES
 ########################################################################################################################
 
-source("./R/CodeSansDependance.R")
-
-source("./R/miseEnForme.R")
+#source("./R/CodeSansDependance.R")
+#source("./R/fonction.r")
+#source("./R/miseEnForme.R")
 
 
 list.of.packages <- c("shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
@@ -28,6 +28,12 @@ library(boot )
 # library(readr)
 library(xtable )
 library(shinyFiles)
+
+if(!require(devtools)){install.packages('devtools')}
+library(devtools)
+
+if(!require(gmrcfun)){install_github(repo = "jgodet/gmrcfun")}
+library(gmrcfun)
 
 server <- shinyServer(function(input, output, session) {
 
