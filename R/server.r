@@ -9,31 +9,33 @@
 #source("./R/miseEnForme.R")
 
 
-list.of.packages <- c("shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)>0){install.packages(new.packages)}
+# list.of.packages <- c("aa","shiny","ggplot2", "shinyFiles","dplyr","pROC","irr","moments","DT","gdata","stringr","boot","xtable")
+# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+#
+# if(length(new.packages)>0){
+#   install.packages(new.packages)
+#   }
+
 #library(markdown)
-library(ggplot2)
-library(shiny)
-library(dplyr)
+if(!require(ggplot2)){install.packages('ggplot2')}; library(ggplot2)
+if(!require(shiny)){install.packages('shiny')}; library(shiny)
+if(!require(dplyr)){install.packages('dplyr')}; library(dplyr)
 #library(knitr)
 #library(FactoMineR)
-library(pROC)
-library(irr)
-library(moments)
-library(DT)
-library(gdata )
-library(stringr )
-library(boot )
+if(!require(pROC)){install.packages('pROC')}; library(pROC)
+if(!require(irr)){install.packages('irr')}; library(irr)
+if(!require(moments)){install.packages('moments')}; library(moments)
+if(!require(DT)){install.packages('DT')}; library(DT)
+if(!require(gdata)){install.packages('gdata')}; library(gdata )
+if(!require(stringr)){install.packages('stringr')}; library(stringr )
+if(!require(boot)){install.packages('boot')}; library(boot )
 # library(readr)
-library(xtable )
-library(shinyFiles)
+if(!require(xtable)){install.packages('xtable')}; library(xtable )
+if(!require(shinyFiles)){install.packages('shinyFiles')}; library(shinyFiles)
 
-if(!require(devtools)){install.packages('devtools')}
-library(devtools)
+if(!require(devtools)){install.packages('devtools')}; library(devtools)
 
-if(!require(gmrcfun)){install_github(repo = "jgodet/gmrcfun")}
-library(gmrcfun)
+if(!require(gmrcfun)){install_github(repo = "jgodet/gmrcfun")}; library(gmrcfun)
 
 server <- shinyServer(function(input, output, session) {
 
