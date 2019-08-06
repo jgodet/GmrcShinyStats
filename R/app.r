@@ -16,11 +16,11 @@
 
 
 
-los <- function(){
-
- library(shiny)
+GO <- function(){
   if(!require('shiny')){install.packages('shiny')}
   require(shiny)
+  if(!require('shinyFiles')){install.packages('shinyFiles')}
+  require(shinyFiles)
  shinyApp(ui, server)
 }
 
