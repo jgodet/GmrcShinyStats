@@ -14,14 +14,13 @@
 #' @return
 #' @export
 
+if(!require(shiny)){install.packages('shiny')}
+require(shiny)
+CroisementsInference<-fluidPage(navbarPage(id="Panel 2.x",title = NULL,
 
-CroisementsInference<-
-  fluidPage(navbarPage(id="Panel 2.x",title = NULL,
+                       tabPanel("Croisement 2 a 2",
 
-                       tabPanel("Croisement 2 à 2",
-
-
-                                fluidPage( includeCSS("tables.css"),
+                                fluidPage( includeCSS("./R/www/tables.css"),
                                            titlePanel("Analyses descriptives croisées"),
                                            sidebarLayout(
                                              sidebarPanel(

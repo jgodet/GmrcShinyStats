@@ -4,7 +4,7 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: Michael Schaeffer, Thibaut Fabacher, Nicolas Tuzin, Julien Godet
 Maintainer: Julien Godet <julien.godet@unistra.fr>
-Description: GMRC Shiny Statspermet de faire facilement des analyses statistiques sans connaissance en codage.
+Description: GMRC Shiny Stats permet de faire facilement des analyses statistiques sans connaissance en codage.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
