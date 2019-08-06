@@ -16,7 +16,7 @@
 
 
 
-GO <- function(){
+app<- function(){
   if(!require('shiny')){install.packages('shiny')}
   require(shiny)
   if(!require('shinyFiles')){install.packages('shinyFiles')}

@@ -14,11 +14,9 @@
 #' @return
 #' @export
 
-
-
 GO <- function(){
   print(getwd())
   require(shiny)
-  shiny::runApp( "./R/",launch.browser = T)
+  shiny::runApp(GmrcShinyStats::app(),launch.browser = T)
   #q(save="no")
 }
