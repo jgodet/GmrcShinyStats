@@ -1,6 +1,6 @@
 # GmrcShinyStats
 
-GMRC Shiny Stats permet de faire facilement des analyses statistiques sans connaissance en codage.
+GMRC Shiny Stats permet de faire facilement des analyses statistiques sans coder.
 
 ---
 ## How to install and run GmrcShinyStats
