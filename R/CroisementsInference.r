@@ -20,7 +20,7 @@ CroisementsInference<-fluidPage(navbarPage(id="Panel 2.x",title = NULL,
 
                        tabPanel("Croisement 2 a 2",
 
-                                fluidPage( includeCSS("./R/www/tables.css"),
+                                fluidPage( includeCSS("./inst/shiny-examples/myapp/www/tables.css"),
                                            titlePanel("Analyses descriptives croisées"),
                                            sidebarLayout(
                                              sidebarPanel(
