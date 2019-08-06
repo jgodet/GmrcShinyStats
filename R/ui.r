@@ -370,7 +370,7 @@ ui <- shinyUI(navbarPage(
                         sidebarLayout(
                           sidebarPanel(
                             tags$br(),
-                            img(src="logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;"),
+                            img(src=".R/www.logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;"),
                             tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),
                             tags$br(),tags$br(),
                             tags$h4("En cas de question, vous pouvez contacter:",style = "color:#08088A"),
