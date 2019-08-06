@@ -18,7 +18,6 @@
 tablePourcent<- function(base){
   pourcent <-  prop.table(table(base))
   pourcent<- pourcent[order(pourcent)]
-
   data<- data.frame(pourcent = as.numeric(pourcent), nom = names(pourcent))
   return(data)
   }
