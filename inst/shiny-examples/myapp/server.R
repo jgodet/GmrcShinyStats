@@ -299,7 +299,7 @@ server <- shinyServer(function(input, output, session) {
 
 
   output$plotNAbase1 <- renderPlot({
-    plot.na(BDD())
+    plot_na(BDD())
   })
 
   output$plotNAbase2 <- renderPlot({
