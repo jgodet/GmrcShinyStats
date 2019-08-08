@@ -15,7 +15,23 @@ require(shiny)
 GO()
 ```
 
-Once installed, anytime you want to run GmrcShinyStats - just type GO()
+
+Alternative way
+```r
+install.packages("devtools")
+library(devtools)
+install_github("jgodet/gmrcfun")"
+install_github("jgodet/GmrcShinyStats", INSTALL_opts = c('--no-lock'))
+require(gmrcfun)
+require(shiny)
+GO()
+```
+
+Once installed, anytime you want to run GmrcShinyStats - just type the two last lines
+```r
+require(shiny)
+GO()
+```
 
 ---
 ### License
