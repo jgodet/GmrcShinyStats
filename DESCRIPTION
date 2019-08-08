@@ -16,6 +16,7 @@ Imports:
   DT,
   gdata,
   ggplot2,
+  gmrcfun,
   irr,
   lme4,
   pROC,
