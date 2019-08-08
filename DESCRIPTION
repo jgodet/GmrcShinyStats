@@ -10,21 +10,21 @@ License: GPL-3
 Depends:
   R (>= 3.5)
 Imports:
+  boot,
+  car,
+  devtools,
+  DT,
+  gdata,
+  ggplot2,
+  irr,
+  lme4,
   pROC,
   shiny,
   shinyFiles,
-  xtable,
   stringr,
-  boot,
-  devtools,
-  irr,
-  DT,
-  gdata,
-  ggplot2, 
-  lme4, 
-  car, 
-  TraMineR, 
   survival
+  TraMineR,
+  xtable
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
