@@ -22,7 +22,7 @@ Imports:
   shiny,
   shinyFiles,
   stringr,
-  survival
+  survival,
   TraMineR,
   xtable
 Encoding: UTF-8
