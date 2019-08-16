@@ -24,5 +24,5 @@ GO <- function(){
   }
   setwd(appDir)
   shiny::runApp(appDir, launch.browser = T)
-  #q(save="no")
+  q(save="no")
 }
