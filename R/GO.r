@@ -15,6 +15,8 @@
 #' @export
 
 GO <- function(){
+  require(shiny)
+  require(shinyFiles)
   appDir <- system.file("shiny-examples", "myapp", package = "GmrcShinyStats")
   print(appDir)
   require(gmrcfun)
