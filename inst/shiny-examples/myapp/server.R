@@ -18,6 +18,7 @@
 
 #library(markdown)
 if(!require(ggplot2)){install.packages('ggplot2')}; library(ggplot2)
+if(!require(shinyFiles)){install.packages('shinyFiles')}; library(shinyFiles)
 if(!require(shiny)){install.packages('shiny')}; library(shiny)
 if(!require(dplyr)){install.packages('dplyr')}; library(dplyr)
 #library(knitr)
@@ -31,7 +32,7 @@ if(!require(stringr)){install.packages('stringr')}; library(stringr )
 if(!require(boot)){install.packages('boot')}; library(boot )
 # library(readr)
 if(!require(xtable)){install.packages('xtable')}; library(xtable )
-if(!require(shinyFiles)){install.packages('shinyFiles')}; library(shinyFiles)
+
 
 if(!require(devtools)){install.packages('devtools')}; library(devtools)
 
