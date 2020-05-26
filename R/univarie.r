@@ -59,7 +59,7 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
                                                        tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                                                        h4("Descriptif cumulé des données manquantes par sujet",align="center"),
                                                        p("On représente ci-dessous les données manquantes en proportions par sujet d'étude."),
-                                                       plotOutput('plotNAbase3'),
+                                                       plotOutput("plotNAbase3"),
                                                        tableOutput("tableNAbase3"))
                                             )# fin navlistpanel
 
@@ -82,8 +82,8 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
                                             sidebarLayout(
                                               sidebarPanel(
                                                 uiOutput("propositions"),
-                                                radioButtons('qualiquanti', "Nature de la variable",
-                                                             c(Quantitative='quant', Qualitative='qual'),'qual'
+                                                radioButtons("qualiquanti", "Nature de la variable",
+                                                             c(Quantitative="quant", Qualitative="qual"),"qual"
                                                 )
                                               ),
                                               # Create a spot for the barplot
@@ -98,7 +98,7 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
                                                 tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                                                 fluidRow(
                                                   column(6,   textOutput("descriptifUni"),br(),  tableOutput("descvar")),
-                                                  column(6,     plotOutput('plot1') , plotOutput('plot2') )
+                                                  column(6,     plotOutput("plot1") , plotOutput("plot2") )
                                                 )# fin fluid row du main panel
 
                                               )# fin MainPanel

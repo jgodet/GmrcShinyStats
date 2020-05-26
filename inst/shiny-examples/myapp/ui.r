@@ -210,7 +210,7 @@ ui <- shinyUI(navbarPage(
                          ###################################################
 
                          tabPanel("Descriptifs",
-                                  uiOutput('univarie')
+                                  uiOutput("univarie")
                          ),# fin tab panel descriptif
 
 
@@ -218,7 +218,7 @@ ui <- shinyUI(navbarPage(
                          #####   PAGE 4  CROISEMENTS INFERENCE   ###############################
                          #######################################################################
                          tabPanel("Croisements/Inférence",
-                                  uiOutput('croisementsInference')
+                                  uiOutput("croisementsInference")
                          ),#fin table panel
 
 
@@ -231,7 +231,7 @@ ui <- shinyUI(navbarPage(
 
 
                          tabPanel("Analyse de survie",
-                                  uiOutput('analyseDeSurvie')
+                                  uiOutput("analyseDeSurvie")
                          ),# fin tabPanel 3
 
 
@@ -241,7 +241,7 @@ ui <- shinyUI(navbarPage(
                          ###################################################
 
                          tabPanel("Tests Diagnostiques",
-                                  uiOutput('testsDiagnostiques')
+                                  uiOutput("testsDiagnostiques")
                          ),
 
 
@@ -255,7 +255,7 @@ ui <- shinyUI(navbarPage(
 
 
                          tabPanel("Concordance",
-                                  uiOutput('concordance')
+                                  uiOutput("concordance")
                          )# fin tabPanel 3
 
 
@@ -343,9 +343,9 @@ ui <- shinyUI(navbarPage(
                                         tags$p("La concordance est évaluée à l'aide du coefficient Kappa de Cohen, et est estimé ci-dessous:"),
                                         fluidRow(
                                           splitLayout(cellWidths = c("25%","55%","20%"),
-                                                      tableOutput('KappaMAIN'),
-                                                      plotOutput('KappaPlotMain'),
-                                                      tableOutput('LandisEtKoch')
+                                                      tableOutput("KappaMAIN"),
+                                                      plotOutput("KappaPlotMain"),
+                                                      tableOutput("LandisEtKoch")
                                           )# fin SpliLayout Kappa
 
                                         )# fin fluiRow pour Kappa

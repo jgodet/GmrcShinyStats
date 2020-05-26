@@ -1251,10 +1251,11 @@ print(input$variable)
 
 
   output$concordance = renderUI({
-    if(!BASEchargee()) do.call(tabPanel,concordanceSansBase)
-    else do.call(tabPanel,concordanceAvecBase)
-
-
+    if(!BASEchargee()){
+      do.call(tabPanel,concordanceSansBase)
+    }else{
+      do.call(tabPanel,concordanceAvecBase)
+    }
   })
 
   output$CONCORDANCElecture1 <- renderUI({
@@ -1310,12 +1311,12 @@ print(input$variable)
       Mat2[,1]<-reorder.factor(Mat2[,1], new.order=levels(Mat2[,2]))
 
       if(all(Mat2[,1]==Mat2[,2])){RESULTAT<-c(1,1,1)}else{
-        lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+        lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
         res <- boot(Mat2,lkappa.boot,10000)
         RESULTAT<-c(lkappa.boot(Mat2),boot.ci(res,type="bca")$ bca[,4:5])
       }
       cat("Le coefficient de concordance Kappa de Cohen est estimé à",RESULTAT[1],
-          "dans l'intervalle à 95% [",RESULTAT[2],";",RESULTAT[3],"]\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(kappa2(cbind(x,y))$p.value,3), "\n")
+          "dans l'intervalle à 95% [",RESULTAT[2],";",RESULTAT[3],"]\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(irr::kappa2(cbind(x,y))$p.value,3), "\n")
      })
 
   output$ConcordanceManuelleSimple <- renderPrint({
@@ -1329,8 +1330,8 @@ print(input$variable)
       x <-base[,colnames(base)==input$CONCORDANCElecture1]
       y <-base[,colnames(base)==input$CONCORDANCElecture2]
     }
-    cat("Estimation\nLe coefficient de concordance Kappa de Cohen est estimé à",round(kappa2(cbind(x,y))$value,3),".
-        \n\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(kappa2(cbind(x,y))$p.value,3), "\n")
+    cat("Estimation\nLe coefficient de concordance Kappa de Cohen est estimé à",round(irr::kappa2(cbind(x,y))$value,3),".
+        \n\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(irr::kappa2(cbind(x,y))$p.value,3), "\n")
   })
 
 
@@ -1481,11 +1482,11 @@ output$KappaMAIN <- renderTable({
     Mat2<-countsToCases(as.data.frame.table(Mat))
 
     if(all(Mat2[,1]==Mat2[,2])){RESULTAT<-c(1,1,1)}else{
-      lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+      lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
       res <- boot(Mat2,lkappa.boot,1000)
       RESULTAT<-c(lkappa.boot(Mat2),boot.ci(res,type="bca")$ bca[,4:5])
     }
-    res<-round(data.frame(Kappa=RESULTAT[1],Ic2.5=RESULTAT[2],Ic97.5=RESULTAT[3],pval=kappa2(cbind(Mat2[,1],Mat2[,2]))$p.value),3)
+    res<-round(data.frame(Kappa=RESULTAT[1],Ic2.5=RESULTAT[2],Ic97.5=RESULTAT[3],pval=irr::kappa2(cbind(Mat2[,1],Mat2[,2]))$p.value),3)
     rownames(res)<-"Résultat"
   res
 },rownames=TRUE)
@@ -1504,7 +1505,7 @@ output$KappaPlotMain <- renderPlot({
   # Mat 2 les donnees en BDD
   Mat2<-countsToCases(as.data.frame.table(Mat))
 
-      lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+      lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
       res <- boot(Mat2,lkappa.boot,1000)
 
       # Function to plot color bar
@@ -1560,7 +1561,7 @@ output$ConcordanceManuelleINTERV2 <- renderPrint({
   Mat2[,1]<-reorder.factor(Mat2[,1], new.order=levels(Mat2[,2]))
 
   if(all(Mat2[,1]==Mat2[,2])){RESULTAT<-c(1,1,1)}else{
-    lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+    lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
     res <- boot(Mat2,lkappa.boot,10000)
     RESULTAT<-c(lkappa.boot(Mat2),boot.ci(res,type="bca")$ bca[,4:5])
   }
@@ -1575,8 +1576,8 @@ output$ConcordanceManuelleSimple2 <- renderPrint({
 
   x <-as.factor(strsplit(input$Concoman1," ")[[1]])
   y <-as.factor(strsplit(input$Concoman2," ")[[1]])
-  cat("Estimation\nLe coefficient de concordance Kappa de Cohen est estimé à",round(kappa2(cbind(x,y))$value,3),".
-      \n\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(kappa2(cbind(x,y))$p.value,3), "\n")
+  cat("Estimation\nLe coefficient de concordance Kappa de Cohen est estimé à",round(irr::kappa2(cbind(x,y))$value,3),".
+      \n\nTest\nLe test de nullité de ce coefficient peut être réalisé et la p.valeur associée est",round(irr::kappa2(cbind(x,y))$p.value,3), "\n")
 })
 
 
@@ -1727,11 +1728,11 @@ output$KappaMAIN <- renderTable({
   Mat2<-countsToCases(as.data.frame.table(Mat))
 
   if(all(Mat2[,1]==Mat2[,2])){RESULTAT<-c(1,1,1)}else{
-    lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+    lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
     res <- boot(Mat2,lkappa.boot,1000)
     RESULTAT<-c(lkappa.boot(Mat2),boot.ci(res,type="bca")$ bca[,4:5])
   }
-  res<-round(data.frame(Kappa=RESULTAT[1],Ic2.5=RESULTAT[2],Ic97.5=RESULTAT[3],pval=kappa2(cbind(Mat2[,1],Mat2[,2]))$p.value),3)
+  res<-round(data.frame(Kappa=RESULTAT[1],Ic2.5=RESULTAT[2],Ic97.5=RESULTAT[3],pval=irr::kappa2(cbind(Mat2[,1],Mat2[,2]))$p.value),3)
   rownames(res)<-"Résultat"
   res
 },rownames=TRUE)
@@ -1750,7 +1751,7 @@ output$KappaPlotMain <- renderPlot({
   # Mat 2 les donnees en BDD
   Mat2<-countsToCases(as.data.frame.table(Mat))
 
-  lkappa.boot <- function(data,x) {kappa2(data[x,])$value}
+  lkappa.boot <- function(data,x) {irr::kappa2(data[x,])$value}
   res <- boot(Mat2,lkappa.boot,1000)
 
   # Function to plot color bar

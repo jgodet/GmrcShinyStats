@@ -16,6 +16,7 @@
 
 
 testsDiagnostiques<-
+
   fluidPage(
 
     navbarPage("",
@@ -43,13 +44,13 @@ testsDiagnostiques<-
 
                               tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                               navbarPage(title=NULL,
-                                         id='datasetlogit',
-                                         tabPanel('Variables sélectionnées',
+                                         id="datasetlogit",
+                                         tabPanel("Variables sélectionnées",
                                                   h3("Variables sélectionnées"),
                                                   p("Les variables sélectionnées pour la réalisation du test diagnostique sont:"),
-                                                  tableOutput('mytableLOGIT1')
+                                                  tableOutput("mytableLOGIT1")
                                          ),
-                                         tabPanel('Courbe ROC',
+                                         tabPanel("Courbe ROC",
                                                   p("La courbe ROC réalisée à partir des variables sélectionnées est présentée ci-dessous"),
                                                   checkboxInput("LOGIToptionsGRAPHIQUES", "Je souhaite ajouter des options graphiques", FALSE),
                                                   conditionalPanel(
@@ -59,24 +60,24 @@ testsDiagnostiques<-
                                                     checkboxInput("LOGIToptionsIntervalle", "Afficher intervalle de confiance courbe ROC", FALSE)
                                                   ),
                                                   h3("Courbe ROC associée"),
-                                                  plotOutput('LogitROC'),
+                                                  plotOutput("LogitROC"),
                                                   br(),br(),
                                                   h3("Meilleur seuil estimé par maximisation de l'indice de Youden"),
-                                                  tableOutput('LogitROCtableauBEST'),
+                                                  tableOutput("LogitROCtableauBEST"),
                                                   br(),br(),
                                                   h3("Détails des seuils utilisés pour construire la courbe"),
-                                                  tableOutput('LogitROCtableau')
+                                                  tableOutput("LogitROCtableau")
 
                                          ), # fin tab panel
-                                         tabPanel('Performances diagnostiques',
+                                         tabPanel("Performances diagnostiques",
                                                   h4("Le meilleur seuil (au sens défini précédemment) est estimé à:"),
-                                                  tableOutput('LogitPERFtableauBEST'),br(),
+                                                  tableOutput("LogitPERFtableauBEST"),br(),
                                                   h4("Pour un tel seuil le tableau croisé devient:"),
-                                                  tableOutput('LogitPERF3'),br(),
+                                                  tableOutput("LogitPERF3"),br(),
                                                   h4("La sensibilité et la specificité sont:"),
-                                                  tableOutput('LogitPERF1'),br(),
+                                                  tableOutput("LogitPERF1"),br(),
                                                   h4("La critères de performances sont alors"),
-                                                  tableOutput('LogitPERF2'),
+                                                  tableOutput("LogitPERF2"),
                                                   p("Attention, si l'évènement est associé à une mesure inférieure au cut, la lecture des VP,VN,FP,FN, VPP et VPN est inversée dans ce dernier tableau.
                                                                              Il faut alors se référer au tableau à 4 cases sur le haut de cette page."),br()
 

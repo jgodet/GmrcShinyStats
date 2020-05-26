@@ -16,8 +16,10 @@
 
 
 concordanceSansBase<-
+
   fluidPage(
-    titlePanel("Analyse de concordance entre 2 lecteurs"),
+
+      titlePanel("Analyse de concordance entre 2 lecteurs"),
     sidebarLayout(
       sidebarPanel(
         p("Entrez les valeurs du lecteur 1, séparées par un espace"),
@@ -27,13 +29,12 @@ concordanceSansBase<-
         checkboxInput("CONCORinter", "Ajouter l'intervalle de confiance (simulations, le calcul peut prendre plusieurs minutes)")       # si saisie manuelle
 
 
-      )# fin sidebar panel
-      ,
+      ),# fin sidebar panel
 
       mainPanel(
         fluidRow(
           splitLayout(cellWidths = c("30%","70%"),
-                      downloadButton('PDFconcordance',label="AIDE et Détails",class = "butt"),
+                      downloadButton("PDFconcordance",label="AIDE et Détails",class = "butt"),
                       h4("Faites attention s'il y a un filtre")
           )
         ),#finFluidRow
@@ -41,7 +42,7 @@ concordanceSansBase<-
         tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
         h3("Tableau croisé"),
         p("On présente ci-dessous le tableau croisé des lectures réalisées:"),
-        tableOutput('mytableCONCORDANCE2'),br(),
+        tableOutput("mytableCONCORDANCE2"),br(),
 
 
 
@@ -57,7 +58,7 @@ concordanceSansBase<-
           verbatimTextOutput ("ConcordanceManuelleSimple2")
         ),# fin condi 2
         p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
-        tableOutput('LandisEtKoch2')
+        tableOutput("LandisEtKoch2")
 
 
 

@@ -3,7 +3,20 @@ Type: Package
 Title: Analyses statistiques sans coder 
 Version: 1.1
 Date: 2019-08-05
-Authors: Michael Schaeffer, Thibaut Fabacher, Nicolas Tuzin, Julien Godet
+Authors@R: c( person(given = "Michael",
+                      family= "Schaeffer" ,
+                      role = c( "aut")),
+              person(given = "Thibaut",
+                      family= "Fabacher" ,
+                      role = c( "aut")),
+              person(given = "Nicolas",
+                      family= "Tuzin" ,
+                      role = c( "aut")),
+              person(given = "Julien",
+                  family = "Godet",
+                  role = c( "aut", "cre"),
+                  email = "julien.godet@unistra.fr")
+                )
 Maintainer: Julien Godet <julien.godet@chru-strasbourg.fr>
 Description: Ce package est un ensemble de fonctions utiles et pratiques developpees par le GMRC - Hopitaux Universitaires de Strasbourg pour le traitement statistique de donnees, medicales ou non (descriptif, inferentiel, frequentiste et bayesien).
 License: GPL-3
