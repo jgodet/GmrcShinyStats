@@ -14,10 +14,10 @@
 #' @return
 #' @export
 
+require(shiny)
 
-analyseDeSurvie<-
-  fluidPage(
-    titlePanel("Analyses de survie"),
+analyseDeSurvie <-
+  fluidPage( titlePanel("Analyses de survie"),
     sidebarLayout(
       sidebarPanel(
         p("Sélectionnez la variable quantitative représentant le délai jusqu'à survenue de l'évènement ou de censure"),
@@ -51,7 +51,7 @@ analyseDeSurvie<-
         p("La courbe de survie associée aux variables selectionnée est présentée ci-dessous. Si aucune comparaison entre groupes n'est
                                                         effectuée, la courbe est présentée dans son intervalle de confiance à 95%. Si une comparaison est demandée, le graphique présente
                                                         la courbe de Kaplan-Meier dans chacun des groupes."),
-        plotOutput('plotSURVIE'),
+        plotOutput("plotSURVIE"),
         p("Le détail des données utilisées pour la construction de cette ou ces courbes est présenté ci-dessous. Dans le cas
                                                         d'une comparaison entre plusieurs groupes, le détail est présenté par groupes, un test d'égalité de l'ensemble des courbes est
                                                         présenté (Test du Log-Rank) et les résultats sont affichés au bas de cette page."),
@@ -59,4 +59,4 @@ analyseDeSurvie<-
         verbatimTextOutput ("sortieSURVIE2"))# fin MainPanel
 
     )# fin sidebarlayout
-  )# fin fluidpage
+)# fin fluidpage

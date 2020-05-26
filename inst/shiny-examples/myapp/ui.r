@@ -217,7 +217,7 @@ ui <- shinyUI(navbarPage(
                          #######################################################################
                          #####   PAGE 4  CROISEMENTS INFERENCE   ###############################
                          #######################################################################
-                         tabPanel("Croisements Inférence",
+                         tabPanel("Croisements/Inférence",
                                   uiOutput('croisementsInference')
                          ),#fin table panel
 

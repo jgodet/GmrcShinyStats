@@ -29,7 +29,7 @@ testsDiagnostiques<-
 
 
                         fluidPage(
-                          title = 'Examples of DataTables',
+                          title = "Examples of DataTables",
                           sidebarLayout(
                             sidebarPanel(
                               p("Sélectionnez la variable qualitative codée 0 ou 1 à expliquer:"),
