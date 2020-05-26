@@ -14,6 +14,8 @@
 #' @return
 #' @export
 
+if(!require(shiny)){install.packages('shiny')}
+require(shiny)
 
 univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
 
