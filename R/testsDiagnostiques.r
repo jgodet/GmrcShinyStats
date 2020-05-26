@@ -19,15 +19,7 @@ testsDiagnostiques<-
   fluidPage(
 
     navbarPage("",
-
-
-
-
-
-               tabPanel("Réalisation d'un test diagnostique univarié",
-
-
-
+     tabPanel("Réalisation d'un test diagnostique univarié",
                         fluidPage(
                           title = "Examples of DataTables",
                           sidebarLayout(
