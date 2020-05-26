@@ -13,6 +13,8 @@
 #'
 #' @return
 #' @export
+
+if(!require('shinyFiles')){install.packages('shinyFiles')}
 if(!require('shiny')){install.packages('shiny')}
 require(shiny)
 # Define UI for app that draws a histogram ----
