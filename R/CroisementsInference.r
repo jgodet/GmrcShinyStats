@@ -1,4 +1,4 @@
-# CroisementsInference.r
+# croisementsInference.r
 # written by JuG
 # August 05 2019
 
@@ -16,7 +16,7 @@
 
 if(!require(shiny)){install.packages('shiny')}
 require(shiny)
-CroisementsInference<-fluidPage(navbarPage(id="Panel 2.x",title = NULL,
+croisementsInference<-fluidPage(navbarPage(id="Panel 2.x",title = NULL,
 
                        tabPanel("Croisement 2 a 2",
 

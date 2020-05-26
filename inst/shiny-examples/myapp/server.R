@@ -396,9 +396,9 @@ print(input$variable)
   #######################################################################
   #####   PAGE 4 CROISEMENTS INFERENCE   ###############################
   #######################################################################
-  output$CroisementsInference = renderUI({
+  output$croisementsInference = renderUI({
     if(!BASEchargee()) do.call(tabPanel,pasDeBase)
-    else do.call(tabPanel,CroisementsInference)
+    else do.call(tabPanel,croisementsInference)
 
 
   })
