@@ -6,6 +6,9 @@
 \usage{
 tablePourcent(base)
 }
+\value{
+
+}
 \description{
 Do something
 }

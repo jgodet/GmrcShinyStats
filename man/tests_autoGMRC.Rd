@@ -6,6 +6,9 @@
 \usage{
 tests_autoGMRC(var, grp)
 }
+\value{
+
+}
 \description{
 Do something
 }

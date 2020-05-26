@@ -6,6 +6,9 @@
 \usage{
 file.choose2(...)
 }
+\value{
+
+}
 \description{
 Do something
 }

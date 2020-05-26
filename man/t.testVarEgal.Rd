@@ -6,6 +6,9 @@
 \usage{
 \method{t}{testVarEgal}(x, ...)
 }
+\value{
+
+}
 \description{
 Do something
 }

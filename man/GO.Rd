@@ -6,6 +6,9 @@
 \usage{
 GO()
 }
+\value{
+
+}
 \description{
 Go to GMRC shiny Stats
 }

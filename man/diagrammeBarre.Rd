@@ -6,6 +6,9 @@
 \usage{
 diagrammeBarre(base)
 }
+\value{
+
+}
 \description{
 Do something
 }

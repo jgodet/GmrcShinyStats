@@ -4,9 +4,14 @@
 \name{testsDiagnostiques}
 \alias{testsDiagnostiques}
 \title{Do something}
-\format{An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.}
+\format{
+An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.
+}
 \usage{
 testsDiagnostiques
+}
+\value{
+
 }
 \description{
 Do something

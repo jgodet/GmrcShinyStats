@@ -6,6 +6,9 @@
 \usage{
 pieChart(base)
 }
+\value{
+
+}
 \description{
 Do something
 }

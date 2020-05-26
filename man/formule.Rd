@@ -6,6 +6,9 @@
 \usage{
 formule(x)
 }
+\value{
+
+}
 \description{
 Do something
 }

@@ -4,9 +4,14 @@
 \name{concordanceSansBase}
 \alias{concordanceSansBase}
 \title{Do something}
-\format{An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.}
+\format{
+An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.
+}
 \usage{
 concordanceSansBase
+}
+\value{
+
 }
 \description{
 Do something

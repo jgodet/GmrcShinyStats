@@ -4,9 +4,14 @@
 \name{pasDeBase}
 \alias{pasDeBase}
 \title{Do something}
-\format{An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.}
+\format{
+An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 3.
+}
 \usage{
 pasDeBase
+}
+\value{
+
 }
 \description{
 Do something

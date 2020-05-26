@@ -6,12 +6,10 @@ GMRC Shiny Stats permet de faire facilement des analyses statistiques sans coder
 ## How to install and run GmrcShinyStats
 
 ```r
-install.packages("devtools")
-library(devtools)
-install_github("jgodet/gmrcfun")
-install_github("jgodet/GmrcShinyStats")
-require(gmrcfun)
-require(shiny)
+if(!require(devtools){install.packages("devtools")}
+devtools::install_github("jgodet/gmrcfun")
+devtools::install_github("jgodet/GmrcShinyStats")
+require(GmrcShinyStats)
 GO()
 ```
 
