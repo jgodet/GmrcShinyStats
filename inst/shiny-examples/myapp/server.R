@@ -286,10 +286,11 @@ server <- shinyServer(function(input, output, session) {
   ########################################################################################################################
 
   output$univarie = renderUI({
-    if(!BASEchargee()) do.call(tabPanel,pasDeBase)
-    else do.call(tabPanel,univarie)
-
-
+    if(!BASEchargee()){
+      do.call(tabPanel,pasDeBase)
+    }else{
+      do.call(tabPanel,univarie)
+    }
   })
 
 
@@ -397,10 +398,11 @@ print(input$variable)
   #####   PAGE 4 CROISEMENTS INFERENCE   ###############################
   #######################################################################
   output$croisementsInference = renderUI({
-    if(!BASEchargee()) do.call(tabPanel,pasDeBase)
-    else do.call(tabPanel,croisementsInference)
-
-
+    if(!BASEchargee()){
+      do.call(tabPanel,pasDeBase)
+    }else{
+      do.call(tabPanel,croisementsInference)
+    }
   })
 
 
@@ -982,11 +984,14 @@ print(input$variable)
   ########################################################################################################################
 
   output$analyseDeSurvie = renderUI({
-    if(!BASEchargee()) do.call(tabPanel,pasDeBase)
-    else do.call(tabPanel,analyseDeSurvie)
-
-
+    if(!BASEchargee()){
+      do.call(tabPanel,pasDeBase)
+    }else{
+      do.call(tabPanel,analyseDeSurvie)
+    }
   })
+
+
   output$propositionsSURVIE1 <- renderUI({
 
     selectInput("variablesurvie1", "Variable délai",   choices=noms())
@@ -1031,8 +1036,11 @@ print(input$variable)
   ########################################################################################################################
 
   output$testsDiagnostiques = renderUI({
-    if(!BASEchargee()) do.call(tabPanel,pasDeBase)
-    else do.call(tabPanel,testsDiagnostiques)
+    if(!BASEchargee()){
+      do.call(tabPanel,pasDeBase)
+    }else{
+      do.call(tabPanel,testsDiagnostiques)
+    }
 
 
   })
