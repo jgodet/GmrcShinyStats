@@ -1,4 +1,4 @@
-# logis.r
+# logist.r
 # written by JuG
 # May 27 2020
 
@@ -17,7 +17,7 @@
 #' @export
 
 
-logis<-function(y,x){
+logist<-function(y,x){
   situation=99
   if(nlevels(as.factor(x))!=2){situation=0;print("Variable non binaire")}
   if(nlevels(as.factor(y))!=2){situation=0;print("Variable non binaire")}

@@ -289,6 +289,7 @@ server <- shinyServer(function(input, output, session) {
     if(!BASEchargee()){
       do.call(tabPanel,pasDeBase)
     }else{
+    source("./univarie.r")
       do.call(tabPanel,univarie)
     }
   })
@@ -401,6 +402,7 @@ server <- shinyServer(function(input, output, session) {
     if(!BASEchargee()){
       do.call(tabPanel,pasDeBase)
     }else{
+      source("./croisementsInference.r")
       do.call(tabPanel,croisementsInference)
     }
   })
@@ -987,6 +989,7 @@ server <- shinyServer(function(input, output, session) {
     if(!BASEchargee()){
       do.call(tabPanel,pasDeBase)
     }else{
+      source("./analyseDeSurvie.r")
       do.call(tabPanel,analyseDeSurvie)
     }
   })
@@ -1039,6 +1042,7 @@ server <- shinyServer(function(input, output, session) {
     if(!BASEchargee()){
       do.call(tabPanel,pasDeBase)
     }else{
+      source("./testsDiagnostiques.r")
       do.call(tabPanel,testsDiagnostiques)
     }
 
@@ -1260,8 +1264,10 @@ server <- shinyServer(function(input, output, session) {
 
   output$concordance = renderUI({
     if(!BASEchargee()){
+      source("./concordanceSansBase.r")
       do.call(tabPanel,concordanceSansBase)
     }else{
+      source("./concordanceAvecBase.r")
       do.call(tabPanel,concordanceAvecBase)
     }
   })
@@ -1806,489 +1812,860 @@ server <- shinyServer(function(input, output, session) {
   ########################################################################################################################
   ########################################################################################################################
 
+
+
+  # output$MOTDEPASSE <- renderText({
+  # as.character(input$password)
+  # })
+
+  # output$PasSiFacile<-renderText({
+  # motdepasse<- paste(format(Sys.time(), "%d"),"gmrc",sep="")
+  # as.character(as.numeric(  as.character(input$password)==motdepasse))
+  # })
+
+  # ###############################################################################################################
+  # ######        PAGE 1  NSN 2 props    #########################################################################
+  # ###############################################################################################################
+
+
+
+  # ########################################################################################################################
+  # output$sortieNSN2props <- renderPrint({
+  # pA=input$p1/100
+  # pB=input$p2/100
+  # kappa=input$k
+  # alpha=0.05
+  # beta=(100-as.numeric(input$power))/100
+  # nB=ceiling((pA*(1-pA)/kappa+pB*(1-pB))*((qnorm(1-alpha/2)+qnorm(1-beta))/(pA-pB))^2)
+  # nA=ceiling(kappa*nB)
+  # if(nA+nB<7260000000){
+  # cat("Le nombre de sujets nécéssaires pour comparer", 100*pA, "% et", 100*pB,"% est estimé à",nA,"et",nB,"i.e le nombre total est d'au moins",nA+nB,".")
+  # }else{cat("Le nombre de sujets est supérieur au nombre d'habitants sur Terre. Envisagez plutôt une étude multi-planétique.")
+  # }
+  # })
+
+
+  # output$plot1NSN2props <- renderPlot({
+  # par(mar = c(5.1, 4.1, 0, 1))
+
+  # pA=input$p1/100
+  # pB=input$p2/100
+  # kappa=input$k
+  # alpha=0.05
+  # beta=(100-as.numeric(input$power))/100
+  # nB=ceiling((pA*(1-pA)/kappa+pB*(1-pB))*((qnorm(1-alpha/2)+qnorm(1-beta))/(pA-pB))^2)
+  # nA=ceiling(kappa*nB)
+
+  # barplot(c(nB/(nA+nB),nA/(nA+nB)),yaxt="n",col="lightcyan",ylim=1.2*c(0,max(c(nA/(nA+nB),nB/(nA+nB)))))
+  # text(0.70, 0.5* nB/(nA+nB)    ,nB,cex=3)
+  # text(1.90, 0.5* nA/(nA+nB)    ,nA,cex=3)
+  # text( (0.70+1.9)/2, y = 1.1*max(c(nA/(nA+nB),nB/(nA+nB))),paste("Total=",nB+nA),cex=3)
+  # })
+
+
+  # ###############################################################################################################
+  # ######        PAGE 1  NSN 2 props    #########################################################################
+  # ###############################################################################################################
+
+
+
+  # output$sortieNSN1prop <- renderPrint({
+  # N=input$NunePROP
+  # pA=input$p1/100
+  # alpha=0.05
+  # pAbasse= pA-   qnorm(1-alpha/2)*sqrt(pA*(1-pA)/N)
+  # pAhaute= pA+   qnorm(1-alpha/2)*sqrt(pA*(1-pA)/N)
+  # list(Proportion=pA,
+  # DemiLargeur=qnorm(1-alpha/2)*sqrt(pA*(1-pA)/N),
+  # Largeur=pAhaute-pAbasse)
+  # })
+
+
+  # output$plot1NSN1prop <- renderPlot({
+  # par(mar = c(5.1, 4.1, 0, 1))
+
+  # pA=input$p1uneprop/100
+  # N=input$NunePROP
+  # alpha=0.05
+  # pAbasse= round(pA-   qnorm(1-alpha/2)*sqrt(pA*(1-pA)/N)    ,2)
+  # pAhaute= round(pA+   qnorm(1-alpha/2)*sqrt(pA*(1-pA)/N)  ,2)
+
+
+  # par(mar = c(2,1,1,1))
+  # plot(c(0,0),xlim=c(0,1),ylim=c(-0.3,0.1),col="white",yaxt="n",bty="n")
+  # text(pA,0,pA,cex=1.5,col="blue")
+  # abline(v=pA,lty=2,col="lightgray")
+  # text(pAbasse,-0.1,pAbasse)
+  # text(pAhaute,-0.1,pAhaute)
+  # segments(pAbasse,-0.2,pAhaute,-0.2,lwd=2)
+  # segments(pAbasse,-0.21,pAbasse,-0.19,lwd=2)
+  # segments(pAhaute,-0.21,pAhaute,-0.19,lwd=2)
+
+  # })
+
+
+  # ###############################################################################################################
+  # ######        PAGE 2  NSN 2 moyennes  #########################################################################
+  # ###############################################################################################################
+
+
+  # output$sortieNSN2moys <- renderPrint({
+  # mA=input$m1
+  # mB=input$m2
+  # sdey=input$ecarttype
+  # kappa=input$kmoy
+  # alpha=0.05
+  # beta=(100-as.numeric(input$powerMOY))/100
+
+  # nB=ceiling((1+1/kappa)*(sdey*(qnorm(1-alpha/2)+qnorm(1-beta))/(mA-mB))^2)
+  # nA=ceiling(kappa*nB)
+  # if(nA+nB<7260000000){
+  # cat("Le nombre de sujets nécéssaires pour comparer", mA, "et", mB,"avec un écart-type de",sdey," est estimé à",nA,"et",nB,"i.e le nombre total est d'au moins",nA+nB,".")
+  # }else{cat("Le nombre de sujets est supérieur au nombre d'habitants sur Terre. Envisagez plutôt une étude multi-planétique.")}
+  # })
+
+
+  # output$plot1NSN2moys <- renderPlot({
+  # par(mar = c(5.1, 4.1, 0, 1))
+
+  # mA=input$m1
+  # mB=input$m2
+  # sdey=input$ecarttype
+  # kappa=input$kmoy
+  # alpha=0.05
+  # beta=(100-as.numeric(input$powerMOY))/100
+
+  # nB=ceiling((1+1/kappa)*(sdey*(qnorm(1-alpha/2)+qnorm(1-beta))/(mA-mB))^2)
+  # nA=ceiling(kappa*nB)
+
+  # barplot(c(nB/(nA+nB),nA/(nA+nB)),yaxt="n",col="blanchedalmond",ylim=1.2*c(0,max(c(nA/(nA+nB),nB/(nA+nB)))))
+  # text(0.70, 0.5* nB/(nA+nB)    ,nB,cex=3)
+  # text(1.90, 0.5* nA/(nA+nB)    ,nA,cex=3)
+  # text( (0.70+1.9)/2, y = 1.1*max(c(nA/(nA+nB),nB/(nA+nB))),paste("Total=",nB+nA),cex=3)
+  # })
+
+
+
+
+  # ###############################################################################################################
+  # ######        PAGE 3  Ellicitation    #########################################################################
+  # ###############################################################################################################
+
+
+  # #-------------------------------------------------------
+  # # Normale
+  # #-------------------------------------------------------
+  # output$PlotNorm <- renderPlot({
+  # m <- input$mN
+  # sd <- input$sN
+  # minn <- m-4*sd
+  # maxn <- m+4*sd
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- hist(rnorm(1000,m,sd),freq=FALSE, breaks=10)
+  # YY <- curve(dnorm(x,m,sd),minn,maxn)
+  # abline(v=input$mN, col="red", lwd=1.8)
+  # plot(XX, freq=FALSE, xlim=c(minn,maxn), ylab="Densité", ylim=c(0,max(XX$density,YY$y)), main="", xlab="x", cex.lab=1.2, axes=FALSE)
+  # axis(1)
+  # axis(2, las=1)
+  # lines(YY, lwd=2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pnorm(x,m,sd),minn,maxn, ylab="Probabilité cumulée",lwd=1.4, xlab="p", cex.lab=1.2, axes=FALSE)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(minn, qnorm(0.25,m,sd)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.50,m,sd)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.75,m,sd)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.25,m,sd), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.50,m,sd), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qnorm(0.75,m,sd), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # ValuesNorm <- reactive({
+  # data.frame(
+  # p2.5 = qnorm(0.025,input$mN, input$sN),
+  # Q1 = qnorm(0.25,input$mN, input$sN),
+  # Médiane = qnorm(0.5,input$mN, input$sN),
+  # Q3 = qnorm(0.75,input$mN, input$sN),
+  # p97.5 = qnorm(0.975,input$mN, input$sN))
+  # })
+
+  # output$Norm <- renderTable({ValuesNorm()}, 'include.rownames' = FALSE, 'include.colnames' = TRUE, digits=4)
+
+  # valuesQuantNorm <- reactive({
+  # sd <- (input$k1N - input$k2N)/(qnorm(input$q1N/100)-qnorm(1-input$q2N/100))
+  # XX <- c((input$k1N - sd*qnorm(input$q1N/100)), sd)
+  # data.frame(m=XX[1], sd=XX[2])
+  # })
+
+  # output$QuantNorm <- renderTable({valuesQuantNorm()}, digits=c(0,4,4),'include.rownames' = FALSE)
+
+  # output$PlotQuantNorm <- renderPlot({
+  # m <- valuesQuantNorm()$m
+  # sd <- valuesQuantNorm()$sd
+  # minn <- m-4*sd
+  # maxn <- m+4*sd
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dnorm(x, m, sd), minn, maxn)
+  # plot(XX, type="l", axes=FALSE, ylab="Densité", lwd=1.4, xlab="x", cex.lab=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # x <- seq(from=minn, to=input$k1N, length=1000)
+  # y <- dnorm(x, m, sd)
+  # x <- c(x, input$k1N, minn);
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # x <- seq(from=maxn, to=input$k2N, length=1000)
+  # y <- dnorm(x, m, sd)
+  # x <- c(x, input$k2N, maxn)
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # curve(dnorm(x,m,sd), minn, maxn, add=TRUE)
+  # points(rep(input$k1N, 2), c(0, dnorm(input$k1N, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2N, 2), c(0, dnorm(input$k2N, m, sd)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pnorm(x, m, sd), minn, maxn, xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=F)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(minn, qnorm(0.25, m, sd)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.50, m, sd)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.75, m, sd)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.25, m, sd), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.50, m, sd), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qnorm(0.75, m, sd), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(input$k1N, 2), c(0, pnorm(input$k1N, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2N, 2), c(0, pnorm(input$k2N, m, sd)), type='l', col="red", lwd=1.2)
+  # points(c(minn,input$k1N), rep(pnorm(input$k1N, m, sd),2), type='l', col="red", lwd=1.2)
+  # points(c(minn,input$k2N), rep(pnorm(input$k2N, m, sd),2), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # valueMinMaxNorm <- reactive({
+  # data.frame(
+  # Moyenne = (input$minN+input$maxN+2*input$medN)/4,
+  # Ecart.type = (input$maxN-input$minN)/4)
+  # })
+
+  # output$MinMaxNorm <- renderTable({valueMinMaxNorm()}, 'include.rownames' = FALSE, 'include.colnames' = TRUE, digits=4)
+
+  # output$PlotMinMaxNorm <- renderPlot({
+  # m <- valueMinMaxNorm()$Moyenne
+  # sd <- valueMinMaxNorm()$Ecart.type
+  # minn <- m-4*sd
+  # maxn <- m+4*sd
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dnorm(x, m, sd), minn, maxn)
+  # plot(XX, type="l", axes=FALSE, ylab="Densité", lwd=1.4, xlab="x", cex.lab=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$minN, 2), c(0, dnorm(input$minN, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$maxN, 2), c(0, dnorm(input$maxN, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$medN, 2), c(0, dnorm(input$medN, m, sd)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pnorm(x, m, sd), minn, maxn, xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=F)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(minn, qnorm(0.25, m, sd)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.50, m, sd)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(minn, qnorm(0.75, m, sd)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.25, m, sd), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qnorm(0.50, m, sd), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qnorm(0.75, m, sd), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(input$minN, 2), c(0, pnorm(input$minN, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$maxN, 2), c(0, pnorm(input$maxN, m, sd)), type='l', col="red", lwd=1.2)
+  # points(rep(input$medN, 2), c(0, pnorm(input$medN, m, sd)), type='l', col="red", lwd=1.2)
+  # points(c(minn,input$minN), rep(pnorm(input$minN, m, sd),2), type='l', col="red", lwd=1.2)
+  # points(c(minn,input$maxN), rep(pnorm(input$maxN, m, sd),2), type='l', col="red", lwd=1.2)
+  # points(c(minn,input$medN), rep(pnorm(input$medN, m, sd),2), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+
+  # #-------------------------------------------------------
+  # # Beta
+  # #-------------------------------------------------------
+  # sliderValuesBetaMS <- reactive({
+  # AB <- parametres.beta(input$mB,input$sB)
+  # data.frame(
+  # Forme1 = AB$alpha,
+  # Forme2 = AB$beta)
+  # })
+
+  # output$valuesBetaMS <- renderTable({sliderValuesBetaMS()}, digits=c(0,4,4),'include.rownames' = FALSE)
+
+  # output$PlotBetaMS <- renderPlot({
+  # AB <- parametres.beta(input$mB,input$sB)
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dbeta(x,AB$alpha,AB$beta),0.001, 0.999)
+  # plot(XX, type="l", axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mB, 2), c(0, dbeta(input$mB, AB$alpha, AB$beta)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pbeta(x, AB$alpha, AB$beta), from = 0.001, to = 0.999, xlim=c(0,1), xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=FALSE)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(0, qbeta(0.25, AB$alpha, AB$beta)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(0, qbeta(0.50, AB$alpha, AB$beta)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(0, qbeta(0.75, AB$alpha, AB$beta)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qbeta(0.25, AB$alpha, AB$beta), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qbeta(0.50, AB$alpha, AB$beta), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qbeta(0.75, AB$alpha, AB$beta), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # valuesQuantBeta <- reactive({
+  # XX <- parms.quantiles(k=c(input$k1B/100,input$k2B/100), q=c(input$q1B/100,(1-input$q2B/100)), distrib="beta")
+  # data.frame(alpha=XX$param[1], beta=XX$param[2])
+  # })
+
+  # output$QuantBeta <- renderTable({valuesQuantBeta()}, digits=c(0,4,4),'include.rownames' = FALSE)
+
+  # output$PlotQuantBeta <- renderPlot({
+  # aa <- valuesQuantBeta()$alpha
+  # bb <- valuesQuantBeta()$beta
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dbeta(x,aa,bb),0,1)
+  # plot(XX, type="l", axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2)
+  # axis(1, at=seq(0, 1, by=0.2))
+  # axis(2, at=seq(0, max(XX$y), by=0.2), las=1)
+  # x <- seq(from=0, to=input$k1B/100, length=1000)
+  # y <- dbeta(x,aa, bb)
+  # x <- c(x, input$k1B/100, 0);
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # x <- seq(from=1, to=input$k2B/100, length=1000)
+  # y <- dbeta(x,aa, bb)
+  # x <- c(x, input$k2B/100, 1)
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # curve(dbeta(x,aa,bb),0,1,add=TRUE)
+  # points(rep(input$k1B/100, 2), c(0, dbeta(input$k1B/100,aa, bb)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2B/100, 2), c(0, dbeta(input$k2B/100,aa, bb)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pbeta(x,aa, bb), from = 0.01, to = 0.99, xlim=c(0,1), xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=F)
+  # axis(1, at=seq(0, 1, by=0.2))
+  # axis(2, at=seq(0, 1, by=0.2), las=1)
+  # points(c(0, qbeta(0.25, aa, bb)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(0, qbeta(0.50, aa, bb)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(0, qbeta(0.75, aa, bb)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qbeta(0.25, aa, bb), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qbeta(0.50, aa, bb), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qbeta(0.75, aa, bb), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(input$k1B/100, 2), c(0, pbeta(input$k1B/100,aa, bb)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2B/100, 2), c(0, pbeta(input$k2B/100,aa, bb)), type='l', col="red", lwd=1.2)
+  # points(c(0,input$k1B/100), rep(pbeta(input$k1B/100,aa, bb),2), type='l', col="red", lwd=1.2)
+  # points(c(0,input$k2B/100), rep(pbeta(input$k2B/100,aa, bb),2), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # #-------------------------------------------------------
+  # #Gamma
+  # #-------------------------------------------------------
+  # ValuesGammaMS <- reactive({
+  # AB <- parametres.gamma(input$mG,input$sG)
+  # data.frame(
+  # Shape = AB$Shape,
+  # Rate = AB$Rate,
+  # Scale = 1/AB$Rate
+  # )
+  # })
+
+  # output$valuesGammaMS <- renderTable({ValuesGammaMS()}, digits=c(0,4,4,4),'include.rownames' = FALSE)
+
+  # output$PlotGammaMS <- renderPlot({
+  # AB <- parametres.gamma(input$mG,input$sG)
+  # xMax <- qgamma(0.9999, shape=AB$Shape, rate=AB$Rate)
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dgamma(x, shape=AB$Shape, rate=AB$Rate), 0, xMax)
+  # plot(XX, type="l", axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mG, 2), c(0, dgamma(input$mG, shape=AB$Shape, rate=AB$Rate)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pgamma(x, shape=AB$Shape, rate=AB$Rate), 0, xMax, xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=FALSE)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(0, qgamma(0.25, shape=AB$Shape, rate=AB$Rate)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(0, qgamma(0.50, shape=AB$Shape, rate=AB$Rate)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(0, qgamma(0.75, shape=AB$Shape, rate=AB$Rate)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qgamma(0.25, shape=AB$Shape, rate=AB$Rate), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qgamma(0.50, shape=AB$Shape, rate=AB$Rate), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qgamma(0.75, shape=AB$Shape, rate=AB$Rate), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # valuesQuantGamma <- reactive({
+  # XX <- parms.quantiles(k=c(input$k1G,input$k2G), q=c(input$q1G/100,(1-input$q2G/100)), distrib="gamma")
+  # data.frame(Shape=XX$param[1], Rate=XX$param[2], Scale=1/XX$param[2])
+  # })
+
+  # output$QuantGamma <- renderTable({valuesQuantGamma()}, digits=c(0,4,4,4),'include.rownames' = FALSE)
+
+  # output$PlotQuantGamma <- renderPlot({
+  # aa <- valuesQuantGamma()$Shape
+  # bb <- valuesQuantGamma()$Rate
+  # xMax <- qgamma(0.999, shape=aa, rate=bb)
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # XX <- curve(dgamma(x,shape=aa, rate=bb), 0, xMax)
+  # plot(XX, type="l", axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # x <- seq(from=0, to=input$k1G, length=1000)
+  # y <- dgamma(x, shape=aa, rate=bb)
+  # x <- c(x, input$k1G, 0);
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # x <- seq(from=xMax, to=input$k2G, length=1000)
+  # y <- dgamma(x, shape=aa, rate=bb)
+  # x <- c(x, input$k2G, xMax)
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # curve(dgamma(x,shape=aa, rate=bb), 0, xMax, add=TRUE)
+  # points(rep(input$k1G, 2), c(0, dgamma(input$k1G, shape=aa, rate=bb)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2G, 2), c(0, dgamma(input$k2G, shape=aa, rate=bb)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pgamma(x, shape=aa, rate=bb), 0, xMax, xlim=c(0, xMax), xlab="p", cex.lab=1.2, ylab="Probabilité cumulée", lwd=1.4, axes=F)
+  # axis(1)
+  # axis(2, las=1)
+  # points(c(0, qgamma(0.25, shape=aa, rate=bb)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(0, qgamma(0.50, shape=aa, rate=bb)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(0, qgamma(0.75, shape=aa, rate=bb)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qgamma(0.25, shape=aa, rate=bb), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qgamma(0.50, shape=aa, rate=bb), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qgamma(0.75, shape=aa, rate=bb), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(input$k1G, 2), c(0, pgamma(input$k1G, shape=aa, rate=bb)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2G, 2), c(0, pgamma(input$k2G, shape=aa, rate=bb)), type='l', col="red", lwd=1.2)
+  # points(c(0,input$k1G), rep(pgamma(input$k1G, shape=aa, rate=bb),2), type='l', col="red", lwd=1.2)
+  # points(c(0,input$k2G), rep(pgamma(input$k2G, shape=aa, rate=bb),2), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # #-------------------------------------------------------
+  # #TAU et SIGMA2
+  # #-------------------------------------------------------
+  # ValuesTauSd <- reactive({
+  # AB <- parametres.gamma(input$mTau,input$sTau)
+  # S2 <- 1/rgamma(10000, shape=AB$Shape, rate=AB$Rate)
+  # data.frame(
+  # Shape.Tau = AB$Shape,
+  # Rate.Tau = AB$Rate,
+  # Scale.Tau = 1/AB$Rate,
+  # Moyenne.S2 = mean(S2),
+  # Sd.S2 = sd(S2))
+  # })
+
+  # output$TauSd <- renderTable({ValuesTauSd()}, digits=c(0,4,4,4,4,4), 'include.rownames' = FALSE)
+
+  # output$PlotTauSd<- renderPlot({
+  # AB <- ValuesTauSd()
+  # xMax <- qgamma(0.9999, shape=AB$Shape.Tau, rate=AB$Rate.Tau)
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(dgamma(x, shape=AB$Shape.Tau, rate=AB$Rate.Tau), 0, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Précision")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mTau, 2), c(0, dgamma(input$mTau, shape=AB$Shape.Tau, rate=AB$Rate.Tau)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # YY <- 1/rgamma(10000, shape=AB$Shape.Tau, rate=AB$Rate.Tau)
+  # ZZ <- curve(dinvgamma(x, shape=AB$Shape.Tau, rate=AB$Rate.Tau), min(YY), max(YY), axes=FALSE, ylab="Densité", lwd=1.4, cex.lab=1.2, xlab="", main="Variance")
+  # hist(YY, axes=FALSE, xlim=c(min(YY), max(YY)), ylim=c(0,max(ZZ$y)), freq=FALSE, add=TRUE)
+  # axis(1)
+  # axis(2, las=1)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # ValuesS2Tau <- reactive({
+  # AB <- NR.MS(input$mS2, input$sS2)
+  # data.frame(
+  # Shape.S2 = AB$shape,
+  # Rate.S2 = AB$rate,
+  # Scale.S2 = 1/AB$rate,
+  # Shape.Tau = AB$shape,
+  # Rate.Tau = 1/AB$rate,
+  # Scale.Tau = AB$rate,
+  # Moyenne.Tau = AB$shape/AB$rate,
+  # Var.Tau = AB$shape/AB$rate/AB$rate)
+  # })
+
+  # ValuesSummaryS2Tau <- reactive({
+  # s.S2 <- rinvgamma(10000, shape=ValuesS2Tau()$Shape.S2, rate=ValuesS2Tau()$Rate.S2)
+  # s.Tau <- rgamma(10000, shape=ValuesS2Tau()$Shape.Tau, rate=1/ValuesS2Tau()$Rate.Tau)
+  # XX<-data.frame(
+  # p2.5=c(quantile(s.S2,0.025), quantile(s.Tau,0.025)),
+  # p25=c(quantile(s.S2,0.25), quantile(s.Tau,0.25)),
+  # p50=c(quantile(s.S2,0.5), quantile(s.Tau,0.5)),
+  # Moy=c(mean(s.S2), mean(s.Tau)),
+  # p75=c(quantile(s.S2,0.725), quantile(s.Tau,0.75)),
+  # p97.5=c(quantile(s.S2,0.925), quantile(s.Tau,0.925)),
+  # Var=c(var(s.S2), var(s.Tau)),
+  # Sd=c(sd(s.S2), sd(s.Tau)))
+  # row.names(XX) <- c("Variance", "Précision")
+  # return(XX)
+  # })
+
+  # output$S2Tau <- renderTable({ValuesS2Tau()}, digits=c(0,4,4,4,4,4,4,4,6), 'include.rownames' = FALSE)
+  # output$summaryS2Tau  <- renderTable({ValuesSummaryS2Tau()}, digits=c(0, rep(4,8)))
+
+  # output$PlotS2Tau<- renderPlot({
+  # AB <- ValuesS2Tau()
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qinvgamma(0.005, shape=AB$Shape.S2, rate=AB$Rate.S2)
+  # xMin <- qinvgamma(0.995, shape=AB$Shape.S2, rate=AB$Rate.S2)
+  # curve(dinvgamma(x, shape=AB$Shape.S2, rate=AB$Rate.S2), xMin, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Variance")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mS2, 2), c(0, dinvgamma(input$mS2, shape=AB$Shape.S2, rate=AB$Rate.S2)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qgamma(0.005, shape=AB$Shape.S2, rate=AB$Rate.S2)
+  # xMin <- qgamma(0.995, shape=AB$Shape.S2, rate=AB$Rate.S2)
+  # curve(dgamma(x, shape=AB$Shape.S2, rate=AB$Rate.S2), xMin, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Précision")
+  # MM <- AB$Shape.S2/AB$Rate.S2
+  # points(rep(MM, 2), c(0, dgamma(MM, shape=AB$Shape.S2, rate=AB$Rate.S2)), type='l', col="red", lwd=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # close.screen(all.screens = TRUE)
+  # })
+
+
+  # #-------------------------------------------------------
+  # # Exponentielle
+  # #-------------------------------------------------------
+  # ValuesExp <- reactive({
+  # data.frame(
+  # lambda = 1/input$mE,
+  # Ecart.type = input$mE,
+  # p2.5 = qexp(0.025, 1/input$mE),
+  # Q1 = qexp(0.25, 1/input$mE),
+  # Médiane = qexp(0.5, 1/input$mE),
+  # Q3 = qexp(0.75, 1/input$mE),
+  # p97.5 = qexp(0.975, 1/input$mE))
+  # })
+
+  # output$Exp <- renderTable({ValuesExp()}, 'include.rownames' = FALSE, 'include.colnames' = TRUE, digits=4)
+
+  # output$PlotExp <- renderPlot({
+  # minn <- 0
+  # maxn <- 5*input$mE
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(dexp(x, 1/input$mE), minn, maxn, ylab="Densité", xlab="x", cex.lab=1.2, axes=FALSE)
+  # points(rep(input$mE,2),c(0,dexp(input$mE,1/input$mE)), col="red", lwd=1.2, type="l")
+  # axis(1)
+  # axis(2, las=1)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # curve(pexp(x, 1/input$mE),minn,maxn, ylab="Probabilité cumulée",lwd=1.4, xlab="p", cex.lab=1.2, axes=FALSE)
+  # axis(1)
+  # axis(2, ylim=c(0,1), las=1)
+  # points(c(minn, qexp(0.25,1/input$mE)), rep(0.25 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(c(minn, qexp(0.50,1/input$mE)), rep(0.50 ,2), type='l', lwd=1.2, lty=2)
+  # points(c(minn, qexp(0.75,1/input$mE)), rep(0.75 ,2), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qexp(0.25,1/input$mE), 2), c(0, 0.25), type='l', col="blue", lwd=1.2, lty=2)
+  # points(rep(qexp(0.50,1/input$mE), 2), c(0, 0.50), type='l', lwd=1.2, lty=2)
+  # points(rep(qexp(0.75,1/input$mE), 2), c(0, 0.75), type='l', col="blue", lwd=1.2, lty=2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # #-------------------------------------------------------
+  # # Odds-ratio
+  # #-------------------------------------------------------
+  # ValuesRegLogBeta <- reactive({
+  # YY <- qnorm(c(0.025,0.25,0.5,0.75,0.975), input$mBeta, input$sBeta)
+  # ZZ <- qlnorm(c(0.025,0.25,0.5,0.75,0.975), input$mBeta, input$sBeta)
+  # XX<-data.frame(
+  # p2.5=c(YY[1], ZZ[1], NA),
+  # p25=c(YY[2],  ZZ[2], NA),
+  # p50=c(YY[3],  ZZ[3], NA),
+  # Moy=c(input$mBeta, exp(input$mBeta), exp(input$mBeta+(input$sBeta)^2/2)),
+  # p75=c(YY[4],  ZZ[4], NA),
+  # p97.5=c(YY[5],  ZZ[5], NA),
+  # Var=c((input$sBeta)^2, NA, (exp(2*input$mBeta + 2*input$sBeta^2)-exp(2*input$mBeta + input$sBeta^2))),
+  # Sd=c(input$sBeta, NA, sqrt(exp(2*input$mBeta + 2*input$sBeta^2)-exp(2*input$mBeta + input$sBeta^2))))
+  # row.names(XX) <- c("Beta", "Odds-ratio", "OR Observé")
+  # return(XX)
+  # })
+
+  # output$RegLogBeta <- renderTable({ValuesRegLogBeta()}, digits=4)
+
+  # output$PlotRegLogBeta<- renderPlot({
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qnorm(0.995, input$mBeta, input$sBeta)
+  # xMin <- qnorm(0.005, input$mBeta, input$sBeta)
+  # XX <- curve(dnorm(x, input$mBeta, input$sBeta), xMin, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Beta")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mBeta, 2), c(0, dnorm(input$mBeta, input$mBeta, input$sBeta)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qlnorm(0.95, input$mBeta, input$sBeta)
+  # xMin <- qlnorm(0.05, input$mBeta, input$sBeta)
+  # MM <- exp(input$mBeta+(input$sBeta)^2/2)
+  # curve(dlnorm(x,input$mBeta, input$sBeta), xMin , xMax, axes=FALSE, cex.lab=1.2, lwd=1.4, main="Odds-ratio", ylab="Densité")
+  # points(rep(MM, 2), c(0, dlnorm(MM, input$mBeta, input$sBeta)), type='l', col="red", lwd=1.2)
+  # axis(1)
+  # axis(2, las=1)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # ValuesLOR.MS <- reactive({
+  # XX <- data.frame(
+  # Moyenne = log(input$mOR) - 1/2*log(1+input$sOR^2/input$mOR^2),
+  # Ecart.type = sqrt(log(1+input$sOR^2/input$mOR^2)))
+  # row.names(XX) <- "Beta"
+  # return(XX)
+  # })
+
+  # output$LOR.MS <- renderTable({ValuesLOR.MS()})
+
+  # ValuesOR.MS <- reactive({
+  # YY <- qlnorm(c(0.025,0.25,0.5,0.75,0.975), ValuesLOR.MS()$Moyenne, ValuesLOR.MS()$Ecart.type)
+  # XX<-data.frame(
+  # p2.5=YY[1],
+  # p25=YY[2],
+  # p50=YY[3],
+  # Moy=input$mOR,
+  # p75=YY[4],
+  # p97.5=YY[5],
+  # Var=input$sOR^2,
+  # Sd=input$sOR)
+  # row.names(XX) <- "Odds-ratio"
+  # return(XX)
+  # })
+
+  # output$OR.MS <- renderTable({ValuesOR.MS()})
+
+  # output$PlotLOR.MS<- renderPlot({
+  # Moy <- ValuesLOR.MS()$Moyenne
+  # Et <- ValuesLOR.MS()$Ecart.type
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qlnorm(0.995, Moy, Et)
+  # xMin <- qlnorm(0.005, Moy, Et)
+  # XX <- curve(dlnorm(x, Moy, Et), xMin, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Odds-ratio")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(input$mOR, 2), c(0, dlnorm(input$mOR, Moy, Et)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qnorm(0.995, Moy, Et)
+  # xMin <- qnorm(0.005, Moy, Et)
+  # XX <- curve(dnorm(x, Moy, Et), xMin, xMax, axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Log-odds ou beta")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(Moy, 2), c(0, dnorm(Moy, Moy, Et)), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+  # ValuesQuantLOR <- reactive({
+  # Sd <- (log(input$k1OR) - log(input$k2OR))/(qnorm(input$q1OR/100)-qnorm(1-input$q2OR/100))
+  # Moy <- log(input$k1OR) - Sd*qnorm(input$q1OR/100)
+  # XX <- data.frame(
+  # Moyenne = Moy,
+  # Ecart.type = Sd)
+  # row.names(XX) <- "Beta"
+  # return(XX)
+  # })
+
+  # output$QuantLOR <- renderTable({ValuesQuantLOR()})
+
+  # ValuesQuantOR <- reactive({
+  # YY <- qlnorm(c(0.025,0.25,0.5,0.75,0.975), ValuesQuantLOR()$Moyenne, ValuesQuantLOR()$Ecart.type)
+  # XX<-data.frame(
+  # p2.5=YY[1],
+  # p25=YY[2],
+  # p50=YY[3],
+  # Moy=Moy,
+  # p75=YY[4],
+  # p97.5=YY[5],
+  # Var=Sd^2,
+  # Sd=Sd)
+  # row.names(XX) <- "Odds-ratio"
+  # return(XX)
+  # })
+
+  # output$QuantOR <- renderTable({ValuesQuantOR()}, digits=4)
+
+  # output$PlotQuantOR<- renderPlot({
+  # MoyN <- ValuesQuantLOR()$Moyenne
+  # SdN <- ValuesQuantLOR()$Ecart.type
+  # Moy <- exp(MoyN + 1/2*SdN^2)
+  # Sd <- sqrt(exp(2*(MoyN+SdN^2))-exp(2*MoyN+SdN^2))
+  # split.screen(rbind(c(0.1,0.5,0.1, 0.98), c(0.52, 0.95, 0.1, 0.98)))
+  # screen(1)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qlnorm(0.9999, MoyN, SdN)
+  # xMin <- qlnorm(0.0001, MoyN, SdN)
+  # XX <- curve(dlnorm(x, MoyN, SdN), xMin, xMax)
+  # plot(XX, type="l", axes=FALSE, lwd=1.4, ylab="Densité", xlab="x", cex.lab=1.2, main="Odds-ratio")
+  # axis(1)
+  # axis(2, las=1)
+  # x <- seq(from=xMin, to=input$k1OR, length=1000)
+  # y <- dlnorm(x, MoyN, SdN)
+  # x <- c(x, input$k1OR, xMin);
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # x <- seq(from=xMax, to=input$k2OR, length=1000)
+  # y <- dlnorm(x, MoyN, SdN)
+  # x <- c(x, input$k2OR, xMax)
+  # y <- c(y, 0, 0)
+  # polygon(x, y, col='lightgrey', border='lightgray')
+  # curve(dlnorm(x, MoyN, SdN), xMin, xMax, add=TRUE)
+  # points(rep(input$k1OR, 2), c(0, dlnorm(input$k1OR, MoyN, SdN)), type='l', col="red", lwd=1.2)
+  # points(rep(input$k2OR, 2), c(0, dlnorm(input$k2OR, MoyN, SdN)), type='l', col="red", lwd=1.2)
+  # screen(2)
+  # par(mar=c(2, 4, 1, 1))
+  # xMax <- qnorm(0.995, MoyN, SdN)
+  # xMin <- qnorm(0.005, MoyN, SdN)
+  # curve(dnorm(x, MoyN, SdN), xMin, xMax, xlab="p", cex.lab=1.2, ylab="Densité", lwd=1.4, axes=F, main="Log-odds ou beta")
+  # axis(1)
+  # axis(2, las=1)
+  # points(rep(MoyN, 2), c(0, dnorm(MoyN, MoyN, SdN)), type='l', col="red", lwd=1.2)
+  # close.screen(all.screens = TRUE)
+  # })
+
+
+
+
+
+
+
+
+
+
 })
 
 
-univarie <-
 
-  fluidPage(
 
-    navbarPage(title = NULL,id="descriptif",
 
-               tabPanel("Informations BDD",
-                        fluidPage(
-                          titlePanel("Informations sur la base de données"),
 
-                          navlistPanel(
-                            "Menu",
-                            tabPanel("Informations brutes",
 
-                                     fluidRow(
-                                       splitLayout(cellWidths = c("30%","70%"),
-                                                   downloadButton('PDFdescriptif1o1',label="AIDE et Détails",class = "butt")
-                                       )
-                                     ),#finFluidRow
-                                     tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                                     verbatimTextOutput ("tableauBASE"),
-                                     plotOutput('plotNAbase1')),
-                            tabPanel("Données manquantes cumulées par variable",
-                                     fluidRow(
-                                       splitLayout(cellWidths = c("30%","70%"),
-                                                   downloadButton('PDFdescriptif1o2',label="AIDE et Détails",class = "butt"),
-                                                   h4("Faites attention s'il y a un filtre")
-                                       )
-                                     ),#finFluidRow
 
-                                     tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                                     h4("Descriptif cumulé des données manquantes par variable",align="center"),
-                                     p("On représente ci-dessous les données manquantes en proportions par variable étudiée."),
-                                     plotOutput('plotNAbase2'),
-                                     tableOutput("tableNAbase2")),
-                            tabPanel("Données manquantes cumulées par sujet",
-                                     fluidRow(
-                                       splitLayout(cellWidths = c("30%","70%"),
-                                                   downloadButton('PDFdescriptif1o3',label="AIDE et Détails",class = "butt"),
-                                                   h4("Faites attention s'il y a un filtre")
-                                       )
-                                     ),#finFluidRow
+# #-------------------------------------------------------
+# # Fonctions pour les pages GMRC ellicitation
+# #-------------------------------------------------------
+# parametres.beta<-function(m,sd){
+# alpha <- m^2*(1-m)/(sd^2)-m
+# beta  <- (1-m)/m*(alpha)
+# return(list(alpha=alpha,beta=beta))
+# }
+
+# parametres.gamma<-function(m,sd){
+# alpha <- m^2/sd^2
+# beta  <- m/sd^2
+# return(list(Shape=alpha, Rate=beta))
+# }
+
+# rinvgamma <- function(n, shape, rate){return(1/rgamma(n, shape=shape, rate=rate))}
+# pinvgamma <- function(q, shape, rate){return(pgamma(1/q, shape=shape, rate=rate))}
+# qinvgamma <- function(p, shape, rate){return(1/qgamma(p, shape=shape, rate=rate))}
+# dinvgamma <- function(x, shape, rate){return(exp(shape*log(rate)-lgamma(shape)-(shape+1)*log(x)-rate/x))}
+
+# parametres.invgamma <- function(m, sd){
+# alphaIG  <- m^2/sd^2+2
+# betaIG <- (alphaIG-1)*m
+# return(list(shape.IG=alphaIG, rate.IG=1/betaIG))
+# }
+
+# parms.quantiles <- function(k, q=c(0.025,0.975), distrib, precision=0.001, derivative.epsilon=1e-3){
+# # Function developed by Lawrence Joseph and Patrick Belisle
+# # patrick.belisle@clinepi.mcgill.ca
+# if(distrib=="beta"){
+# f.cum <- function(x, theta){pbeta(x, shape1=theta[1], shape2=theta[2])}
+# theta.from.moments <- function(m, v){a <- m*m*(1-m)/v-m; b <- a*(1/m-1); c(a, b)}
+# }
+# if(distrib=="gamma"){
+# f.cum <- function(x, theta){pgamma(x, shape=theta[1], rate=theta[2])}
+# theta.from.moments <- function(m, v){shape <- m*m/v; rate <- m/v; c(shape, rate)}
+# }
+# k <- sort(k); q <- sort(q)
+# Hessian <- matrix(NA, 2, 2)
+# m <-  diff(k)/diff(q)*(0.5-q[1]) + k[1]
+# v <- (diff(k)/diff(qnorm(q)))^2
+# theta <- theta.from.moments(m, v)
+# change <- precision + 1
+# niter <- 0
+# while (max(abs(change)) > precision){
+# Hessian[,1] <- (f.cum(k, theta) - f.cum(k, theta - c(derivative.epsilon, 0))) / derivative.epsilon
+# Hessian[,2] <- (f.cum(k, theta) - f.cum(k, theta - c(0, derivative.epsilon))) / derivative.epsilon
+# f <- f.cum(k, theta) - q
+# change <- solve(Hessian) %*% f
+# last.theta <- theta
+# theta <- last.theta - change
+# if (any(theta<0)){
+# ee <- min(last.theta/change)
+# theta <- last.theta - ee/2*change
+# }
+# niter <- niter + 1
+# }
+# return(list(param=c(theta[1], theta[2]))) # shape, rate
+# }
+
+# NR.MS <- function(moy, et, precision=0.005, derivative.epsilon=1e-3, S=2000){
+# rinvgamma <- function(n, shape, rate){return(1/rgamma(n, shape=shape, rate=rate))}
+# k <- c(moy,et)
+# Hessian <- matrix(NA, 2, 2)
+# #init
+# alphaIG <- moy^2/et^2+2
+# betaIG <- (alphaIG-1)*moy
+# theta <-c(alphaIG, betaIG)
+# #fonction renvoyant moy et sd
+# f.cum <- function(theta){
+# XX <- rinvgamma(S, shape=theta[1], rate=theta[2])
+# return(c(mean(XX), sd(XX)))
+# }
+# change <- precision + 1
+# niter <- 0
+# while (max(abs(change)) > precision){
+# F.cum <- f.cum(theta)
+# Hessian[,1] <- (F.cum - f.cum(theta - c(derivative.epsilon, 0))) / derivative.epsilon
+# Hessian[,2] <- (F.cum - f.cum(theta - c(0, derivative.epsilon))) / derivative.epsilon
+# f <- F.cum - k
+# change <- solve(Hessian) %*% f
+# last.theta <- theta
+# theta <- last.theta - change
+# if (any(theta<0)){
+# ee <- min(last.theta/change)
+# theta <- last.theta - ee/2*change
+# }
+# niter <- niter + 1
+# }
+# return(list(shape=theta[1], rate=theta[2]))
+# }
 
-                                     tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                                     h4("Descriptif cumulé des données manquantes par sujet",align="center"),
-                                     p("On représente ci-dessous les données manquantes en proportions par sujet d'étude."),
-                                     plotOutput("plotNAbase3"),
-                                     tableOutput("tableNAbase3"))
-                          )# fin navlistpanel
 
-                        ) # fin fluipage
 
-               ),# fin tabpanel
 
-
-
-
-               ###################################################
-               #####   PAGE 3.2     ###############################
-               ###################################################
-
-
-
-               tabPanel("Descriptif univarié",
-                        fluidPage(
-                          titlePanel("Analyses descriptives"),
-                          sidebarLayout(
-                            sidebarPanel(
-                              uiOutput("propositions"),
-                              radioButtons("qualiquanti", "Nature de la variable",
-                                           c(Quantitative="quant", Qualitative="qual"),"qual"
-                              )
-                            ),
-                            # Create a spot for the barplot
-                            mainPanel(
-                              # fluidRow(
-                              #   # splitLayout(cellWidths = c("30%","70%"),
-                              #   #             downloadButton('PDFdescriptif2',label="AIDE et Détails",class = "butt"),
-                              #   #         h4("Faites attention s'il y a un filtre")
-                              #   # )
-                              # ),#finFluidRow
-
-                              tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                              fluidRow(
-                                column(6,   textOutput("descriptifUni"),br(),  tableOutput("descvar")),
-                                column(6,     plotOutput("plot1") , plotOutput("plot2") )
-                              )# fin fluid row du main panel
-
-                            )# fin MainPanel
-
-                          )# fin sidebarlayout
-                        )# fin fluidpage
-               )# fin tabPanel 2
-
-    )# fin navbarPage
-
-  )
-
-
-
-analyseDeSurvie <-
-
-  fluidPage(
-
-    titlePanel("Analyses de survie"),
-    sidebarLayout(
-      sidebarPanel(
-        p("Sélectionnez la variable quantitative représentant le délai jusqu'à survenue de l'évènement ou de censure"),
-        uiOutput("propositionsSURVIE1"),
-        p("Sélectionnez la variable qualitative codée 0 si censure ou 1 si survenue de l'évènement"),
-        uiOutput("propositionsSURVIE2"),
-        br(),
-        br(),
-        checkboxInput("SURVIEcompar", "Faire une comparaison inter-groupes"),
-
-        conditionalPanel(
-          condition = "input.SURVIEcompar ",
-          p("Sélectionnez la variable qualitative représentant les différents sous-groupes:"),
-          uiOutput("propositionsSURVIE3")
-        )# fin condi
-      )# fin sidebar panel
-      ,
-
-      mainPanel(
-        fluidRow(
-          splitLayout(cellWidths = c("30%","70%"),
-                      downloadButton('PDFsurvie',label="AIDE et Détails",class = "butt"),
-
-                      h4("Faites attention s'il y a un filtre")
-
-          )
-        ),#finFluidRow
-
-        tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-        h3("Courbe(s) de Kaplan-Meier"),
-        p("La courbe de survie associée aux variables selectionnée est présentée ci-dessous. Si aucune comparaison entre groupes n'est
-                                                        effectuée, la courbe est présentée dans son intervalle de confiance à 95%. Si une comparaison est demandée, le graphique présente
-                                                        la courbe de Kaplan-Meier dans chacun des groupes."),
-        plotOutput("plotSURVIE"),
-        p("Le détail des données utilisées pour la construction de cette ou ces courbes est présenté ci-dessous. Dans le cas
-                                                        d'une comparaison entre plusieurs groupes, le détail est présenté par groupes, un test d'égalité de l'ensemble des courbes est
-                                                        présenté (Test du Log-Rank) et les résultats sont affichés au bas de cette page."),
-        h3("Valeurs numériques de survie: analyses détaillées"),
-        verbatimTextOutput ("sortieSURVIE2"))# fin MainPanel
-
-    )# fin sidebarlayout
-  )# fin fluidpage
-
-
-
-croisementsInference<-
-
-  fluidPage(
-
-    navbarPage(id="Panel 2.x",title = NULL,
-
-               tabPanel("Croisement 2 a 2",
-
-                        fluidPage( includeCSS("./inst/shiny-examples/myapp/www/tables.css"),
-                                   titlePanel("Analyses descriptives croisées"),
-                                   sidebarLayout(
-                                     sidebarPanel(
-
-                                       uiOutput("propositionsCROISE1"),
-                                       radioButtons('qualiquantiCROISE1',
-                                                    "Nature de la variable",
-                                                    c(Quantitative='quant', Qualitative='qual'),
-                                                    'quant'),
-                                       uiOutput("propositionsCROISE2"),
-                                       radioButtons('qualiquantiCROISE2',
-                                                    "Nature de la variable",
-                                                    c(Quantitative='quant', Qualitative='qual'),
-                                                    'quant'),
-                                       conditionalPanel(
-                                         condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",
-                                         radioButtons('NATableau',
-                                                      "Afficher les données manquante",
-                                                      c(Non="no", Oui='always'),
-                                                      "no"))
-
-
-
-                                     ),
-                                     mainPanel(
-                                       fluidRow(
-                                         splitLayout(cellWidths = c("30%","70%"),
-                                                     downloadButton('PDFcroisements',label="AIDE et Détails",class = "butt"),
-                                                     h4("Faites attention s'il y a un filtre")
-                                         )
-                                       ),#finFluidRow
-
-                                       tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                                       h3("Représentation graphique du lien entre les deux variables"),
-                                       plotOutput('plotCROISE' ),
-                                       # debut conditionnal panel QualiQuali
-                                       conditionalPanel(
-                                         condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",
-                                         h3("Tableau croisé",align = "left",style = "color:#08088A"),
-                                         tableOutput("montableauCroisAUTO"),br(),
-                                         tableOutput("montableauCroise2AUTO"),
-                                         tableOutput("montableauCroise3AUTO"),
-                                         h3("Tests d'association / Comparaison des proportions",align = "left",style = "color:#08088A"),
-                                         fluidRow(
-                                           splitLayout(cellWidths = c("50%","50%"),
-                                                       tableOutput('AUTOtableCHI2'),
-                                                       tableOutput('AUTOtableFISHER')
-                                           )
-                                         ),
-                                         textOutput('AUTOCHI2conditions'),
-                                         h3("Rapport de cotes",align = "left",style = "color:#08088A"),
-                                         tableOutput('oddratioAUTO')
-                                       ),# fin panelQualiQuali,
-                                       # debut conditionnal panel QuantiQuali
-                                       conditionalPanel(
-                                         condition = "input.qualiquantiCROISE1 != input.qualiquantiCROISE2",
-                                         h3("Descriptif complet",align = "left",style = "color:#08088A"),
-                                         tableOutput('descr3DESCRIPTIF'),
-                                         h3("Tests de comparaisons:",align = "left",style = "color:#08088A"),
-                                         verbatimTextOutput ("descr3TestNormalite"),
-                                         verbatimTextOutput ("descr3Testpv"),
-                                         verbatimTextOutput ("descr3TestsNPv"),
-                                         verbatimTextOutput ("descr3Tests_de_Student"),
-                                         verbatimTextOutput("descr3TestsMANN"),
-                                         verbatimTextOutput ("ChoixSortieCROISE")
-                                       ), # fin Panel Quali Quanti
-                                       # debut conditionnal panel QuantiQuanti
-                                       conditionalPanel(
-                                         condition = "input.qualiquantiCROISE1 == 'quant' && input.qualiquantiCROISE2 == 'quant'",
-                                         h3("Corrélation entre deux variables quantitatives",align = "left",style = "color:#08088A"),
-                                         verbatimTextOutput ("CorrelationCROISE")
-                                       ),# fin panelQuantiQuali,
-                                       plotOutput('plotCROISE2')
-                                     )# fin MainPanel
-
-                                   )# fin sidebarlayout
-                        ))# fin fluidpage
-               ,
-
-               tabPanel("Tableau croisement",
-
-
-
-                        fluidPage(
-                          titlePanel("Analyses descriptives croisées"),
-                          sidebarLayout(
-                            sidebarPanel(
-                              #
-                              uiOutput("propositionsTableauCROISE"),
-                              uiOutput("selectionVariablesCroisees1"),
-                              uiOutput("selectionVariablesCroisees3"),
-                              uiOutput("selectionVariablesCroisees2"),
-                              radioButtons("tableauCroiseSimpli","Tableau avec abréviation :"
-                                           , c( Oui = 1, Non = 0),0),
-                              sliderInput("nbDec", "Nombre de decimales : ", min =0,
-                                          max = 5, value= 3, step = 1),
-                              downloadButton('downloadData', 'Télécharger la table')
-
-
-                            ),
-                            mainPanel(
-                              #   fluidRow(
-                              #
-                              #                 downloadButton('PDFcroisements',label="AIDE et Détails",class = "butt")
-                              #
-                              #
-                              # ),#finFluidRow
-
-                              # tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                              h3("Tableau de comparaison de population"),
-                              conditionalPanel(condition = "!is.null(input$VariableCroisees)", tableOutput('tableauCroisement'))
-
-                            )# fin MainPanel
-
-                          )# fin sidebarlayout
-                        )# fin fluidpage
-               ) # fin tabPanel tableau Croisement
-    ) # fin tabset
-  )
-
-
-testsDiagnostiques<-
-
-  fluidPage(
-
-    navbarPage("",
-               tabPanel("Réalisation d'un test diagnostique univarié",
-                        fluidPage(
-                          title = "Examples of DataTables",
-                          sidebarLayout(
-                            sidebarPanel(
-                              p("Sélectionnez la variable qualitative codée 0 ou 1 à expliquer:"),
-                              uiOutput("propositionsLOGIT1"),
-                              p("Sélectionnez la variable quantitative explicative"),
-                              uiOutput("propositionsLOGIT2"),
-                              br(),
-                              br()
-
-
-                            ), # fin sidebar panel
-                            mainPanel(
-                              fluidRow(
-                                splitLayout(cellWidths = c("30%","70%"),
-                                            downloadButton('PDFdiag',label="AIDE et Détails",class = "butt"),
-                                            h4("Faites attention s'il y a un filtre")
-                                )
-                              ),#finFluidRow
-
-                              tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                              navbarPage(title=NULL,
-                                         id="datasetlogit",
-                                         tabPanel("Variables sélectionnées",
-                                                  h3("Variables sélectionnées"),
-                                                  p("Les variables sélectionnées pour la réalisation du test diagnostique sont:"),
-                                                  tableOutput("mytableLOGIT1")
-                                         ),
-                                         tabPanel("Courbe ROC",
-                                                  p("La courbe ROC réalisée à partir des variables sélectionnées est présentée ci-dessous"),
-                                                  checkboxInput("LOGIToptionsGRAPHIQUES", "Je souhaite ajouter des options graphiques", FALSE),
-                                                  conditionalPanel(
-                                                    condition = "input.LOGIToptionsGRAPHIQUES",
-                                                    checkboxInput("LOGIToptionsAUC", "Afficher Aire sous la courbe sur le graphique", FALSE),
-                                                    checkboxInput("LOGIToptionsSEUIL", "Afficher seuil optimal sur le graphique", FALSE),
-                                                    checkboxInput("LOGIToptionsIntervalle", "Afficher intervalle de confiance courbe ROC", FALSE)
-                                                  ),
-                                                  h3("Courbe ROC associée"),
-                                                  plotOutput("LogitROC"),
-                                                  br(),br(),
-                                                  h3("Meilleur seuil estimé par maximisation de l'indice de Youden"),
-                                                  tableOutput("LogitROCtableauBEST"),
-                                                  br(),br(),
-                                                  h3("Détails des seuils utilisés pour construire la courbe"),
-                                                  tableOutput("LogitROCtableau")
-
-                                         ), # fin tab panel
-                                         tabPanel("Performances diagnostiques",
-                                                  h4("Le meilleur seuil (au sens défini précédemment) est estimé à:"),
-                                                  tableOutput("LogitPERFtableauBEST"),br(),
-                                                  h4("Pour un tel seuil le tableau croisé devient:"),
-                                                  tableOutput("LogitPERF3"),br(),
-                                                  h4("La sensibilité et la specificité sont:"),
-                                                  tableOutput("LogitPERF1"),br(),
-                                                  h4("La critères de performances sont alors"),
-                                                  tableOutput("LogitPERF2"),
-                                                  p("Attention, si l'évènement est associé à une mesure inférieure au cut, la lecture des VP,VN,FP,FN, VPP et VPN est inversée dans ce dernier tableau.
-                                                                             Il faut alors se référer au tableau à 4 cases sur le haut de cette page."),br()
-
-
-
-                                         )
-                              )# fin tab set panel
-                            ) # fin main panel
-                          ) # fin sidebarlayout
-                        ) # fin fluipage   )
-               ) # fin tabpanel
-
-    )
-  )
-
-
-
-concordanceAvecBase<-
-
-  fluidPage(
-
-    titlePanel("Analyse de concordance entre 2 lecteurs"),
-    sidebarLayout(
-      sidebarPanel(
-        # quel type de saisie souhaité
-        checkboxInput("CONCORsaisie", "Saisir les données des deux lecteurs manuellement"),
-        # si saisie par choix des variables
-        conditionalPanel(
-          condition = "input.CONCORsaisie == false",
-          p("Sélectionnez la variable associée à la mesure du premier lecteur"),
-          uiOutput("CONCORDANCElecture1"),
-          br(),
-          br(),
-          p("Sélectionnez la variable associée à la mesure du deuxième lecteur"),
-          uiOutput("CONCORDANCElecture2"),
-          br(),
-          br()),
-
-        # ajout de l'intervalle de confiance
-        checkboxInput("CONCORinter", "Ajouter l'intervalle de confiance, le calcul peut prendre plusieurs minutes"),
-        # si saisie manuelle
-        conditionalPanel(
-          condition = "input.CONCORsaisie == true",
-          p("Entrez les valeurs du lecteur 1, séparées par un espace"),
-          textInput("Concoman1", label = "Valeurs du lecteur 1", value = ""),
-          p("Entrez les valeurs du lecteur 2, séparées par un espace"),
-          textInput("Concoman2", label = "Valeurs du lecteur 2", value = "")
-        )# fin condi
-      )# fin sidebar panel
-      ,
-
-      mainPanel(
-        fluidRow(
-          splitLayout(cellWidths = c("30%","70%"),
-                      downloadButton("PDFconcordance",label="AIDE et Détails",class = "butt"),
-                      h4("Faites attention s'il y a un filtre")
-          )
-        ),#finFluidRow
-
-        tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-        h3("Tableau croisé"),
-        p("On présente ci-dessous le tableau croisé des lectures réalisées:"),
-        tableOutput("mytableCONCORDANCE1"),br(),
-
-
-
-        conditionalPanel(
-          condition = "input.CONCORinter == true",
-          verbatimTextOutput ("ConcordanceManuelleINTERV")
-        ),# fin condi 1
-        conditionalPanel(
-          condition = "input.CONCORinter == false",
-          verbatimTextOutput ("ConcordanceManuelleSimple")
-        ),# fin condi 2
-        p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
-        tableOutput("LandisEtKoch2")
-
-
-
-      )# fin MainPanel
-
-    )# fin sidebarlayout
-  )# fin fluidpage
-
-
-
-
-concordanceSansBase<-
-
-  fluidPage(
-
-    titlePanel("Analyse de concordance entre 2 lecteurs"),
-    sidebarLayout(
-      sidebarPanel(
-        p("Entrez les valeurs du lecteur 1, séparées par un espace"),
-        textInput("Concoman1", label = "Valeurs du lecteur 1", value = ""),
-        p("Entrez les valeurs du lecteur 2, séparées par un espace"),
-        textInput("Concoman2", label = "Valeurs du lecteur 2", value = ""),
-        checkboxInput("CONCORinter", "Ajouter l'intervalle de confiance (simulations, le calcul peut prendre plusieurs minutes)")       # si saisie manuelle
-
-
-      ),# fin sidebar panel
-
-      mainPanel(
-        fluidRow(
-          splitLayout(cellWidths = c("30%","70%"),
-                      downloadButton("PDFconcordance",label="AIDE et Détails",class = "butt"),
-                      h4("Faites attention s'il y a un filtre")
-          )
-        ),#finFluidRow
-
-        tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-        h3("Tableau croisé"),
-        p("On présente ci-dessous le tableau croisé des lectures réalisées:"),
-        tableOutput("mytableCONCORDANCE2"),br(),
-
-
-
-        conditionalPanel(
-          condition = "input.CONCORinter == true",
-          verbatimTextOutput ("ConcordanceManuelleINTERV2")
-        ),
-
-
-
-        conditionalPanel(
-          condition = "input.CONCORinter == false",
-          verbatimTextOutput ("ConcordanceManuelleSimple2")
-        ),# fin condi 2
-        p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
-        tableOutput("LandisEtKoch2")
-
-
-
-      )# fin MainPanel
-
-    )# fin sidebarlayout
-  )# fin fluidpage
 
 

@@ -18,14 +18,12 @@ GO <- function(){
   # require(gmrcfun)
   # require(shinyFiles)
   # require(shiny)
-
   appDir <- system.file("shiny-examples", "myapp", package = "GmrcShinyStats")
   print(appDir)
-
   if( appDir == ""){
     stop("Could not find directory. Try re-installing `GmrcShinyStats`.", call. = FALSE)
   }
   setwd(appDir)
-  shiny::runApp(appDir, launch.browser = T, test.mode=T)
+  shiny::runApp(appDir, launch.browser = T, test.mode=F)
   q(save="no")
 }
