@@ -15,6 +15,7 @@
 #' @export
 
 if(!require('shinyFiles')){install.packages('shinyFiles')}
+require(shinyFiles)
 if(!require('shiny')){install.packages('shiny')}
 require(shiny)
 # Define UI for app that draws a histogram ----
@@ -416,4 +417,7 @@ ui <- shinyUI(navbarPage(
 
   )# fin navbarpage
 )
+
+
+
 
