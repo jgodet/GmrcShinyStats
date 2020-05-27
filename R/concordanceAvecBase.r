@@ -16,8 +16,10 @@
 
 
 concordanceAvecBase<-
+
   fluidPage(
-    titlePanel("Analyse de concordance entre 2 lecteurs"),
+
+      titlePanel("Analyse de concordance entre 2 lecteurs"),
     sidebarLayout(
       sidebarPanel(
         # quel type de saisie souhaité

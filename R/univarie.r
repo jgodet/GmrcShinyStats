@@ -17,7 +17,11 @@
 if(!require(shiny)){install.packages('shiny')}
 require(shiny)
 
-univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
+univarie <-
+
+  fluidPage(
+
+    navbarPage(title = NULL,id="descriptif",
 
                                  tabPanel("Informations BDD",
                                           fluidPage(

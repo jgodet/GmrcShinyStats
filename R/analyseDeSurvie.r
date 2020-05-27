@@ -17,7 +17,10 @@
 require(shiny)
 
 analyseDeSurvie <-
-  fluidPage( titlePanel("Analyses de survie"),
+
+  fluidPage(
+
+    titlePanel("Analyses de survie"),
     sidebarLayout(
       sidebarPanel(
         p("Sélectionnez la variable quantitative représentant le délai jusqu'à survenue de l'évènement ou de censure"),

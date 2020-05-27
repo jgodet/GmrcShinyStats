@@ -15,11 +15,11 @@
 #' @export
 
 GO <- function(){
+  require(gmrcfun)
   require(shinyFiles)
   require(shiny)
   appDir <- system.file("shiny-examples", "myapp", package = "GmrcShinyStats")
   print(appDir)
-  require(gmrcfun)
 
   if( appDir == ""){
     stop("Could not find directory. Try re-installing `GmrcShinyStats`.", call. = FALSE)

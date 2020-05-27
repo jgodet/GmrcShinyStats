@@ -17,7 +17,11 @@
 if(!require(shiny)){install.packages('shiny')}
 require(shiny)
 
-croisementsInference<-fluidPage(navbarPage(id="Panel 2.x",title = NULL,
+croisementsInference<-
+
+  fluidPage(
+
+    navbarPage(id="Panel 2.x",title = NULL,
 
                        tabPanel("Croisement 2 a 2",
 
