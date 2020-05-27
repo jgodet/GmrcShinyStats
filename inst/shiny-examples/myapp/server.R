@@ -30,6 +30,7 @@ if(!require(stringr)){install.packages('stringr')}; library(stringr )
 if(!require(boot)){install.packages('boot')}; library(boot )
 if(!require(xtable)){install.packages('xtable')}; library(xtable )
 if(!require(devtools)){install.packages('devtools')}; library(devtools)
+if(!require(desctable)){install.packages('desctable')}; library(desctable)
 if(!require(gmrcfun)){install_github(repo = "jgodet/gmrcfun")}; library(gmrcfun)
 
 server <- shinyServer(function(input, output, session) {
