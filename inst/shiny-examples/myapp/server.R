@@ -551,7 +551,7 @@ server <- shinyServer(function(input, output, session) {
     x <-base[,colnames(base)==input$variableCROISE1]
     y <-base[,colnames(base)==input$variableCROISE2]
     Mat    <- table(x,y)
-    CH2<-chisq.test(Mat,correct=FALSE)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
     resTESTS<-cbind(CH2$statistic,CH2$parameter,CH2$ p.value)
     colnames(resTESTS)<-c("CHI2 Stat","CHI2 Degrés","CHI2 pValue")
     rownames(resTESTS)<-"Résultat"
@@ -563,7 +563,7 @@ server <- shinyServer(function(input, output, session) {
     x <-base[,colnames(base)==input$variableCROISE1]
     y <-base[,colnames(base)==input$variableCROISE2]
     Mat    <- table(x,y)
-    FI2<-fisher.test(Mat)
+    FI2<-stats::fisher.test(Mat)
     resTESTS<-t(t( FI2$ p.value))
     colnames(resTESTS)<-c("Fisher pValue")
     rownames(resTESTS)<-"Résultat"
@@ -576,8 +576,8 @@ server <- shinyServer(function(input, output, session) {
     x <-base[,colnames(base)==input$variableCROISE1]
     y <-base[,colnames(base)==input$variableCROISE2]
     Mat    <- table(x,y)
-    CH2<-chisq.test(Mat,correct=FALSE)
-    FI2<-fisher.test(Mat)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
+    FI2<-stats::fisher.test(Mat)
     ifelse(all(CH2$expected>5),"Au vu des effectifs théoriques >5, on préfèrera ici l'utilisation du test du Chi2",
            "Au vu des faibles effectifs théoriques, on préfèrera ici l'utilisation du test exact de Fisher")
   })
@@ -591,7 +591,7 @@ server <- shinyServer(function(input, output, session) {
     Nblignes   <-dim(Mat)[1]
     Nbcolonnes <-dim(Mat)[2]
     if(Nblignes>2 | Nbcolonnes>2){OR<-NULL}else{
-      FI2<-fisher.test(Mat)
+      FI2<-stats::fisher.test(Mat)
       OR<-cbind(FI2$ estimate , FI2$ conf.int[[1]],FI2$ conf.int[[2]])
       colnames(OR)<-c("Rapport de cotes","Borne inf 2.5","Borne Sup 97.5")
       rownames(OR)<-"Résultat"}
@@ -1395,7 +1395,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    CH2<-chisq.test(Mat,correct=FALSE)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
     resTESTS<-cbind(CH2$statistic,CH2$parameter,CH2$ p.value)
     colnames(resTESTS)<-c("CHI2 Stat","CHI2 Degrés","CHI2 pValue")
     rownames(resTESTS)<-"Résultat"
@@ -1407,7 +1407,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    FI2<-fisher.test(Mat)
+    FI2<-stats::fisher.test(Mat)
     resTESTS<-t(t( FI2$ p.value))
     colnames(resTESTS)<-c("Fisher pValue")
     rownames(resTESTS)<-"Résultat"
@@ -1421,8 +1421,8 @@ server <- shinyServer(function(input, output, session) {
 
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    CH2<-chisq.test(Mat,correct=FALSE)
-    FI2<-fisher.test(Mat)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
+    FI2<-stats::fisher.test(Mat)
     ifelse(all(CH2$expected>5),"Au vu des effectifs théoriques >5, on préfèrera ici l'utilisation du test du Chi2",
            "Au vu des faibles effectifs théoriques, on préfèrera ici l'utilisation du test exact de Fisher")
   })
@@ -1432,7 +1432,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     if(Nblignes>2 | Nbcolonnes>2){OR<-NULL}else{
       Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
-      FI2<-fisher.test(Mat)
+      FI2<-stats::fisher.test(Mat)
       OR<-cbind(FI2$ estimate , FI2$ conf.int[[1]],FI2$ conf.int[[2]])
       colnames(OR)<-c("Rapport de cotes","Borne inf 2.5","Borne Sup 97.5")
       rownames(OR)<-"Résultat"}
@@ -1641,7 +1641,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    CH2<-chisq.test(Mat,correct=FALSE)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
     resTESTS<-cbind(CH2$statistic,CH2$parameter,CH2$ p.value)
     colnames(resTESTS)<-c("CHI2 Stat","CHI2 Degrés","CHI2 pValue")
     rownames(resTESTS)<-"Résultat"
@@ -1653,7 +1653,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    FI2<-fisher.test(Mat)
+    FI2<-stats::fisher.test(Mat)
     resTESTS<-t(t( FI2$ p.value))
     colnames(resTESTS)<-c("Fisher pValue")
     rownames(resTESTS)<-"Résultat"
@@ -1667,8 +1667,8 @@ server <- shinyServer(function(input, output, session) {
 
     Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
 
-    CH2<-chisq.test(Mat,correct=FALSE)
-    FI2<-fisher.test(Mat)
+    CH2<-stats::chisq.test(Mat,correct=FALSE)
+    FI2<-stats::fisher.test(Mat)
     ifelse(all(CH2$expected>5),"Au vu des effectifs théoriques >5, on préfèrera ici l'utilisation du test du Chi2",
            "Au vu des faibles effectifs théoriques, on préfèrera ici l'utilisation du test exact de Fisher")
   })
@@ -1678,7 +1678,7 @@ server <- shinyServer(function(input, output, session) {
     Nbcolonnes <-input$NbcolonnesMAIN
     if(Nblignes>2 | Nbcolonnes>2){OR<-NULL}else{
       Mat<-matrix(as.numeric(strsplit(input$TableauMAIN1," ")[[1]]),ncol=Nbcolonnes,nrow=Nblignes)
-      FI2<-fisher.test(Mat)
+      FI2<-stats::fisher.test(Mat)
       OR<-cbind(FI2$ estimate , FI2$ conf.int[[1]],FI2$ conf.int[[2]])
       colnames(OR)<-c("Rapport de cotes","Borne inf 2.5","Borne Sup 97.5")
       rownames(OR)<-"Résultat"}
