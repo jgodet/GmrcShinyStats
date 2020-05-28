@@ -34,9 +34,11 @@ if(!require(desctable)){install.packages('desctable')}
 if(!require(gmrcfun)){install_github(repo = "jgodet/gmrcfun")}; library(gmrcfun)
 
 server <- shinyServer(function(input, output, session) {
-  session$onSessionEnded(function() {
-    stopApp()
-  })
+  #session$onSessionEnded(stopApp)
+  #session$onSessionEnded(function() {
+
+  # stopApp()
+  #})
 
 
 
@@ -1244,9 +1246,10 @@ server <- shinyServer(function(input, output, session) {
 
     best.cut                <-as.numeric(rownames(round(optimums$sensitivity,2)))
 
-    y2                              <-y
-    x2                              <-ifelse(x>best.cut,1,0)
+    y2                              <-as.factor(y)
+    x2                              <-as.factor(ifelse(x>best.cut,1,0))
     T                               <-table(x2,y2)
+    T <- rbind(T[1,], T[2,])
     rownames(T)<-c("x<cut","x>cut")
     colnames(T)<-c("0","1")
     T
