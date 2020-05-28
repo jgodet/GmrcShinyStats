@@ -15,7 +15,10 @@
 #' @export
 
 
-pasDeBase <-   fluidPage(
+pasDeBase <-   function(){
+  a <- fluidPage(
   h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible" ),
   p("Pour charger une base de données, rendez-vous sur l'onglet Base de Données en haut de cette page.")
 )
+  return(a)
+}

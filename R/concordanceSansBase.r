@@ -15,11 +15,10 @@
 #' @export
 
 
-concordanceSansBase<-
+concordanceSansBase<-function(){
+  a <-  fluidPage(
 
-  fluidPage(
-
-      titlePanel("Analyse de concordance entre 2 lecteurs"),
+    titlePanel("Analyse de concordance entre 2 lecteurs"),
     sidebarLayout(
       sidebarPanel(
         p("Entrez les valeurs du lecteur 1, séparées par un espace"),
@@ -66,3 +65,7 @@ concordanceSansBase<-
 
     )# fin sidebarlayout
   )# fin fluidpage
+
+  return(a)
+}
+

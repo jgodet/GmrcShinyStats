@@ -290,10 +290,10 @@ server <- shinyServer(function(input, output, session) {
 
   output$univarie = renderUI({
     if(!BASEchargee()){
-      do.call(tabPanel,pasDeBase)
+      do.call(tabPanel,pasDeBase())
     }else{
-    source("./univarie.r")
-      do.call(tabPanel,univarie)
+    #source("./univarie.r")
+      do.call(tabPanel,univarie())
     }
   })
 
@@ -403,10 +403,10 @@ server <- shinyServer(function(input, output, session) {
   #######################################################################
   output$croisementsInference = renderUI({
     if(!BASEchargee()){
-      do.call(tabPanel,pasDeBase)
+      do.call(tabPanel,pasDeBase())
     }else{
-      source("./croisementsInference.r")
-      do.call(tabPanel,croisementsInference)
+      #source("./croisementsInference.r")
+      do.call(tabPanel,croisementsInference())
     }
   })
 
@@ -990,10 +990,10 @@ server <- shinyServer(function(input, output, session) {
 
   output$analyseDeSurvie = renderUI({
     if(!BASEchargee()){
-      do.call(tabPanel,pasDeBase)
+      do.call(tabPanel,pasDeBase())
     }else{
-      source("./analyseDeSurvie.r")
-      do.call(tabPanel,analyseDeSurvie)
+      #source("./analyseDeSurvie.r")
+      do.call(tabPanel,analyseDeSurvie())
     }
   })
 
@@ -1043,10 +1043,10 @@ server <- shinyServer(function(input, output, session) {
 
   output$testsDiagnostiques = renderUI({
     if(!BASEchargee()){
-      do.call(tabPanel,pasDeBase)
+      do.call(tabPanel,pasDeBase())
     }else{
-      source("./testsDiagnostiques.r")
-      do.call(tabPanel,testsDiagnostiques)
+      #source("./testsDiagnostiques.r")
+      do.call(tabPanel,testsDiagnostiques())
     }
 
 
@@ -1268,11 +1268,11 @@ server <- shinyServer(function(input, output, session) {
 
   output$concordance = renderUI({
     if(!BASEchargee()){
-      source("./concordanceSansBase.r")
-      do.call(tabPanel,concordanceSansBase)
+      #source("./concordanceSansBase.r")
+      do.call(tabPanel,concordanceSansBase())
     }else{
-      source("./concordanceAvecBase.r")
-      do.call(tabPanel,concordanceAvecBase)
+      #source("./concordanceAvecBase.r")
+      do.call(tabPanel,concordanceAvecBase())
     }
   })
 

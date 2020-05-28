@@ -14,11 +14,11 @@
 #' @return
 #' @export
 
-require(shiny)
 
-analyseDeSurvie <-
 
-  fluidPage(
+analyseDeSurvie <- function(){
+  suppressMessages(require(shiny))
+  a <- fluidPage(
 
     titlePanel("Analyses de survie"),
     sidebarLayout(
@@ -63,3 +63,8 @@ analyseDeSurvie <-
 
     )# fin sidebarlayout
 )# fin fluidpage
+
+return(a)
+}
+
+  

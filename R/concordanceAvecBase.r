@@ -15,11 +15,10 @@
 #' @export
 
 
-concordanceAvecBase<-
+concordanceAvecBase<-function(){
+  a <- fluidPage(
 
-  fluidPage(
-
-      titlePanel("Analyse de concordance entre 2 lecteurs"),
+    titlePanel("Analyse de concordance entre 2 lecteurs"),
     sidebarLayout(
       sidebarPanel(
         # quel type de saisie souhaité
@@ -81,3 +80,7 @@ concordanceAvecBase<-
 
     )# fin sidebarlayout
   )# fin fluidpage
+
+  return(a)
+}
+
