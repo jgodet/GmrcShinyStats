@@ -120,7 +120,7 @@ croisementsInference<-
                                       # ),#finFluidRow
 
                                       # tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
-                                      h3("Tableau de comparaison de population"),
+                                      h3("Tableau de comparaison de populations"),
                                       conditionalPanel(condition = "!is.null(input$VariableCroisees)", tableOutput('tableauCroisement'))
 
                                     )# fin MainPanel
