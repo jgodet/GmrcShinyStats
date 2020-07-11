@@ -30,6 +30,11 @@ Once installed, anytime you want to run GmrcShinyStats - just type the two last 
 require(shiny)
 GO()
 ```
+---
+### Citation
+
+Thibaut Fabacher, Michael Schaeffer, Nicolas Tuzin, François Séverac, François Lefebvre, Marie Mielcarek, Erik-André Sauleau, Nicolas Meyer, Julien Godet. Biostatistiques médicales avec GMRC Shiny Stats - un outil de formation par la pratique, Annales Pharmaceutiques Françaises,2020.
+ISSN 0003-4509, https://doi.org/10.1016/j.pharma.2020.06.001.
 
 ---
 ### License
