@@ -381,6 +381,8 @@ ui <- shinyUI(navbarPage(
                             tags$p("ShinyGMRC@chru-strasbourg.fr",style = "color:#08088A"),
                             # tags$p("03 88 1(1 67 49)",style = "color:#08088A"),tags$br(),tags$br(),tags$br(),tags$br(),tags$br()
                             #height = 400	, width = 492
+                            tags$p(tags$i("Référence à citer : Thibaut Fabacher, Michael Schaeffer, Nicolas Tuzin, François Séverac, François Lefebvre, Marie Mielcarek, Erik-André Sauleau, Nicolas Meyer, Julien Godet. Biostatistiques médicales avec GMRC Shiny Stats - un outil de formation par la pratique, Annales Pharmaceutiques Françaises,2020.
+ISSN 0003-4509, https://doi.org/10.1016/j.pharma.2020.06.001.")),
                             tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(), tags$br(),tags$br(),tags$br(),tags$br()),
 
 
@@ -391,8 +393,8 @@ ui <- shinyUI(navbarPage(
                             tags$h4("Matériel et méthodes",align = "left",style = "color:#08088A"),
                             tags$p(tags$i("Les variables quantitatives ont été décrites à l'aide des statistiques usuelles de position et de dispersion, à savoir la moyenne, la médiane, la variance, le minimum, le maximum et les quantiles. Les variables qualitatives ont été quant à elles décrites avec les effectifs et les proportions de chaque modalité. Des proportions cumulées ont également été calculées pour les variables à plus de deux modalités."),style = "color:#08088A"),
                             tags$p(tags$i("Le caractère Gaussien des variables quantitatives a été évalué à l'aide du test de Shapiro-Wilk. Si les conditions d'application étaient respectées, le lien entre deux variables quantitatives a été évalué à l'aide du test de corrélation linéaire de Pearson. Dans le cas contraire, un test de corrélation de Spearman a été réalisé. Pour la comparaison d une variable quantitative entre plusieurs sous-groupes, une analyse de la variance ou le test de Kruskal et Wallis ont été utilisés, toujours en fonction des hypothèses d'utilisation de chacun de ces tests. Enfin pour le croisement entre plusieurs variables qualitatives, le test paramétrique du Chi2 a été utilisé si les conditions d application le permettaient. Si ce n était pas le cas, le test exact de Fisher a été réalisé."),style = "color:#08088A"), tags$p(tags$i("**"),style = "color:#08088A"),
-                            tags$p(tags$i("Le risque de première espèce alpha a été fixé à 5% pour toutes les analyses. L'ensemble des analyses a été réalisé sur le logiciel R dans sa version 3.1, R Development Core Team (2008). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. via l’application GMRC Shiny Stat du CHU de Strasbourg (2017)"),style = "color:#08088A"),
-                            tags$br(),tags$br(),tags$br(),tags$br(),
+                            tags$p(tags$i("Le risque de première espèce alpha a été fixé à 5% pour toutes les analyses. L'ensemble des analyses a été réalisé grace à l'application GMRC Shiny Stats utilisant le logiciel R dans sa version 3.1, R Development Core Team (2008). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. via l’application GMRC Shiny Stat du CHU de Strasbourg (2017)"),style = "color:#08088A"),
+                             tags$br(),tags$br(),tags$br(),tags$br(),
                             tags$h5("** Performances diagnostiques",align = "left",style = "color:#08088A"),
                             tags$p(tags$i("Pour évaluer les performances diagnostiques d'un critère binaire sur une variable dépendante, les mesures de sensibilité, de spécificité, la valeur prédictive positive et la valeur prédictive négative ont été estimées à partir du tableau de contingence associé.")),
                             tags$h5("** ROC",align = "left",style = "color:#08088A"),
