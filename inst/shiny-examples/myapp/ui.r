@@ -381,9 +381,9 @@ ui <- shinyUI(navbarPage(
                             tags$p("ShinyGMRC@chru-strasbourg.fr",style = "color:#08088A"),
                             # tags$p("03 88 1(1 67 49)",style = "color:#08088A"),tags$br(),tags$br(),tags$br(),tags$br(),tags$br()
                             #height = 400	, width = 492
-                            tags$p("Référence à citer : Thibaut Fabacher, Michael Schaeffer, Nicolas Tuzin, François Séverac, François Lefebvre, Marie Mielcarek, Erik-André Sauleau, Nicolas Meyer, Julien Godet. Biostatistiques médicales avec GMRC Shiny Stats - un outil de formation par la pratique, Annales Pharmaceutiques Françaises,2020. ISSN 0003-4509, https://doi.org/10.1016/j.pharma.2020.06.001.",style = "color:#08088A"),
+                            tags$h4("Référence à citer :",style = "color:#08088A"),
+                            tags$p("Thibaut Fabacher, Michael Schaeffer, Nicolas Tuzin, François Séverac, François Lefebvre, Marie Mielcarek, Erik-André Sauleau, Nicolas Meyer, Julien Godet. Biostatistiques médicales avec GMRC Shiny Stats - un outil de formation par la pratique, Annales Pharmaceutiques Françaises,2020. ISSN 0003-4509, https://doi.org/10.1016/j.pharma.2020.06.001.",style = "color:#08088A"),
                             tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(), tags$br(),tags$br(),tags$br(),tags$br()),
-
 
                           mainPanel(
                             tags$h3("Rédiger la partie matériel et méthodes",align = "left",style = "color:#08088A"),
