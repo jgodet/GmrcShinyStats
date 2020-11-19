@@ -25,7 +25,7 @@ croisementsInference<-function(){
 
                tabPanel("Croisement 2 a 2",
 
-                        fluidPage( includeCSS("./inst/shiny-examples/myapp/www/tables.css"),
+                        fluidPage( tags$head(tags$style(HTML("\n.pure-table {\n    /* Remove spacing between table cells (from Normalize.css) */\n    border-collapse: collapse;\n    border-spacing: 0;\n    empty-cells: show;\n    border: 1px solid #cbcbcb;\n\ttext-align: center;\n}\n\n.pure-table caption {\n    color: #000;\n    font: italic 85%/1 arial, sans-serif;\n    padding: 1em 0;\n    text-align: center;\n}\n\n.pure-table td,\n.pure-table th {\n    border-left: 1px solid #cbcbcb;/*  inner column border */\n    border-bottom: 1px solid #cbcbcb;\n\n    font-size: inherit;\n    margin: 0;\n    overflow: visible; /*to make ths where the title is really long work*/\n    padding: 0.5em 1em; /* cell padding */\n\ttext-align: center;\n}\n\n.pure-table tr:hover {background-color: #f5f5f5}\n\n/* Consider removing this next declaration block, as it causes problems when\nthere's a rowspan on the first cell. Case added to the tests. issue#432 */\n.pure-table td:first-child,\n.pure-table th:first-child {\n    border-left-width: 0;\n}\n\n.pure-table thead {\n    background-color: #e0e0e0;\n    color: #000;\n    text-align: left;\n    vertical-align: bottom;\n}\n\n/*\nstriping:\n   even - #fff (white)\n   odd  - #f2f2f2 (light gray)\n*/\n.pure-table td {\n    background-color: transparent;\n}\n\n"))),
                                    titlePanel("Analyses descriptives croisées"),
                                    sidebarLayout(
                                      sidebarPanel(
