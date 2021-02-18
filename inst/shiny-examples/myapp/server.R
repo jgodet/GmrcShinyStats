@@ -359,7 +359,7 @@ server <- shinyServer(function(input, output, session) {
   })
 
 
-  # output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
+  output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
   # output$descvar <- renderTable({
   #   base    <-BDD()
   #   variable<-base[,colnames(base)==input$variable]
