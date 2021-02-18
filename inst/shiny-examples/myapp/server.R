@@ -354,9 +354,9 @@ server <- shinyServer(function(input, output, session) {
     selectInput("variable", "Variable:",   choices=noms())
   })
 
-  # output$summary <- renderPrint({
-  #   summary(BDD())
-  # })
+  output$summary <- renderPrint({
+    summary(BDD())
+  })
 
   output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
   output$descvar <- renderTable({
