@@ -87,7 +87,7 @@ univarie <- function(){
                             sidebarPanel(
                               uiOutput("propositions"),
                               radioButtons("qualiquanti", "Nature de la variable",
-                                           c(Quantitative="quant", Qualitative="qual"),"qual"
+                                           c(Quantitative="quant", Qualitative="qual"),"quant"
                               )
                             ),
                             # Create a spot for the barplot
