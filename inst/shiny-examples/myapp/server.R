@@ -358,39 +358,39 @@ server <- shinyServer(function(input, output, session) {
     summary(BDD())
   })
 
-  output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
-  output$descvar <- renderTable({
-    base    <-BDD()
-    variable<-base[,colnames(base)==input$variable]
-    print(input$variable)
-    if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
-    colnames(res) <- c("Descriptif")}
-    if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
-    colnames(res) <- c("Effectifs", "Proportions")}
-    xtable(res, "essai")
-  },hover = T,rownames=TRUE)
-
-  output$plot1 <- renderPlot({
-    base    <-BDD()
-    variable<-base[,input$variable]
-    if(input$qualiquanti=="quant"){
-      print(   hist(variable,
-                    xlab = input$variable,
-                    ylab = "Effectif",
-                    main= "Histogramme",
-                    col = "#75AADB", border = "white") )
-
-
-    }
-    if(input$qualiquanti=="qual") {variable<-as.character(variable);print( diagrammeBarre(variable)  )}
-  })
-
-  output$plot2 <- renderPlot({
-    base    <-BDD()
-    variable<-base[,colnames(base)==input$variable]
-    if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
-    if(input$qualiquanti=="qual") {print(pieChart(variable))}
-  })
+  # output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
+  # output$descvar <- renderTable({
+  #   base    <-BDD()
+  #   variable<-base[,colnames(base)==input$variable]
+  #   print(input$variable)
+  #   if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
+  #   colnames(res) <- c("Descriptif")}
+  #   if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
+  #   colnames(res) <- c("Effectifs", "Proportions")}
+  #   xtable(res, "essai")
+  # },hover = T,rownames=TRUE)
+  #
+  # output$plot1 <- renderPlot({
+  #   base    <-BDD()
+  #   variable<-base[,input$variable]
+  #   if(input$qualiquanti=="quant"){
+  #     print(   hist(variable,
+  #                   xlab = input$variable,
+  #                   ylab = "Effectif",
+  #                   main= "Histogramme",
+  #                   col = "#75AADB", border = "white") )
+  #
+  #
+  #   }
+  #   if(input$qualiquanti=="qual") {variable<-as.character(variable);print( diagrammeBarre(variable)  )}
+  # })
+  #
+  # output$plot2 <- renderPlot({
+  #   base    <-BDD()
+  #   variable<-base[,colnames(base)==input$variable]
+  #   if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
+  #   if(input$qualiquanti=="qual") {print(pieChart(variable))}
+  # })
 
   #
   # quali
