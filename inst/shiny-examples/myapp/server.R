@@ -359,17 +359,17 @@ server <- shinyServer(function(input, output, session) {
   })
 
 
-  output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
-  output$descvar <- renderTable({
-    base    <-BDD()
-    variable<-base[,colnames(base)==input$variable]
-    print(input$variable)
-    if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
-    colnames(res) <- c("Descriptif")}
-    if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
-    colnames(res) <- c("Effectifs", "Proportions")}
-    xtable(res, "essai")
-  },hover = T,rownames=TRUE)
+  # output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
+  # output$descvar <- renderTable({
+  #   base    <-BDD()
+  #   variable<-base[,colnames(base)==input$variable]
+  #   print(input$variable)
+  #   if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
+  #   colnames(res) <- c("Descriptif")}
+  #   if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
+  #   colnames(res) <- c("Effectifs", "Proportions")}
+  #   xtable(res, "essai")
+  # },hover = T,rownames=TRUE)
   #
   # output$plot1 <- renderPlot({
   #   base    <-BDD()

@@ -101,7 +101,7 @@ univarie <- function(){
 
                               tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                               fluidRow(
-                                column(6,   textOutput("descriptifUni"),br(),  tableOutput("descvar"))#,
+                                column(6, textOutput("summary"),br(),   tableOutput("descvar"))#,
                                 #column(6,     plotOutput("plot1") , plotOutput("plot2") )
                               )# fin fluid row du main panel
 
