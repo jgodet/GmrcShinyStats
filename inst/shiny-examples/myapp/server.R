@@ -172,7 +172,7 @@ server <- shinyServer(function(input, output, session) {
     isolate({
       file_selected<-parseFilePaths(volumes, input$Btn_GetFile)
 
-      D<-read.csv(paste(as.character(file_selected$datapath), collapse = "\n"), header=input$header,sep=input$sep, na.string=c("",input$manquants),dec=input$decimale, fileEncoding = input$encodage)
+      D<-read.csv(paste(as.character(file_selected$datapath), collapse = "\n"), header=input$header,sep=input$sep, na.string=c("",input$manquants),dec=input$decimale, fileEncoding = input$encodage,stringsAsFactors = T)
       lignesVides<-apply(D,1,function(x){sum(is.na(x))})==dim(D)[2]
       D<-D[!lignesVides,]
       return(D)
