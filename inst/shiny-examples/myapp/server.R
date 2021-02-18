@@ -184,7 +184,7 @@ server <- shinyServer(function(input, output, session) {
   output$dat_false <- DT::renderDataTable(DT::datatable({contentInput() },filter = "top"),server = FALSE)
 
   BDD      <- reactive({
-    # D<-read.csv2( 'C:/Users/fabachet/Desktop/GMRC Shiny Stats/GMRC Shiny Stats/Shiny/BDD.csv', na.strings =  "*")
+    #D<-read.csv2( '/home/jgodet/Téléchargements/ExempleCSV(2).csv', na.strings =  c("*",""), stringsAsFactors = T,dec='.')
     #
     D<-contentInput()
     D<-D[input$contents2_rows_all,]
@@ -350,7 +350,6 @@ server <- shinyServer(function(input, output, session) {
   ########################################################################################################################
 
   output$propositions <- renderUI({
-
     selectInput("variable", "Variable:",   choices=noms())
   })
 
@@ -360,38 +359,40 @@ server <- shinyServer(function(input, output, session) {
 
 
   output$descriptifUni <- renderText(paste("Descriptif de la variable ",input$variable, sep = ""))
-  # output$descvar <- renderTable({
-  #   base    <-BDD()
-  #   variable<-base[,colnames(base)==input$variable]
-  #   print(input$variable)
-  #   if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
-  #   colnames(res) <- c("Descriptif")}
-  #   if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
-  #   colnames(res) <- c("Effectifs", "Proportions")}
-  #   xtable(res, "essai")
-  # },hover = T,rownames=TRUE)
+
+
+  output$descvar <- renderTable({
+    base    <-BDD()
+    variable<-base[,colnames(base)==input$variable]
+    print(input$variable)
+    if(input$qualiquanti=="quant"){res<-data.frame(descr1(variable)$Descriptif)
+    colnames(res) <- c("Descriptif")}
+    if(input$qualiquanti=="qual") {res<-data.frame(desql(variable))
+    colnames(res) <- c("Effectifs", "Proportions")}
+    xtable(res, "essai")
+  },hover = T,rownames=TRUE)
   #
-  # output$plot1 <- renderPlot({
-  #   base    <-BDD()
-  #   variable<-base[,input$variable]
-  #   if(input$qualiquanti=="quant"){
-  #     print(   hist(variable,
-  #                   xlab = input$variable,
-  #                   ylab = "Effectif",
-  #                   main= "Histogramme",
-  #                   col = "#75AADB", border = "white") )
+  output$plot1 <- renderPlot({
+    base    <-BDD()
+    variable<-base[,input$variable]
+    if(input$qualiquanti=="quant"){
+      print(   hist(variable,
+                    xlab = input$variable,
+                    ylab = "Effectif",
+                    main= "Histogramme",
+                    col = "#75AADB", border = "white") )
+
+
+    }
+    if(input$qualiquanti=="qual") {variable<-as.character(variable);print( diagrammeBarre(variable)  )}
+  })
   #
-  #
-  #   }
-  #   if(input$qualiquanti=="qual") {variable<-as.character(variable);print( diagrammeBarre(variable)  )}
-  # })
-  #
-  # output$plot2 <- renderPlot({
-  #   base    <-BDD()
-  #   variable<-base[,colnames(base)==input$variable]
-  #   if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
-  #   if(input$qualiquanti=="qual") {print(pieChart(variable))}
-  # })
+  output$plot2 <- renderPlot({
+    base    <-BDD()
+    variable<-base[,colnames(base)==input$variable]
+    if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
+    if(input$qualiquanti=="qual") {print(pieChart(variable))}
+  })
 
   #
   # quali

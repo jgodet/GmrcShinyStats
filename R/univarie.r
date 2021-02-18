@@ -87,7 +87,7 @@ univarie <- function(){
                             sidebarPanel(
                               uiOutput("propositions"),
                               radioButtons("qualiquanti", "Nature de la variable",
-                                           c(Quantitative="quant", Qualitative="qual"),"quant"
+                                           c(Quantitative="quant", Qualitative="qual"),"qual"
                               )
                             ),
                             # Create a spot for the barplot
@@ -101,8 +101,8 @@ univarie <- function(){
 
                               tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                               fluidRow(
-                                column(6, textOutput("descriptifUni"),br(),   verbatimTextOutput("summary"))#,
-                                #column(6,     plotOutput("plot1") , plotOutput("plot2") )
+                                column(6,   textOutput("descriptifUni"),br(),  tableOutput("descvar")),
+                                column(6,     plotOutput("plot1") , plotOutput("plot2") )
                               )# fin fluid row du main panel
 
                             )# fin MainPanel
