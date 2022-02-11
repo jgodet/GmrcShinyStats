@@ -1,33 +1,27 @@
-Package: GmrcShinyStats
-Type: Package
-Title: Analyses statistiques sans coder 
-Version: 1.1
-Date: 2019-08-05
-Authors: Michael Schaeffer, Thibaut Fabacher, Nicolas Tuzin, Julien Godet
-Maintainer: Julien Godet <julien.godet@chru-strasbourg.fr>
-Description: Ce package est un ensemble de fonctions utiles et pratiques developpees par le GMRC - Hopitaux Universitaires de Strasbourg pour le traitement statistique de donnees, medicales ou non (descriptif, inferentiel, frequentiste et bayesien).
-License: GPL-3
-Depends:
-  R (>= 3.5)
-Imports:
-  boot,
-  car,
-  devtools,
-  DT,
-  gdata,
-  ggplot2,
-  gmrcfun,
-  irr,
-  lme4,
-  pROC,
-  shiny,
-  shinyFiles,
-  stringr,
-  survival,
-  TraMineR,
-  xtable
+Package: gmrc
+Title: An Amazing Shiny App
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "firstname",
+           family = "lastname",
+           role = c("aut", "cre"),
+           email = "your@email.com")
+Description: What the package does (one paragraph).
+License: What license is it under?
+Imports: 
+    attempt,
+    config (>= 0.3.1),
+    DT,
+    glue,
+    golem (>= 0.3.1),
+    htmltools,
+    processx,
+    shiny (>= 1.7.1)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
-
-
+RoxygenNote: 7.1.1
+Suggests: 
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Language: en-US
