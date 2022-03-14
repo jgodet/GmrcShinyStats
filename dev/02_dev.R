@@ -1,95 +1,56 @@
 # Building a Prod-Ready, Robust Shiny Application.
 # 
-# README: each step of the dev files is optional, and you don't have to 
-# fill every dev scripts before getting started. 
-# 01_start.R should be filled at start. 
-# 02_dev.R should be used to keep track of your development during the project.
-# 03_deploy.R should be used once you need to deploy your app.
+# Each step is optional. 
 # 
-# 
-###################################
-#### CURRENT FILE: DEV SCRIPT #####
-###################################
 
-# Engineering
+# 2. All along your project
 
-## Dependencies ----
-## Add one line by package you want to add as dependency
-usethis::use_package( "thinkr" )
+## 2.1 Add modules
+## 
+#golem::add_module( name = "my_first_module" ) # Name of the module
+#golem::add_module( name = "my_other_module" ) # Name of the module
+golem::add_module(name = "Avec_une_base_de_donnees", with_test = TRUE) # Name of the module
+golem::add_module(name = "Saisie_manuelle", with_test = TRUE) # Name of the module
+golem::add_module(name = "Redactions", with_test = TRUE) # Name of the module
+golem::add_module(name = "Accueil", with_test = FALSE) # Name of the module
+golem::add_module(name = "Base_de_donnees", with_test = FALSE) # Name of the module
+golem::add_module(name = "Descriptifs", with_test = FALSE) # Name of the module
+golem::add_module(name = "Croisements", with_test = FALSE) # Name of the module
+golem::add_module(name = "Survie", with_test = FALSE) # Name of the module
+golem::add_module(name = "Tests", with_test = FALSE) # Name of the module
+golem::add_module(name = "Concordance", with_test = FALSE) # Name of the module
 
-## Add modules ----
-## Create a module infrastructure in R/
-golem::add_module( name = "name_of_module1" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+## 2.2 Add dependencies
 
-## Add helper functions ----
-## Creates fct_* and utils_*
-golem::add_fct( "helpers" ) 
-golem::add_utils( "helpers" )
+usethis::use_package( "shiny" ) 
+usethis::use_package( "shinydashboard" )
 
-## External resources
-## Creates .js and .css files at inst/app/www
+## 2.3 Add tests
+
+usethis::use_test( "app" )
+
+## 2.4 Add a browser button
+
+golem::browser_button()
+
+## 2.5 Add external files
+
 golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
 golem::add_css_file( "custom" )
 
-## Add internal datasets ----
-## If you have data in your package
-usethis::use_data_raw( name = "my_dataset", open = FALSE ) 
+# 3. Documentation
 
-## Tests ----
-## Add one line by test you want to create
-usethis::use_test( "app" )
-
-# Documentation
-
-## Vignette ----
-usethis::use_vignette("gmrc")
+## 3.1 Vignette
+usethis::use_vignette("golemdashboard")
 devtools::build_vignettes()
 
-## Code Coverage----
-## Set the code coverage service ("codecov" or "coveralls")
-usethis::use_coverage()
-
-# Create a summary readme for the testthat subdirectory
-covrpage::covrpage()
-
-## CI ----
-## Use this part of the script if you need to set up a CI
-## service for your application
-## 
-## (You'll need GitHub there)
+## 3.2 Code coverage
+## You'll need GitHub there
 usethis::use_github()
+usethis::use_travis()
+usethis::use_appveyor()
 
-# GitHub Actions
-usethis::use_github_action() 
-# Chose one of the three
-# See https://usethis.r-lib.org/reference/use_github_action.html
-usethis::use_github_action_check_release() 
-usethis::use_github_action_check_standard() 
-usethis::use_github_action_check_full() 
-# Add action for PR
-usethis::use_github_action_pr_commands()
-
-# Travis CI
-usethis::use_travis() 
-usethis::use_travis_badge() 
-
-# AppVeyor 
-usethis::use_appveyor() 
-usethis::use_appveyor_badge()
-
-# Circle CI
-usethis::use_circleci()
-usethis::use_circleci_badge()
-
-# Jenkins
-usethis::use_jenkins()
-
-# GitLab CI
-usethis::use_gitlab_ci()
-
-# You're now set! ----
+# You're now set! 
 # go to dev/03_deploy.R
 rstudioapi::navigateToFile("dev/03_deploy.R")
-
