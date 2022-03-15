@@ -7,13 +7,11 @@
 
 ## 2.1 Add modules
 ## 
-#golem::add_module( name = "my_first_module" ) # Name of the module
-#golem::add_module( name = "my_other_module" ) # Name of the module
-golem::add_module(name = "Avec_une_base_de_donnees", with_test = TRUE) # Name of the module
-golem::add_module(name = "Saisie_manuelle", with_test = TRUE) # Name of the module
-golem::add_module(name = "Redactions", with_test = TRUE) # Name of the module
+golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
+golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "chargement", with_test = FALSE) # Name of the module
 golem::add_module(name = "Accueil", with_test = FALSE) # Name of the module
-golem::add_module(name = "Base_de_donnees", with_test = FALSE) # Name of the module
+
 golem::add_module(name = "Descriptifs", with_test = FALSE) # Name of the module
 golem::add_module(name = "Croisements", with_test = FALSE) # Name of the module
 golem::add_module(name = "Survie", with_test = FALSE) # Name of the module
@@ -42,7 +40,7 @@ golem::add_css_file( "custom" )
 # 3. Documentation
 
 ## 3.1 Vignette
-usethis::use_vignette("golemdashboard")
+usethis::use_vignette("gmrc")
 devtools::build_vignettes()
 
 ## 3.2 Code coverage
