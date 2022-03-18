@@ -9,6 +9,9 @@
 #' @importFrom shiny NS tagList
 #' @import ggplot2
 #' @import xtable
+#' @import DataExplorer
+#' @import ggthemes
+
 
 mod_Descriptifs_ui <- function(id){
   ns <- NS(id)
@@ -40,7 +43,8 @@ mod_Descriptifs_server <- function(id,r){
 
     observe({ 
     output$plotNAbase1 <- renderPlot({
-      plot.na(r$BDD)
+      #plot.na(r$BDD)
+      DataExplorer::plot_missing(r$BDD)+theme_clean()
     })
 
     output$plotNAbase2 <- renderPlot({
@@ -155,3 +159,5 @@ mod_Descriptifs_server <- function(id,r){
     
 ## To be copied in the server
 # mod_Descriptifs_server("Descriptifs_1")
+
+
