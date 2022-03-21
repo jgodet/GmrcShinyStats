@@ -207,7 +207,7 @@ CroisementsInference<-
                  uiOutput(ns("selectionVariablesCroisees2")),
                  radioButtons(ns("tableauCroiseSimpli"),"Tableau avec abréviation :"
                               , c( Oui = 1, Non = 0),0),
-                 sliderInput("nbDec", "Nombre de decimales : ", min =0,
+                 sliderInput(ns("nbDec"), "Nombre de decimales : ", min =0,
                              max = 5, value= 3, step = 1),
                  downloadButton(ns('downloadData'), 'Télécharger la table')
                  
@@ -249,12 +249,15 @@ analyseDeSurvie<-
         br(),
         br(),
         checkboxInput(ns("SURVIEcompar"), "Faire une comparaison inter-groupes"),
-        
-        conditionalPanel(
-          condition = "input.SURVIEcompar ",
-          p("Sélectionnez la variable qualitative représentant les différents sous-groupes:"),
+        # conditionalPanel(
+        #   condition = "input.SURVIEcompar",
+        #   p("Sélectionnez la variable qualitative représentant les différents sous-groupes:"),
+        #   uiOutput(ns("propositionsSURVIE3"))
+        # )# fin condi
+        if(!is.null(golem::get_golem_options("input$SURVIEcompar"))){
+          #p("Sélectionnez la variable qualitative représentant les différents sous-groupes:")
           uiOutput(ns("propositionsSURVIE3"))
-        )# fin condi
+        }
       )# fin sidebar panel
       ,
       
@@ -270,7 +273,7 @@ analyseDeSurvie<-
         
         tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
         h3("Courbe(s) de Kaplan-Meier"),
-        p("La courbe de survie associée aux variables selectionnée est présentée ci-dessous. Si aucune comparaison entre groupes n'est
+        p("La courbe de survie associée aux variables selectionnées est présentée ci-dessous. Si aucune comparaison entre groupes n'est
                                                         effectuée, la courbe est présentée dans son intervalle de confiance à 95%. Si une comparaison est demandée, le graphique présente
                                                         la courbe de Kaplan-Meier dans chacun des groupes."),
         plotOutput(ns('plotSURVIE')),

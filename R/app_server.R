@@ -11,8 +11,8 @@ app_server <- function(input, output, session) {
   
   
   mod_chargement_server("chargement_1",r)
-  mod_Croisements_server("Croisements_1")
-  mod_Survie_server("Survie_1")
+  mod_Croisements_server("Croisements_1",r)
+  mod_Survie_server("Survie_1",r)
   mod_Tests_server("Tests_1")
   mod_Concordance_server("Concordance_1")
   mod_Accueil_server("Accueil_1")
