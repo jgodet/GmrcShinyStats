@@ -249,15 +249,16 @@ analyseDeSurvie<-
         br(),
         br(),
         checkboxInput(ns("SURVIEcompar"), "Faire une comparaison inter-groupes"),
-        # conditionalPanel(
-        #   condition = "input.SURVIEcompar",
-        #   p("Sélectionnez la variable qualitative représentant les différents sous-groupes:"),
-        #   uiOutput(ns("propositionsSURVIE3"))
-        # )# fin condi
-        if(!is.null(golem::get_golem_options("input$SURVIEcompar"))){
-          #p("Sélectionnez la variable qualitative représentant les différents sous-groupes:")
+        conditionalPanel(
+          condition = "input.SURVIEcompar",
+          ns=ns,
+          p("Sélectionnez la variable qualitative représentant les différents sous-groupes:"),
           uiOutput(ns("propositionsSURVIE3"))
-        }
+        )# fin condi
+        # if(!is.null(golem::get_golem_options("input$SURVIEcompar"))){
+        #   #p("Sélectionnez la variable qualitative représentant les différents sous-groupes:")
+        #   uiOutput(ns("propositionsSURVIE3"))
+        # }
       )# fin sidebar panel
       ,
       
@@ -321,7 +322,7 @@ navbarPage("",
                         mainPanel(
                            fluidRow(
                              splitLayout(cellWidths = c("30%","70%"), 
-                                         downloadButton('PDFdiag',label="AIDE et Détails",class = "butt"),
+                                         downloadButton(ns('PDFdiag'),label="AIDE et Détails",class = "butt"),
                                      h4("Faites attention s'il y a un filtre")  
                              )
                            ),#finFluidRow
@@ -339,6 +340,7 @@ navbarPage("",
                                       checkboxInput(ns("LOGIToptionsGRAPHIQUES"), "Je souhaite ajouter des options graphiques", FALSE),
                                       conditionalPanel(
                                         condition = "input.LOGIToptionsGRAPHIQUES",
+                                        ns=ns,
                                         checkboxInput(ns("LOGIToptionsAUC"), "Afficher Aire sous la courbe sur le graphique", FALSE),
                                         checkboxInput(ns("LOGIToptionsSEUIL"), "Afficher seuil optimal sur le graphique", FALSE),
                                         checkboxInput(ns("LOGIToptionsIntervalle"), "Afficher intervalle de confiance courbe ROC", FALSE)

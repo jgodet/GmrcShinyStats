@@ -12,7 +12,7 @@ app_ui <- function(request) {
     # Your application UI logic
     tabsetPanel(id="Panneau",
                 tabPanel("Avec une base de données",
-                         dashboardPage(dashboardHeader(title = "Avec une base de données"),
+                         dashboardPage(dashboardHeader(title = "Base de données"),
                                        dashboardSidebar(
                                          sidebarMenu(
                                            menuItem("Accueil", tabName = "accueil", icon = icon("dashboard")),
