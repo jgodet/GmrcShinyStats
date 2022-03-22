@@ -17,6 +17,8 @@ golem::add_module(name = "Croisements", with_test = FALSE) # Name of the module
 golem::add_module(name = "Survie", with_test = FALSE) # Name of the module
 golem::add_module(name = "Tests", with_test = FALSE) # Name of the module
 golem::add_module(name = "Concordance", with_test = FALSE) # Name of the module
+golem::add_module(name = "SaisieManuelle", with_test = FALSE) # Name of the module
+golem::add_module(name = "Redaction", with_test = FALSE) # Name of the module
 
 ## 2.2 Add dependencies
 

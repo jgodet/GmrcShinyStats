@@ -7,16 +7,18 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+
 mod_Accueil_ui <- function(id){
   ns <- NS(id)
   tagList(
-
+    #tags$img(src="www/logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;")
   )
   fluidPage(
     sidebarLayout(
       sidebarPanel(
         tags$br(),
-        img(src="logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;"),
+        img(src="www/logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;"),
+        #tags$img(src="www/logo1.png"),
         tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),
         tags$br(),tags$br(),
         tags$h4("En cas de question, vous pouvez contacter:",style = "color:#08088A"),
@@ -55,7 +57,7 @@ mod_Accueil_ui <- function(id){
                downloadButton('DLcsv',label="Télécharger Exemple de base de données",class = "BOUTON"),
                tags$head(tags$style(".BOUTON{background-color:#F1F1F7;} .BOUTON{color: black;}")),
                tags$br(),tags$br(),  tags$br(),	tags$br()),
-        column(6, img(src="tableau.PNG", height = 176, width = 500),tags$br(),  tags$br(),	tags$br()),
+        column(6, img(src="www/tableau.PNG", height = 176, width = 500),tags$br(),  tags$br(),	tags$br()),
 
 
 
@@ -63,7 +65,7 @@ mod_Accueil_ui <- function(id){
         tags$p("De brèves vidéos explicatives sont disponibles en ligne, en cliquant sur le bouton ci-dessous:"),
 
         tags$br(),
-        tags$p(tags$a(img(src="Miniature.jpeg", height = 94, width = 170), target = "_blank",
+        tags$p(tags$a(img(src="www/Miniature.jpeg", height = 94, width = 170), target = "_blank",
                       href =    "https://www.youtube.com/watch?v=p1TsN3LeQI4&list=PLRC56KyFX6kk3FJ6FuwvTFRd3ZoNFSLlG"),align = "center"),
         tags$h4("Note",style = "color:red",align = "left"),
         tags$p("Cette application n'enregistre ni votre activité, ni vos données. Autrement dit, à la fermeture de l'application, vous ne
@@ -92,6 +94,78 @@ mod_Accueil_ui <- function(id){
 mod_Accueil_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
+    output$formatBASE = downloadHandler(
+      filename    = '0_Instructions.pdf',
+      content     = function(file) file.copy('0_Instructions.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFbase = downloadHandler(
+      filename    = '1_BaseDeDonnees.pdf',
+      content     = function(file) file.copy('1_BaseDeDonnees.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFdescriptif1o1 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFdescriptif1o2 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    output$PDFdescriptif1o3 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFdescriptif2 = downloadHandler(
+      filename    = '2_DescriptifVAR.pdf',
+      content     = function(file) file.copy('2_DescriptifVAR.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFcroisements = downloadHandler(
+      filename    = '3_Croisements.pdf',
+      content     = function(file) file.copy('3_Croisements.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
+    output$PDFsurvie = downloadHandler(
+      filename    = '4_Survie.pdf',
+      content     = function(file) file.copy('4_Survie.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
+    output$PDFdiag = downloadHandler(
+      filename    = '5_Diagnostiques.pdf',
+      content     = function(file) file.copy('5_Diagnostiques.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
+    output$PDFconcordance = downloadHandler(
+      filename    = '6_Concordance.pdf',
+      content     = function(file) file.copy('6_Concordance.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
+    output$DLcnil = downloadHandler(
+      filename    = 'DBnonCRIH.pdf',
+      content     = function(file) file.copy('DBnonCRIH.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$DLcsv <- downloadHandler(
+      filename ='ExempleCSV.csv',
+      content = function(file) file.copy('ExempleCSV.csv', file, overwrite = TRUE),
+      contentType = 'application/csv'
+      
+    )
 
   })
 }

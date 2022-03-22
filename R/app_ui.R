@@ -5,26 +5,173 @@
 #' @import shiny
 #' @import shinydashboard
 #' @noRd
+#' @dashboardthemes
+
+#source("./theme.R", local = TRUE)
+
+### creating custom theme object
+customTheme <- shinyDashboardThemeDIY(
+  
+  ### general
+  appFontFamily = "Arial"
+  ,appFontColor = "rgb(0,0,0)"
+  ,primaryFontColor = "rgb(0,0,0)"
+  ,infoFontColor = "rgb(0,0,0)"
+  ,successFontColor = "rgb(0,0,0)"
+  ,warningFontColor = "rgb(0,0,0)"
+  ,dangerFontColor = "rgb(0,0,0)"
+  ,bodyBackColor = "rgb(248,248,248)"
+  
+  ### header
+  ,logoBackColor = "rgb(205, 92, 92)"
+  
+  ,headerButtonBackColor = "rgb(205, 92, 92) "
+  ,headerButtonIconColor = "rgb(75,75,75)"
+  ,headerButtonBackColorHover = "rgb(210,210,210)"
+  ,headerButtonIconColorHover = "rgb(0,0,0)"
+  
+  ,headerBackColor = "rgb(205, 92, 92) "
+  ,headerBoxShadowColor = "#aaaaaa"
+  ,headerBoxShadowSize = "2px 2px 2px"
+  
+  ### sidebar
+  ,sidebarBackColor = cssGradientThreeColors(
+    direction = "down"
+    ,colorStart = "rgb(64,64,64)"
+    ,colorMiddle = "rgb(96,96,96)"
+    ,colorEnd = "rgb(192,192,192)"
+    # ,colorStart = "paleturquoise2"
+    # ,colorMiddle = "cadetblue3"
+    # ,colorEnd = "cornflowerblue"
+    ,colorStartPos = 0
+    ,colorMiddlePos = 50
+    ,colorEndPos = 100
+  )
+  ,sidebarPadding = 0
+  
+  ,sidebarMenuBackColor = "transparent"
+  ,sidebarMenuPadding = 0
+  ,sidebarMenuBorderRadius = 0
+  
+  ,sidebarShadowRadius = "3px 5px 5px"
+  ,sidebarShadowColor = "#aaaaaa"
+  
+  ,sidebarUserTextColor = "rgb(255,255,255)"
+  
+  ,sidebarSearchBackColor = "rgb(55,72,80)"
+  ,sidebarSearchIconColor = "rgb(153,153,153)"
+  ,sidebarSearchBorderColor = "rgb(55,72,80)"
+  
+  ,sidebarTabTextColor = "rgb(255,255,255)"
+  ,sidebarTabTextSize = 13
+  ,sidebarTabBorderStyle = "none none solid none"
+  ,sidebarTabBorderColor = "rgb(96,96,96)"
+  ,sidebarTabBorderWidth = 1
+  
+  ,sidebarTabBackColorSelected = cssGradientThreeColors(
+    direction = "right"
+    ,colorStart = "rgba(205, 148, 148,1)"
+    ,colorMiddle = "rgba(255, 240, 240,1)"
+    ,colorEnd = "rgba(255,240,240,1)"
+    ,colorStartPos = 0
+    ,colorMiddlePos = 30
+    ,colorEndPos = 100
+  )
+  ,sidebarTabTextColorSelected = "rgb(0,0,0)"
+  ,sidebarTabRadiusSelected = "0px 20px 20px 0px"
+  
+  ,sidebarTabBackColorHover = cssGradientThreeColors(
+    direction = "right"
+    ,colorStart = "rgba(205, 148, 148,1)"
+    ,colorMiddle = "rgba(255, 240, 240,1)"
+    ,colorEnd = "rgba(255,240,240,1)"
+    ,colorStartPos = 0
+    ,colorMiddlePos = 30
+    ,colorEndPos = 100
+  )
+  ,sidebarTabTextColorHover = "rgb(50,50,50)"
+  ,sidebarTabBorderStyleHover = "none none solid none"
+  ,sidebarTabBorderColorHover = "rgb(75,126,151)"
+  ,sidebarTabBorderWidthHover = 1
+  ,sidebarTabRadiusHover = "0px 20px 20px 0px"
+  
+  ### boxes
+  ,boxBackColor = "rgb(255,255,255)"
+  ,boxBorderRadius = 5
+  ,boxShadowSize = "0px 1px 1px"
+  ,boxShadowColor = "rgba(0,0,0,.1)"
+  ,boxTitleSize = 16
+  ,boxDefaultColor = "rgb(210,214,220)"
+  ,boxPrimaryColor = "rgba(44,222,235,1)"
+  ,boxInfoColor = "rgb(210,214,220)"
+  ,boxSuccessColor = "rgba(0,255,213,1)"
+  ,boxWarningColor = "rgb(244,156,104)"
+  ,boxDangerColor = "rgb(255,88,55)"
+  
+  ,tabBoxTabColor = "rgb(255,255,255)"
+  ,tabBoxTabTextSize = 14
+  ,tabBoxTabTextColor = "rgb(0,0,0)"
+  ,tabBoxTabTextColorSelected = "rgb(0,0,0)"
+  ,tabBoxBackColor = "rgb(255,255,255)"
+  ,tabBoxHighlightColor = "rgba(44,222,235,1)"
+  ,tabBoxBorderRadius = 5
+  
+  ### inputs
+  ,buttonBackColor = "rgb(245,245,245)"
+  ,buttonTextColor = "rgb(0,0,0)"
+  ,buttonBorderColor = "rgb(200,200,200)"
+  ,buttonBorderRadius = 5
+  
+  ,buttonBackColorHover = "rgb(235,235,235)"
+  ,buttonTextColorHover = "rgb(100,100,100)"
+  ,buttonBorderColorHover = "rgb(200,200,200)"
+  
+  ,textboxBackColor = "rgb(255,255,255)"
+  ,textboxBorderColor = "rgb(200,200,200)"
+  ,textboxBorderRadius = 5
+  ,textboxBackColorSelect = "rgb(245,245,245)"
+  ,textboxBorderColorSelect = "rgb(200,200,200)"
+  
+  ### tables
+  ,tableBackColor = "rgb(255,255,255)"
+  ,tableBorderColor = "rgb(240,240,240)"
+  ,tableBorderTopSize = 1
+  ,tableBorderRowSize = 1
+  
+)
+
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
+    
+    
+    #addResourcePath("www", tempdir),
+    
     # Your application UI logic
-    tabsetPanel(id="Panneau",
+    navbarPage(
+      "G.M.R.C",
                 tabPanel("Avec une base de données",
-                         dashboardPage(dashboardHeader(title = "Base de données"),
+                         dashboardPage(
+                           dashboardHeader(title = "Base de données"),
                                        dashboardSidebar(
                                          sidebarMenu(
-                                           menuItem("Accueil", tabName = "accueil", icon = icon("dashboard")),
-                                           menuItem("Base de données", tabName = "base", icon = icon("th")),
-                                           menuItem("Descriptif", tabName = "descriptif", icon = icon("th")),
-                                           menuItem("Croisements/Inférence", tabName = "croisements", icon = icon("th")),
-                                           menuItem("Analyse de survie", tabName = "survie", icon = icon("th")),
-                                           menuItem("Tests diagnostiques", tabName = "tests", icon = icon("th")),
-                                           menuItem("Concordance", tabName = "concordance", icon = icon("th"))
+                                          #shinythemes::themeSelector(),
+                                           menuItem("Accueil", tabName = "accueil", icon = icon("fa-light fa-star")),
+                                           menuItem("Base de données", tabName = "base", icon = icon("fa-light fa-database")),
+                                           menuItem("Descriptif", tabName = "descriptif", icon = icon("fa-light fa-percent")),
+                                           menuItem("Croisements/Inférence", tabName = "croisements", icon = icon("fa-light fa-dice")),
+                                           menuItem("Analyse de survie", tabName = "survie", icon = icon("fa-light fa-skull-crossbones")),
+                                           menuItem("Tests diagnostiques", tabName = "tests", icon = icon("fa-light fa-vial")),
+                                           menuItem("Concordance", tabName = "concordance", icon = icon("fa-light fa-equals"))
                                          )
                                        ),
                                        dashboardBody(
+                                         
+                                          # dashboardthemes::shinyDashboardThemes(
+                                          #   theme = "custom_theme"
+                                          # ),
+                                         customTheme,
                                          tabItems(
                                            # First tab content
                                            tabItem(tabName = "accueil",
@@ -58,27 +205,18 @@ app_ui <- function(request) {
                          ),
 
                 tabPanel("Saisie manuelle",
-                         dashboardPage(dashboardHeader(title = "Saisie manuelle"),
-                                       dashboardSidebar(
-                                         sidebarMenu()
-                                       ),
-                                       dashboardBody()
-                         )),
+                         mod_SaisieManuelle_ui("SaisieManuelle_1")),
 
 
 
                 tabPanel("Rédaction",
-                         dashboardPage(dashboardHeader(title = "Rédaction"),
-                                       dashboardSidebar(
-                                         sidebarMenu()
-                                       ),
-                                       dashboardBody()
-                         ))
-                )
+                         mod_Redaction_ui("Redaction_1"))
+                
 
 
 
 
+    )
     )
 }
 
@@ -111,6 +249,7 @@ golem_add_external_resources <- function() {
     "www",
     app_sys("app/www")
   )
+  
 
   tags$head(
     favicon(),

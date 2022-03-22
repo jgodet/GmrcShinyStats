@@ -2,9 +2,13 @@
 
 export(run_app)
 import(DataExplorer)
+import(boot)
+import(dashboardthemes)
 import(dplyr)
+import(gdata)
 import(ggplot2)
 import(ggthemes)
+import(irr)
 import(pROC)
 import(shiny)
 import(shinyFiles)

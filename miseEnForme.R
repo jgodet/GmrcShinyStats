@@ -393,6 +393,7 @@ fluidPage(
       # si saisie par choix des variables
       conditionalPanel(
         condition = "input.CONCORsaisie == false",
+        ns=ns,
         p("Sélectionnez la variable associée à la mesure du premier lecteur"),
         uiOutput(ns("CONCORDANCElecture1")),
         br(),
@@ -408,6 +409,7 @@ fluidPage(
       # si saisie manuelle   
       conditionalPanel(
         condition = "input.CONCORsaisie == true",
+        ns=ns,
         p("Entrez les valeurs du lecteur 1, séparées par un espace"),
         textInput(ns("Concoman1"), label = "Valeurs du lecteur 1", value = ""),
         p("Entrez les valeurs du lecteur 2, séparées par un espace"),
@@ -433,10 +435,12 @@ fluidPage(
       
       conditionalPanel(
         condition = "input.CONCORinter == true",
+        ns=ns,
         verbatimTextOutput (ns("ConcordanceManuelleINTERV"))
       ),# fin condi 1
       conditionalPanel(
         condition = "input.CONCORinter == false",
+        ns=ns,
         verbatimTextOutput (ns("ConcordanceManuelleSimple"))
       ),# fin condi 2
       p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
@@ -483,6 +487,7 @@ concordanceSansBase<-
         
         conditionalPanel(
           condition = "input.CONCORinter == true",
+          ns=ns,
           verbatimTextOutput (ns("ConcordanceManuelleINTERV2"))
         ),
 
@@ -490,6 +495,7 @@ concordanceSansBase<-
 
         conditionalPanel(
           condition = "input.CONCORinter == false",
+          ns=ns,
           verbatimTextOutput (ns("ConcordanceManuelleSimple2"))
         ),# fin condi 2
         p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
