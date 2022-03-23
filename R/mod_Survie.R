@@ -26,7 +26,11 @@ mod_Survie_server <- function(id, r){
     #source("./miseEnForme.R", local = TRUE)
     eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
-    
+    output$PDFsurvie = downloadHandler(
+      filename    = '4_Survie.pdf',
+      content     = function(file) file.copy('4_Survie.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
 
       
       observe({

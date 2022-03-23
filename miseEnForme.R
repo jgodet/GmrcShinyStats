@@ -19,7 +19,7 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
 
                                   fluidRow(
                                     splitLayout(cellWidths = c("30%","70%"),
-                                                downloadButton('PDFdescriptif1o1',label="AIDE et Détails",class = "butt")
+                                                downloadButton(ns('PDFdescriptif1o1'),label="AIDE et Détails",class = "butt")
                                     )
                                   ),#finFluidRow
                                   tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
@@ -28,7 +28,7 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
                          tabPanel("Données manquantes cumulées par variable",
                                   fluidRow(
                                     splitLayout(cellWidths = c("30%","70%"),
-                                                downloadButton('PDFdescriptif1o2',label="AIDE et Détails",class = "butt"),
+                                                downloadButton(ns('PDFdescriptif1o2'),label="AIDE et Détails",class = "butt"),
                                             h4("Faites attention s'il y a un filtre")
                                     )
                                   ),#finFluidRow
@@ -41,7 +41,7 @@ univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
                          tabPanel("Données manquantes cumulées par sujet",
                                   fluidRow(
                                     splitLayout(cellWidths = c("30%","70%"),
-                                                downloadButton('PDFdescriptif1o3',label="AIDE et Détails",class = "butt"),
+                                                downloadButton(ns('PDFdescriptif1o3'),label="AIDE et Détails",class = "butt"),
                                             h4("Faites attention s'il y a un filtre")
                                     )
                                   ),#finFluidRow
@@ -473,7 +473,7 @@ concordanceSansBase<-
       mainPanel(   
         fluidRow(
           splitLayout(cellWidths = c("30%","70%"), 
-                      downloadButton('PDFconcordance',label="AIDE et Détails",class = "butt"),
+                      downloadButton(ns('PDFconcordance'),label="AIDE et Détails",class = "butt"),
                   h4("Faites attention s'il y a un filtre")  
           )
         ),#finFluidRow

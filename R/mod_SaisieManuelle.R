@@ -6,7 +6,9 @@
 #'
 #' @noRd 
 #'
-#' @importFrom shiny NS tagList 
+#' @importFrom shiny NS tagList
+
+
 mod_SaisieManuelle_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -14,14 +16,17 @@ mod_SaisieManuelle_ui <- function(id){
   dashboardPage(dashboardHeader(title = "Saisie manuelle"),
                 dashboardSidebar(
                   sidebarMenu(
-                    numericInput(ns("NbLignesMAIN"), "Nombre de lignes", 2),
-                    numericInput(ns("NbcolonnesMAIN"), "Nombre de colonnes", 2),
-                    tags$p("Entrez les valeurs agrégées du tableau, séparées par un espace (remplissage en colonne)"),
-                    textInput(ns("TableauMAIN1"), label = "Effectifs du tableau:", value = "1 2 3 4")
+                    numericInput(ns("NbLignesMAIN"), tags$p("Nombre de lignes",style = "color:white"), 2),
+                    numericInput(ns("NbcolonnesMAIN"), tags$p("Nombre de colonnes",style = "color:white"), 2),
+                    tags$p("   Entrez les valeurs agrégées du"),
+                    tags$p("tableau, séparées par un espace"),
+                    tags$p("(remplissage en colonne)."),
+                    textInput(ns("TableauMAIN1"), label = tags$p("Effectifs du tableau:",style = "color:white"), value = "1 2 3 4")
                   )
                 ),
                 dashboardBody(fluidPage(
-                  titlePanel("Réaliser un tableau croisé"),
+                  #titlePanel("Réaliser un tableau croisé"),
+                  tags$h3("Réaliser un tableau croisé",align = "center",style = "color:#08088A; font-family: Gabriola; font-size : 40px;"),
 
                       tags$h3("Tableau croisé",align = "left",style = "color:#08088A"),
                       tags$p("On présente ci-dessous le tableau croisé des deux variables:"),

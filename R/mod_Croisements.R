@@ -29,6 +29,11 @@ mod_Croisements_server <- function(id, r){
     #source("./miseEnForme.R", local = TRUE)
     eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
+    output$PDFcroisements = downloadHandler(
+      filename    = '3_Croisements.pdf',
+      content     = function(file) file.copy('3_Croisements.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
     
     observe({
     output$CroisementsInference = renderUI({

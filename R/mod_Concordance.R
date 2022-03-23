@@ -30,6 +30,13 @@ mod_Concordance_server <- function(id,r){
     #source("./miseEnForme.R", local = TRUE)
     eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
+    output$PDFconcordance = downloadHandler(
+      filename    = '6_Concordance.pdf',
+      content     = function(file) file.copy('6_Concordance.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
+    
     observe({
       output$concordance = renderUI({
         if(!r$BASEchargee) do.call(tabPanel,pasDeBase)

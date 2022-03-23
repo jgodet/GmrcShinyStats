@@ -33,6 +33,23 @@ mod_Descriptifs_server <- function(id,r){
     source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
     eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    
+    output$PDFdescriptif1o1 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    
+    output$PDFdescriptif1o2 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
+    output$PDFdescriptif1o3 = downloadHandler(
+      filename    = '2_Descriptif.pdf',
+      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    )
 
     observe({
     output$univarie = renderUI({

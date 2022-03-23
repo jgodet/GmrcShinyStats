@@ -28,6 +28,12 @@ mod_Tests_server <- function(id,r){
     #source("./miseEnForme.R", local = TRUE)
     eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
+    output$PDFdiag = downloadHandler(
+      filename    = '5_Diagnostiques.pdf',
+      content     = function(file) file.copy('5_Diagnostiques.pdf', file, overwrite = TRUE),
+      contentType = 'application/pdf'
+    ) 
+    
     observe({
     output$testsDiagnostiques = renderUI({
       if(!r$BASEchargee) do.call(tabPanel,pasDeBase)

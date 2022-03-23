@@ -14,9 +14,9 @@ mod_Redaction_ui <- function(id){
   dashboardPage(dashboardHeader(title = "Rédaction"),
                 dashboardSidebar(tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),
                                  tags$br(),tags$br(),
-                                 tags$h4("En cas de question, vous pouvez contacter:",style = "color:darkgrey"), 
-                                 tags$p("GMRC CHU Strasbourg",style = "color:darkgrey"),
-                                 tags$p("ShinyGMRC@chru-strasbourg.fr",style = "color:darkgrey"),
+                                 tags$h4("En cas de question, vous pouvez contacter:",style = "color:white",align = "center"),
+                                 tags$p(tags$b("GMRC CHU Strasbourg"),style = "color:white",align = "center"),
+                                 tags$p(tags$b("ShinyGMRC@chru-strasbourg.fr"),style = "color:white",align = "center"),
                                  # tags$p("03 88 1(1 67 49)",style = "color:#08088A"),tags$br(),tags$br(),tags$br(),tags$br(),tags$br()
                                  #height = 400	, width = 492
                                  tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),tags$br(), tags$br(),tags$br(),tags$br(),tags$br()),
@@ -28,7 +28,7 @@ mod_Redaction_ui <- function(id){
                         img(src="www/logo1.png", height = "100%"	, width = "100%", style="display: block; margin-left: auto; margin-right: auto;")
                       ),
                     mainPanel(
-                    tags$h3("Rédiger la partie matériel et méthodes",align = "left",style = "color:#08088A"),
+                    tags$h3("Rédiger la partie matériel et méthodes",align = "center",style = "color:#08088A; font-family: Gabriola; font-size : 40px;"),
                     tags$p("On présente ci-dessous un exemple de rédaction de la partie « matériel et méthodes ». C'est exemple doit être adapté et modifié en fonction du type d'étude réalisée et du contexte. Le premier paragraphe correspond à un exemple type pour une utilisation des outils descriptifs, des croisements de variables et des tests d'associations univariés. Les parties suivantes sont spécifiques aux analyses de performances diagnostiques et aux mesures de concordance. Elles pourront être ajoutées à l'endroit symbolisé par deux astérisques/étoiles **"),
                     tags$br(),tags$br(),
                     tags$h4("Matériel et méthodes",align = "left",style = "color:#08088A"),

@@ -40,9 +40,6 @@ customTheme <- shinyDashboardThemeDIY(
     ,colorStart = "rgb(64,64,64)"
     ,colorMiddle = "rgb(96,96,96)"
     ,colorEnd = "rgb(192,192,192)"
-    # ,colorStart = "paleturquoise2"
-    # ,colorMiddle = "cadetblue3"
-    # ,colorEnd = "cornflowerblue"
     ,colorStartPos = 0
     ,colorMiddlePos = 50
     ,colorEndPos = 100
@@ -104,7 +101,7 @@ customTheme <- shinyDashboardThemeDIY(
   ,boxDefaultColor = "rgb(210,214,220)"
   ,boxPrimaryColor = "rgba(44,222,235,1)"
   ,boxInfoColor = "rgb(210,214,220)"
-  ,boxSuccessColor = "rgba(0,255,213,1)"
+  ,boxSuccessColor = "rgba(0,201,7,1)"
   ,boxWarningColor = "rgb(244,156,104)"
   ,boxDangerColor = "rgb(255,88,55)"
   
