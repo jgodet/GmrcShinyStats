@@ -4,10 +4,13 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
+#' @import shinydashboardPlus
 #' @noRd
 #' @dashboardthemes
 
 #source("./theme.R", local = TRUE)
+
+
 
 ### creating custom theme object
 customTheme <- shinyDashboardThemeDIY(
@@ -101,7 +104,7 @@ customTheme <- shinyDashboardThemeDIY(
   ,boxDefaultColor = "rgb(210,214,220)"
   ,boxPrimaryColor = "rgba(44,222,235,1)"
   ,boxInfoColor = "rgb(210,214,220)"
-  ,boxSuccessColor = "rgba(0,201,7,1)"
+  ,boxSuccessColor = "rgba(60,179,113,1)"
   ,boxWarningColor = "rgb(244,156,104)"
   ,boxDangerColor = "rgb(255,88,55)"
   
@@ -147,7 +150,7 @@ app_ui <- function(request) {
     
     # Your application UI logic
     navbarPage(
-      "G.M.R.C",
+      "G.M.R.C.",
                 tabPanel("Avec une base de données",
                          dashboardPage(
                            dashboardHeader(title = "Base de données"),

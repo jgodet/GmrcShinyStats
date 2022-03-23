@@ -1,6 +1,6 @@
 pasDeBase <-   fluidPage(   
-h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible" ),
-p("Pour charger une base de données, rendez-vous sur l'onglet Base de Données en haut de cette page.")
+h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible." ),
+p("Pour charger une base de données, rendez-vous sur l'onglet « Base de Données » dans la barre latérale.")
 )
 
 
@@ -242,9 +242,9 @@ analyseDeSurvie<-
     titlePanel("Analyses de survie"),
     sidebarLayout( 
       sidebarPanel(
-        p("Sélectionnez la variable quantitative représentant le délai jusqu'à survenue de l'évènement ou de censure"),
+        p("Sélectionnez la variable quantitative représentant le délai jusqu'à survenue de l'évènement ou de censure."),
         uiOutput(ns("propositionsSURVIE1")),
-        p("Sélectionnez la variable qualitative codée 0 si censure ou 1 si survenue de l'évènement"),
+        p("Sélectionnez la variable qualitative codée 0 si censure ou 1 si survenue de l'évènement."),
         uiOutput(ns("propositionsSURVIE2")),
         br(),
         br(),
@@ -278,6 +278,7 @@ analyseDeSurvie<-
                                                         effectuée, la courbe est présentée dans son intervalle de confiance à 95%. Si une comparaison est demandée, le graphique présente
                                                         la courbe de Kaplan-Meier dans chacun des groupes."),
         plotOutput(ns('plotSURVIE')),
+        tags$br(),
         p("Le détail des données utilisées pour la construction de cette ou ces courbes est présenté ci-dessous. Dans le cas
                                                         d'une comparaison entre plusieurs groupes, le détail est présenté par groupes, un test d'égalité de l'ensemble des courbes est 
                                                         présenté (Test du Log-Rank) et les résultats sont affichés au bas de cette page."),
@@ -310,9 +311,9 @@ navbarPage("",
                        title = 'Examples of DataTables',
                        sidebarLayout(
                          sidebarPanel(
-                           p("Sélectionnez la variable qualitative codée 0 ou 1 à expliquer:"),
+                           p("Sélectionnez la variable qualitative codée 0 ou 1 à expliquer."),
                            uiOutput(ns("propositionsLOGIT1")),
-                           p("Sélectionnez la variable quantitative explicative"),
+                           p("Sélectionnez la variable quantitative explicative."),
                            uiOutput(ns("propositionsLOGIT2")),
                            br(),
                            br()                              
@@ -332,11 +333,11 @@ navbarPage("",
                               id='datasetlogit',
                              tabPanel('Variables sélectionnées',
                                       h3("Variables sélectionnées"),
-                                      p("Les variables sélectionnées pour la réalisation du test diagnostique sont:"),
+                                      p("Les variables sélectionnées pour la réalisation du test diagnostique sont :"),
                                       tableOutput(ns('mytableLOGIT1'))
                              ),
                              tabPanel('Courbe ROC',
-                                      p("La courbe ROC réalisée à partir des variables sélectionnées est présentée ci-dessous"),
+                                      p("La courbe ROC réalisée à partir des variables sélectionnées est présentée ci-dessous."),
                                       checkboxInput(ns("LOGIToptionsGRAPHIQUES"), "Je souhaite ajouter des options graphiques", FALSE),
                                       conditionalPanel(
                                         condition = "input.LOGIToptionsGRAPHIQUES",
@@ -364,7 +365,7 @@ navbarPage("",
                                       tableOutput(ns('LogitPERF1')),br(),
                                       h4("La critères de performances sont alors"),
                                       tableOutput(ns('LogitPERF2')),
-                                      p("Attention, si l'évènement est associé à une mesure inférieure au cut, la lecture des VP,VN,FP,FN, VPP et VPN est inversée dans ce dernier tableau. 
+                                      p("Attention, si l'évènement est associé à une mesure inférieure au cut, la lecture des VP, VN, FP, FN, VPP et VPN est inversée dans ce dernier tableau. 
                                                                              Il faut alors se référer au tableau à 4 cases sur le haut de cette page."),br()
                                       
                                       
@@ -410,9 +411,9 @@ fluidPage(
       conditionalPanel(
         condition = "input.CONCORsaisie == true",
         ns=ns,
-        p("Entrez les valeurs du lecteur 1, séparées par un espace"),
+        p("Entrez les valeurs du lecteur 1, séparées par un espace."),
         textInput(ns("Concoman1"), label = "Valeurs du lecteur 1", value = ""),
-        p("Entrez les valeurs du lecteur 2, séparées par un espace"),
+        p("Entrez les valeurs du lecteur 2, séparées par un espace."),
         textInput(ns("Concoman2"), label = "Valeurs du lecteur 2", value = "")
       )# fin condi
     )# fin sidebar panel
@@ -428,7 +429,7 @@ fluidPage(
       
       tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
       h3("Tableau croisé"),
-      p("On présente ci-dessous le tableau croisé des lectures réalisées:"),
+      p("On présente ci-dessous le tableau croisé des lectures réalisées :"),
       tableOutput(ns('mytableCONCORDANCE1')),br(),
       
       
@@ -443,7 +444,7 @@ fluidPage(
         ns=ns,
         verbatimTextOutput (ns("ConcordanceManuelleSimple"))
       ),# fin condi 2
-      p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
+      p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen :"),
       tableOutput(ns('LandisEtKoch2'))
       
       

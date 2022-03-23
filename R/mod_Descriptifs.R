@@ -142,6 +142,7 @@ mod_Descriptifs_server <- function(id,r){
                       ylab = "Effectif",
                       main= "Histogramme",
                       col = "#75AADB", border = "white") )
+        #g<-ggplot(base, aes_string(x=input$variable))+geom_histogram(fill="#75AADB", color="white")+theme_minimal()+xlab(input$variable)+ylab("Effectif")+ggtitle("Histogramme"); print(g)
 
 
       }
@@ -152,8 +153,14 @@ mod_Descriptifs_server <- function(id,r){
       base    <-r$BDD
       variable<-base[,colnames(base)==input$variable]
       #variable<-base[,input$variable]
-      if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
-      if(input$qualiquanti=="qual"){print(graphics::pie(as.vector(table(variable))))}
+      #if(input$qualiquanti=="quant"){boxplot(x=variable,main="Diagramme boite", xlab = input$variable)}
+      if(input$qualiquanti=="quant"){g<-ggplot(base, aes_string(y=input$variable))+geom_boxplot(width=0.2)+theme_minimal(); print(g)}
+      #if(input$qualiquanti=="qual"){print(graphics::pie(as.vector(table(variable))))}
+      if(input$qualiquanti=="qual"){print(as.data.frame(table(variable))); g<-ggplot(as.data.frame(table(variable)), aes(x="", y=Freq, fill=variable)) +
+        geom_bar(stat="identity", width=1) +
+        coord_polar("y", start=0)+theme_void()+ggtitle("Diagramme circulaire")+
+        geom_text(aes(label = variable),
+                  position = position_stack(vjust = 0.5)) +theme(legend.position="none"); print(g)}
     })
     
     # 

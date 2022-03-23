@@ -47,12 +47,12 @@ mod_Concordance_server <- function(id,r){
       observeEvent(r$BDD,ignoreInit = T,{
       output$CONCORDANCElecture1 <- renderUI({
         
-        selectInput(ns("CONCORDANCElecture1"), "Variable qualitative: Lecteur 1",   choices=r$noms) 
+        selectInput(ns("CONCORDANCElecture1"), "Variable qualitative : Lecteur 1",   choices=r$noms) 
       })
       
       output$CONCORDANCElecture2 <- renderUI({
         
-        selectInput(ns("CONCORDANCElecture2"), "Variable qualitative: Lecteur 2",   choices=r$noms) 
+        selectInput(ns("CONCORDANCElecture2"), "Variable qualitative : Lecteur 2",   choices=r$noms) 
       })
       
       
