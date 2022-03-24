@@ -37,6 +37,7 @@ usethis::use_package( "pROC" )
 usethis::use_package( "dashboardthemes" )
 usethis::use_package( "shinydashboardPlus")
 usethis::use_package("utils" )
+usethis::use_package("desctable" )
 
 
 
