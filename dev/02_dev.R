@@ -35,6 +35,7 @@ usethis::use_package( "DataExplorer" )
 usethis::use_package( "ggthemes" )
 usethis::use_package( "pROC" )
 usethis::use_package( "dashboardthemes" )
+usethis::use_package( "shinydashboardPlus" )
 
 
 
