@@ -34,6 +34,8 @@ usethis::use_package( "ggplot2" )
 usethis::use_package( "DataExplorer" )
 usethis::use_package( "ggthemes" )
 usethis::use_package( "pROC" )
+usethis::use_package( "dashboardthemes" )
+
 
 
 
