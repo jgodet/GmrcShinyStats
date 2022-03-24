@@ -24,6 +24,18 @@ golem::add_module(name = "Redaction", with_test = FALSE) # Name of the module
 
 usethis::use_package( "shiny" ) 
 usethis::use_package( "shinydashboard" )
+usethis::use_package( "shinyFiles" )
+usethis::use_package( "irr" )
+usethis::use_package( "gdata" )
+usethis::use_package( "boot" )
+usethis::use_package( "xtable" )
+usethis::use_package( "dplyr" )
+usethis::use_package( "ggplot2" )
+usethis::use_package( "DataExplorer" )
+usethis::use_package( "ggthemes" )
+usethis::use_package( "pROC" )
+
+
 
 ## 2.3 Add tests
 
