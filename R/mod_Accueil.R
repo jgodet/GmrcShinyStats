@@ -97,7 +97,7 @@ mod_Accueil_server <- function(id){
     ns <- session$ns
     
     output$formatBASE = downloadHandler(
-      filename    = '0_Instructions.pdf',
+      filename    = 'www/0_Instructions.pdf',
       content     = function(file) file.copy('0_Instructions.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
@@ -131,7 +131,7 @@ mod_Accueil_server <- function(id){
     )
     
     output$DLcsv <- downloadHandler(
-      filename ='ExempleCSV.csv',
+      filename ='www/ExempleCSV.csv',
       content = function(file) file.copy('ExempleCSV.csv', file, overwrite = TRUE),
       contentType = 'application/csv'
       
