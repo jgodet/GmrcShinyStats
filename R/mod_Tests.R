@@ -22,11 +22,102 @@ mod_Tests_ui <- function(id){
 mod_Tests_server <- function(id,r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
+    pasDeBase <-   fluidPage(   
+      h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible." ),
+      p("Pour charger une base de données, rendez-vous sur l'onglet « Base de Données » dans la barre latérale.")
+    )
  
-    source("./CodeSansDependance.R", local = TRUE)
-    source("./fonctions.R", local = TRUE)
+    testsDiagnostiques<- 
+      fluidPage(    
+        
+        navbarPage("",
+                   
+                   
+                   
+                   
+                   
+                   tabPanel("Réalisation d'un test diagnostique univarié",
+                            
+                            
+                            
+                            fluidPage(
+                              title = 'Examples of DataTables',
+                              sidebarLayout(
+                                sidebarPanel(
+                                  p("Sélectionnez la variable qualitative codée 0 ou 1 à expliquer."),
+                                  uiOutput(ns("propositionsLOGIT1")),
+                                  p("Sélectionnez la variable quantitative explicative."),
+                                  uiOutput(ns("propositionsLOGIT2")),
+                                  br(),
+                                  br()                              
+                                  
+                                  
+                                ), # fin sidebar panel
+                                mainPanel(
+                                  fluidRow(
+                                    splitLayout(cellWidths = c("30%","70%"), 
+                                                downloadButton(ns('PDFdiag'),label="AIDE et Détails",class = "butt"),
+                                                h4("Faites attention s'il y a un filtre")  
+                                    )
+                                  ),#finFluidRow
+                                  
+                                  tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                  navbarPage(title=NULL,
+                                             id='datasetlogit',
+                                             tabPanel('Variables sélectionnées',
+                                                      h3("Variables sélectionnées"),
+                                                      p("Les variables sélectionnées pour la réalisation du test diagnostique sont :"),
+                                                      tableOutput(ns('mytableLOGIT1'))
+                                             ),
+                                             tabPanel('Courbe ROC',
+                                                      p("La courbe ROC réalisée à partir des variables sélectionnées est présentée ci-dessous."),
+                                                      checkboxInput(ns("LOGIToptionsGRAPHIQUES"), "Je souhaite ajouter des options graphiques", FALSE),
+                                                      conditionalPanel(
+                                                        condition = "input.LOGIToptionsGRAPHIQUES",
+                                                        ns=ns,
+                                                        checkboxInput(ns("LOGIToptionsAUC"), "Afficher Aire sous la courbe sur le graphique", FALSE),
+                                                        checkboxInput(ns("LOGIToptionsSEUIL"), "Afficher seuil optimal sur le graphique", FALSE),
+                                                        checkboxInput(ns("LOGIToptionsIntervalle"), "Afficher intervalle de confiance courbe ROC", FALSE)
+                                                      ),
+                                                      h3("Courbe ROC associée"),
+                                                      plotOutput(ns('LogitROC')),
+                                                      br(),br(),
+                                                      h3("Meilleur seuil estimé par maximisation de l'indice de Youden"),
+                                                      tableOutput(ns('LogitROCtableauBEST')),
+                                                      br(),br(),
+                                                      h3("Détails des seuils utilisés pour construire la courbe"),
+                                                      tableOutput(ns('LogitROCtableau'))
+                                                      
+                                             ), # fin tab panel
+                                             tabPanel('Performances diagnostiques',
+                                                      h4("Le meilleur seuil (au sens défini précédemment) est estimé à:"),
+                                                      tableOutput(ns('LogitPERFtableauBEST')),br(),
+                                                      h4("Pour un tel seuil le tableau croisé devient:"),
+                                                      tableOutput(ns('LogitPERF3')),br(),
+                                                      h4("La sensibilité et la specificité sont:"),
+                                                      tableOutput(ns('LogitPERF1')),br(),
+                                                      h4("La critères de performances sont alors"),
+                                                      tableOutput(ns('LogitPERF2')),
+                                                      p("Attention, si l'évènement est associé à une mesure inférieure au cut, la lecture des VP, VN, FP, FN, VPP et VPN est inversée dans ce dernier tableau. 
+                                                                             Il faut alors se référer au tableau à 4 cases sur le haut de cette page."),br()
+                                                      
+                                                      
+                                                      
+                                             )  
+                                  )# fin tab set panel
+                                ) # fin main panel
+                              ) # fin sidebarlayout
+                            ) # fin fluipage   )     
+                   ) # fin tabpanel
+                   
+        )
+      )
+    
+    #source("./CodeSansDependance.R", local = TRUE)
+    #source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
-    eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    #eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
     output$PDFdiag = downloadHandler(
       filename    = '5_Diagnostiques.pdf',

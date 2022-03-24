@@ -24,10 +24,142 @@ mod_Croisements_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
-    source("./CodeSansDependance.R", local = TRUE)
-    source("./fonctions.R", local = TRUE)
+    pasDeBase <-   fluidPage(   
+      h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible." ),
+      p("Pour charger une base de données, rendez-vous sur l'onglet « Base de Données » dans la barre latérale.")
+    )
+    
+    CroisementsInference<-
+      fluidPage(navbarPage(id="Panel 2.x",title = NULL,
+                           
+                           tabPanel("Croisement 2 à 2",
+                                    
+                                    
+                                    fluidPage( includeCSS("./www/tables.css"),   
+                                               titlePanel("Analyses descriptives croisées"),
+                                               sidebarLayout( 
+                                                 sidebarPanel(
+                                                   
+                                                   uiOutput(ns("propositionsCROISE1")),
+                                                   radioButtons(ns('qualiquantiCROISE1'), 
+                                                                "Nature de la variable",
+                                                                c(Quantitative='quant', Qualitative='qual'),
+                                                                'quant'),
+                                                   uiOutput(ns("propositionsCROISE2")),
+                                                   radioButtons(ns('qualiquantiCROISE2'), 
+                                                                "Nature de la variable",
+                                                                c(Quantitative='quant', Qualitative='qual'),
+                                                                'quant'),
+                                                   conditionalPanel(
+                                                     condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",
+                                                     radioButtons(ns('NATableau'), 
+                                                                  "Afficher les données manquante",
+                                                                  c(Non="no", Oui='always'),
+                                                                  "no"))
+                                                   
+                                                   
+                                                   
+                                                 ),
+                                                 mainPanel(  
+                                                   fluidRow(
+                                                     splitLayout(cellWidths = c("30%","70%"), 
+                                                                 downloadButton(ns('PDFcroisements'),label="AIDE et Détails",class = "butt"),
+                                                                 h4("Faites attention s'il y a un filtre")  
+                                                     )
+                                                   ),#finFluidRow
+                                                   
+                                                   tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                                   h3("Représentation graphique du lien entre les deux variables"),
+                                                   plotOutput(ns('plotCROISE' )),
+                                                   # debut conditionnal panel QualiQuali
+                                                   conditionalPanel(
+                                                     condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",
+                                                     h3("Tableau croisé",align = "left",style = "color:#08088A"),
+                                                     tableOutput(ns("montableauCroisAUTO")),br(),
+                                                     tableOutput(ns("montableauCroise2AUTO")),
+                                                     tableOutput(ns("montableauCroise3AUTO")),
+                                                     h3("Tests d'association / Comparaison des proportions",align = "left",style = "color:#08088A"),
+                                                     fluidRow(
+                                                       splitLayout(cellWidths = c("50%","50%"), 
+                                                                   tableOutput(ns('AUTOtableCHI2')), 
+                                                                   tableOutput(ns('AUTOtableFISHER'))
+                                                       )
+                                                     ),
+                                                     textOutput(ns('AUTOCHI2conditions')),
+                                                     h3("Rapport de cotes",align = "left",style = "color:#08088A"),
+                                                     tableOutput(ns('oddratioAUTO'))
+                                                   ),# fin panelQualiQuali,
+                                                   # debut conditionnal panel QuantiQuali
+                                                   conditionalPanel(
+                                                     condition = "input.qualiquantiCROISE1 != input.qualiquantiCROISE2",
+                                                     h3("Descriptif complet",align = "left",style = "color:#08088A"),
+                                                     tableOutput(ns('descr3DESCRIPTIF')),
+                                                     h3("Tests de comparaisons:",align = "left",style = "color:#08088A"),
+                                                     verbatimTextOutput (ns("descr3TestNormalite")),
+                                                     verbatimTextOutput (ns("descr3Testpv")),
+                                                     verbatimTextOutput (ns("descr3TestsNPv")),
+                                                     verbatimTextOutput (ns("descr3Tests_de_Student")),
+                                                     verbatimTextOutput(ns("descr3TestsMANN")),
+                                                     verbatimTextOutput (ns("ChoixSortieCROISE"))
+                                                   ), # fin Panel Quali Quanti
+                                                   # debut conditionnal panel QuantiQuanti
+                                                   conditionalPanel(
+                                                     condition = "input.qualiquantiCROISE1 == 'quant' && input.qualiquantiCROISE2 == 'quant'",
+                                                     h3("Corrélation entre deux variables quantitatives",align = "left",style = "color:#08088A"),
+                                                     verbatimTextOutput (ns("CorrelationCROISE"))
+                                                   ),# fin panelQuantiQuali,
+                                                   plotOutput(ns('plotCROISE2'))
+                                                 )# fin MainPanel
+                                                 
+                                               )# fin sidebarlayout
+                                    ))# fin fluidpage
+                           ,
+                           
+                           tabPanel("Tableau croisement",
+                                    
+                                    
+                                    
+                                    fluidPage(    
+                                      titlePanel("Analyses descriptives croisées"),
+                                      sidebarLayout( 
+                                        sidebarPanel(
+                                          # 
+                                          uiOutput(ns("propositionsTableauCROISE")),
+                                          uiOutput(ns("selectionVariablesCroisees1")),
+                                          uiOutput(ns("selectionVariablesCroisees3")),
+                                          uiOutput(ns("selectionVariablesCroisees2")),
+                                          radioButtons(ns("tableauCroiseSimpli"),"Tableau avec abréviation :"
+                                                       , c( Oui = 1, Non = 0),0),
+                                          sliderInput(ns("nbDec"), "Nombre de decimales : ", min =0,
+                                                      max = 5, value= 3, step = 1),
+                                          downloadButton(ns('downloadData'), 'Télécharger la table')
+                                          
+                                          
+                                        ),
+                                        mainPanel(    
+                                          #   fluidRow(
+                                          # 
+                                          #                 downloadButton('PDFcroisements',label="AIDE et Détails",class = "butt")
+                                          #  
+                                          #      
+                                          # ),#finFluidRow
+                                          
+                                          # tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                          h3("Tableau de comparaison de population"),
+                                          conditionalPanel(condition = "!is.null(input$VariableCroisees)", tableOutput(ns('tableauCroisement')))
+                                          
+                                        )# fin MainPanel
+                                        
+                                      )# fin sidebarlayout
+                                    )# fin fluidpage
+                           ) # fin tabPanel tableau Croisement                  
+      ) # fin tabset
+      )
+    
+    #source("./CodeSansDependance.R", local = TRUE)
+    #source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
-    eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    #eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
     output$PDFcroisements = downloadHandler(
       filename    = '3_Croisements.pdf',

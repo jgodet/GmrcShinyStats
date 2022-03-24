@@ -25,10 +25,138 @@ mod_Concordance_server <- function(id,r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
-    source("./CodeSansDependance.R", local = TRUE)
-    source("./fonctions.R", local = TRUE)
+    pasDeBase <-   fluidPage(   
+      h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible." ),
+      p("Pour charger une base de données, rendez-vous sur l'onglet « Base de Données » dans la barre latérale.")
+    )
+    
+    concordanceAvecBase<- 
+      fluidPage(    
+        titlePanel("Analyse de concordance entre 2 lecteurs"),
+        sidebarLayout( 
+          sidebarPanel(
+            # si saisie par choix des variables
+            conditionalPanel(
+              condition = "input.CONCORsaisie == false",
+              ns=ns,
+              p("Sélectionnez la variable associée à la mesure du premier lecteur"),
+              uiOutput(ns("CONCORDANCElecture1")),
+              br(),
+              br(),
+              p("Sélectionnez la variable associée à la mesure du deuxième lecteur"),
+              uiOutput(ns("CONCORDANCElecture2")),
+              br(),
+              br()),
+            # quel type de saisie souhaité   
+            checkboxInput(ns("CONCORsaisie"), "Saisir les données des deux lecteurs manuellement"),
+            # ajout de l'intervalle de confiance   
+            checkboxInput(ns("CONCORinter"), "Ajouter l'intervalle de confiance (simulations, le calcul peut prendre plusieurs minutes)"),
+            # si saisie manuelle   
+            conditionalPanel(
+              condition = "input.CONCORsaisie == true",
+              ns=ns,
+              p("Entrez les valeurs du lecteur 1, séparées par un espace."),
+              textInput(ns("Concoman1"), label = "Valeurs du lecteur 1", value = ""),
+              p("Entrez les valeurs du lecteur 2, séparées par un espace."),
+              textInput(ns("Concoman2"), label = "Valeurs du lecteur 2", value = "")
+            )# fin condi
+          )# fin sidebar panel
+          ,
+          
+          mainPanel(   
+            fluidRow(
+              splitLayout(cellWidths = c("30%","70%"), 
+                          downloadButton(ns('PDFconcordance'),label="AIDE et Détails",class = "butt"),
+                          h4("Faites attention s'il y a un filtre")  
+              )
+            ),#finFluidRow
+            
+            tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+            h3("Tableau croisé"),
+            p("On présente ci-dessous le tableau croisé des lectures réalisées :"),
+            tableOutput(ns('mytableCONCORDANCE1')),br(),
+            
+            
+            
+            conditionalPanel(
+              condition = "input.CONCORinter == true",
+              ns=ns,
+              verbatimTextOutput (ns("ConcordanceManuelleINTERV"))
+            ),# fin condi 1
+            conditionalPanel(
+              condition = "input.CONCORinter == false",
+              ns=ns,
+              verbatimTextOutput (ns("ConcordanceManuelleSimple"))
+            ),# fin condi 2
+            p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen :"),
+            tableOutput(ns('LandisEtKoch2'))
+            
+            
+            
+          )# fin MainPanel
+          
+        )# fin sidebarlayout
+      )# fin fluidpage
+    
+    
+    
+    concordanceSansBase<- 
+      fluidPage(    
+        titlePanel("Analyse de concordance entre 2 lecteurs"),
+        sidebarLayout( 
+          sidebarPanel(
+            p("Entrez les valeurs du lecteur 1, séparées par un espace"),
+            textInput(ns("Concoman1"), label = "Valeurs du lecteur 1", value = ""),
+            p("Entrez les valeurs du lecteur 2, séparées par un espace"),
+            textInput(ns("Concoman2"), label = "Valeurs du lecteur 2", value = ""),
+            checkboxInput(ns("CONCORinter"), "Ajouter l'intervalle de confiance (simulations, le calcul peut prendre plusieurs minutes)")       # si saisie manuelle   
+            
+            
+          )# fin sidebar panel
+          ,
+          
+          mainPanel(   
+            fluidRow(
+              splitLayout(cellWidths = c("30%","70%"), 
+                          downloadButton(ns('PDFconcordance'),label="AIDE et Détails",class = "butt"),
+                          h4("Faites attention s'il y a un filtre")  
+              )
+            ),#finFluidRow
+            
+            tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+            h3("Tableau croisé"),
+            p("On présente ci-dessous le tableau croisé des lectures réalisées:"),
+            tableOutput(ns('mytableCONCORDANCE2')),br(),
+            
+            
+            
+            conditionalPanel(
+              condition = "input.CONCORinter == true",
+              ns=ns,
+              verbatimTextOutput (ns("ConcordanceManuelleINTERV2"))
+            ),
+            
+            
+            
+            conditionalPanel(
+              condition = "input.CONCORinter == false",
+              ns=ns,
+              verbatimTextOutput (ns("ConcordanceManuelleSimple2"))
+            ),# fin condi 2
+            p("Landis et Koch proposent l'interprétation suivante du coefficient Kappa de Cohen:"),
+            tableOutput(ns('LandisEtKoch2'))
+            
+            
+            
+          )# fin MainPanel
+          
+        )# fin sidebarlayout
+      )# fin fluidpage
+    
+    #source("./CodeSansDependance.R", local = TRUE)
+    #source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
-    eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    #eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
     output$PDFconcordance = downloadHandler(
       filename    = '6_Concordance.pdf',

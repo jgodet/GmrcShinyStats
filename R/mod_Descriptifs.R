@@ -29,10 +29,144 @@ mod_Descriptifs_server <- function(id,r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
-    source("./CodeSansDependance.R", local = TRUE)
-    source("./fonctions.R", local = TRUE)
+    diagrammeBarre <- function(base){
+      data<- tablePourcent(base)
+      bp<-ggplot(data=data, aes(x=nom ,y=pourcent*100, fill=reorder(nom, 1/pourcent)))
+      
+      maxPourcent<- max(data$pourcent, na.rm = T)
+      label<-  paste(round(data$pourcent,3)*100,"%")
+      vjust<- unlist(as.list(ifelse(data$pourcent< maxPourcent/5, -1.6, 1.6)), use.names = F)
+      
+      barre <- bp +
+        labs(title="Diagramme en barre", 
+             x="", y = "pourcentage")+
+        geom_bar(stat="identity", color='black')+
+        guides(fill=guide_legend(override.aes=list(colour=NULL)))+
+        
+        
+        geom_text(aes( label = label), vjust=vjust, color="black", size=5) +
+        theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))
+      
+      barre$labels$fill <- ""
+      return(barre)
+      
+    }
+    
+    tablePourcent<- function(base){
+      pourcent <-  prop.table(table(base)) 
+      pourcent<- pourcent[order(pourcent)]
+      
+      data<- data.frame(pourcent = as.numeric(pourcent), nom = names(pourcent))
+      
+      
+      
+      return(data)
+      
+    }
+    
+    pasDeBase <-   fluidPage(   
+      h4("Aucune base n'a été chargée en mémoire, cet onglet n'est pas accessible." ),
+      p("Pour charger une base de données, rendez-vous sur l'onglet « Base de Données » dans la barre latérale.")
+    )
+    
+    univarie <- fluidPage(navbarPage(title = NULL,id="descriptif",
+                                     
+                                     tabPanel("Informations BDD",
+                                              fluidPage(
+                                                titlePanel("Informations sur la base de données"),
+                                                
+                                                navlistPanel(
+                                                  "Menu",
+                                                  tabPanel("Informations brutes", 
+                                                           
+                                                           fluidRow(
+                                                             splitLayout(cellWidths = c("30%","70%"),
+                                                                         downloadButton(ns('PDFdescriptif1o1'),label="AIDE et Détails",class = "butt")
+                                                             )
+                                                           ),#finFluidRow
+                                                           tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                                           verbatimTextOutput (ns("tableauBASE")),
+                                                           plotOutput(ns('plotNAbase1'))),
+                                                  tabPanel("Données manquantes cumulées par variable",
+                                                           fluidRow(
+                                                             splitLayout(cellWidths = c("30%","70%"),
+                                                                         downloadButton(ns('PDFdescriptif1o2'),label="AIDE et Détails",class = "butt"),
+                                                                         h4("Faites attention s'il y a un filtre")
+                                                             )
+                                                           ),#finFluidRow
+                                                           
+                                                           tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                                           h4("Descriptif cumulé des données manquantes par variable",align="center"),
+                                                           p("On représente ci-dessous les données manquantes en proportions par variable étudiée."),
+                                                           plotOutput(ns('plotNAbase2')),
+                                                           tableOutput(ns("tableNAbase2"))),
+                                                  tabPanel("Données manquantes cumulées par sujet",
+                                                           fluidRow(
+                                                             splitLayout(cellWidths = c("30%","70%"),
+                                                                         downloadButton(ns('PDFdescriptif1o3'),label="AIDE et Détails",class = "butt"),
+                                                                         h4("Faites attention s'il y a un filtre")
+                                                             )
+                                                           ),#finFluidRow
+                                                           
+                                                           tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                                           h4("Descriptif cumulé des données manquantes par sujet",align="center"),
+                                                           p("On représente ci-dessous les données manquantes en proportions par sujet d'étude."),
+                                                           plotOutput(ns('plotNAbase3')),
+                                                           tableOutput(ns("tableNAbase3")))
+                                                )# fin navlistpanel
+                                                
+                                              ) # fin fluipage        
+                                              
+                                     ),# fin tabpanel
+                                     
+                                     
+                                     
+                                     
+                                     ###################################################
+                                     #####   PAGE 3.2     ###############################
+                                     ###################################################
+                                     
+                                     
+                                     
+                                     tabPanel("Descriptif univarié",
+                                              fluidPage(    
+                                                titlePanel("Analyses descriptives"),
+                                                sidebarLayout( 
+                                                  sidebarPanel(                              
+                                                    uiOutput(ns("propositions")),
+                                                    radioButtons(ns('qualiquanti'), "Nature de la variable",
+                                                                 c(Quantitative='quant', Qualitative='qual'),'qual'
+                                                    )
+                                                  ),
+                                                  # Create a spot for the barplot
+                                                  mainPanel( 
+                                                    # fluidRow(
+                                                    #   # splitLayout(cellWidths = c("30%","70%"), 
+                                                    #   #             downloadButton('PDFdescriptif2',label="AIDE et Détails",class = "butt"),
+                                                    #   #         h4("Faites attention s'il y a un filtre")  
+                                                    #   # )
+                                                    # ),#finFluidRow
+                                                    
+                                                    tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
+                                                    fluidRow(
+                                                      column(6,   textOutput(ns("descriptifUni")),br(),  tableOutput(ns("descvar"))),
+                                                      column(6,     plotOutput(ns('plot1')) , plotOutput(ns('plot2')) )
+                                                    )# fin fluid row du main panel 
+                                                    
+                                                  )# fin MainPanel
+                                                  
+                                                )# fin sidebarlayout
+                                              )# fin fluidpage
+                                     )# fin tabPanel 2
+                                     
+    )# fin navbarPage
+    
+    )
+    
+    #source("./CodeSansDependance.R", local = TRUE)
+    #source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
-    eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    #eval(parse("./miseEnForme.R", encoding="UTF-8"))
     
     output$PDFdescriptif1o1 = downloadHandler(
       filename    = '2_Descriptif.pdf',
