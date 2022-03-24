@@ -38,6 +38,7 @@ usethis::use_package( "dashboardthemes" )
 usethis::use_package( "shinydashboardPlus")
 usethis::use_package("utils" )
 usethis::use_package("desctable" )
+usethis::use_package("moments" )
 
 
 
