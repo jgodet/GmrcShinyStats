@@ -97,10 +97,10 @@ mod_SaisieManuelle_server <- function(id){
     ns <- session$ns
     
     #source("./CodeSansDependance.R", local = TRUE)
-    source("./fonctions.R", local = TRUE)
+    #source("./fonctions.R", local = TRUE)
     #source("./miseEnForme.R", local = TRUE)
-    eval(parse("./miseEnForme.R", encoding="UTF-8"))
-    eval(parse("./CodeSansDependance.R", encoding="UTF-8"))
+    #eval(parse("./miseEnForme.R", encoding="UTF-8"))
+    #eval(parse("./CodeSansDependance.R", encoding="UTF-8"))
     
     
     ########################################################################################################################
