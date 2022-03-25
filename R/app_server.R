@@ -483,10 +483,10 @@ app_server <- function(input, output, session) {
     nbmqt<-sum(is.na(Y))
     ddl<-nbp(Y)-1
     errstm<-sd(Y,na.rm=TRUE)/sqrt(nbp(Y))
-    liminfy<-mean(Y,na.rm=TRUE)-qt(0.975,ddl)*sd(Y,na.rm=TRUE)
-    limsupy<-mean(Y,na.rm=TRUE)+qt(0.975,ddl)*sd(Y,na.rm=TRUE)
-    liminfy2<-mean(Y,na.rm=TRUE)-qt(0.975,ddl)*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
-    limsupy2<-mean(Y,na.rm=TRUE)+qt(0.975,ddl)*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
+    liminfy<-mean(Y,na.rm=TRUE)-suppressWarnings(suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE))
+    limsupy<-mean(Y,na.rm=TRUE)+suppressWarnings(suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE))
+    liminfy2<-mean(Y,na.rm=TRUE)-suppressWarnings(suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE)/sqrt(ddl+1))
+    limsupy2<-mean(Y,na.rm=TRUE)+suppressWarnings(suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE)/sqrt(ddl+1))
     asymetrie<-skewness(Y,na.rm=TRUE)
     kurt<-kurtosis(Y,na.rm=TRUE)
     aze[1,]<-nbp(Y)
@@ -593,22 +593,22 @@ app_server <- function(input, output, session) {
     
     aze[19,]<-c(IQR(Y,na.rm=TRUE),tapply(Y,X,IQR,na.rm=T))
     
-    liminfy<-mean(Y,na.rm=TRUE)-qt(0.975,ddl)*sd(Y,na.rm=TRUE)
-    liminfyx<-tapply(Y,X,mean,na.rm=T)-tapply(Y,X,sd,na.rm=T)*qt(0.975,ddlg)
-    limsupy<-mean(Y,na.rm=TRUE)+qt(0.975,ddl)*sd(Y,na.rm=TRUE)
-    limsupyx<-tapply(Y,X,mean,na.rm=T)+tapply(Y,X,sd,na.rm=T)*qt(0.975,ddlg)
+    liminfy<-mean(Y,na.rm=TRUE)-suppressWarnings(qt(0.975,ddl)*sd(Y,na.rm=TRUE))
+    liminfyx<-tapply(Y,X,mean,na.rm=T)-tapply(Y,X,sd,na.rm=T)*suppressWarnings(qt(0.975,ddlg))
+    limsupy<-mean(Y,na.rm=TRUE)+suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE)
+    limsupyx<-tapply(Y,X,mean,na.rm=T)+tapply(Y,X,sd,na.rm=T)*suppressWarnings(qt(0.975,ddlg))
     aze[20,]<-c(liminfy,liminfyx)
     aze[21,]<-c(limsupy,limsupyx)
     
-    liminfy2<-mean(Y,na.rm=TRUE)-qt(0.975,ddl)*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
-    liminfyx2<-tapply(Y,X,mean,na.rm=T)-tapply(Y,X,sd,na.rm=T)*qt(0.975,ddlg)/sqrt(ddlg+1)
-    limsupy2<-mean(Y,na.rm=TRUE)+qt(0.975,ddl)*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
-    limsupyx2<-tapply(Y,X,mean,na.rm=T)+tapply(Y,X,sd,na.rm=T)*qt(0.975,ddlg)/sqrt(ddlg+1)
+    liminfy2<-mean(Y,na.rm=TRUE)-suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
+    liminfyx2<-tapply(Y,X,mean,na.rm=T)-tapply(Y,X,sd,na.rm=T)*suppressWarnings(qt(0.975,ddlg))/sqrt(ddlg+1)
+    limsupy2<-mean(Y,na.rm=TRUE)+suppressWarnings(qt(0.975,ddl))*sd(Y,na.rm=TRUE)/sqrt(ddl+1)
+    limsupyx2<-tapply(Y,X,mean,na.rm=T)+tapply(Y,X,sd,na.rm=T)*suppressWarnings(qt(0.975,ddlg))/sqrt(ddlg+1)
     aze[22,]<-c(liminfy2,liminfyx2)
     aze[23,]<-c(limsupy2,limsupyx2)
     
-    liminfg<-tapply(Y,X,mean,na.rm=TRUE)-qt(0.975,df=ddlaov)*errstgr
-    limsupg<-tapply(Y,X,mean,na.rm=TRUE)+qt(0.975,df=ddlaov)*errstgr
+    liminfg<-tapply(Y,X,mean,na.rm=TRUE)-suppressWarnings(qt(0.975,df=ddlaov))*errstgr
+    limsupg<-tapply(Y,X,mean,na.rm=TRUE)+suppressWarnings(qt(0.975,df=ddlaov))*errstgr
     
     aze[24,]<-c(NA,liminfg)
     aze[25,]<-c(NA,limsupg)

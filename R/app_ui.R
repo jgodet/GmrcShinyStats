@@ -144,7 +144,7 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    
+
     
     #addResourcePath("www", tempdir),
     
@@ -157,13 +157,13 @@ app_ui <- function(request) {
                                        dashboardSidebar(
                                          sidebarMenu(
                                           #shinythemes::themeSelector(),
-                                           menuItem("Accueil", tabName = "accueil", icon = icon("fa-light fa-star")),
-                                           menuItem("Base de données", tabName = "base", icon = icon("fa-light fa-database")),
-                                           menuItem("Descriptif", tabName = "descriptif", icon = icon("fa-light fa-percent")),
-                                           menuItem("Croisements/Inférence", tabName = "croisements", icon = icon("fa-light fa-dice")),
-                                           menuItem("Analyse de survie", tabName = "survie", icon = icon("fa-light fa-skull-crossbones")),
-                                           menuItem("Tests diagnostiques", tabName = "tests", icon = icon("fa-light fa-vial")),
-                                           menuItem("Concordance", tabName = "concordance", icon = icon("fa-light fa-equals"))
+                                           menuItem("Accueil", tabName = "accueil", icon = icon("fa-light fa-star",verify_fa = FALSE)),
+                                           menuItem("Base de données", tabName = "base", icon = icon("fa-light fa-database",verify_fa = FALSE)),
+                                           menuItem("Descriptif", tabName = "descriptif", icon = icon("fa-light fa-percent",verify_fa = FALSE)),
+                                           menuItem("Croisements/Inférence", tabName = "croisements", icon = icon("fa-light fa-dice",verify_fa = FALSE)),
+                                           menuItem("Analyse de survie", tabName = "survie", icon = icon("fa-light fa-skull-crossbones",verify_fa = FALSE)),
+                                           menuItem("Tests diagnostiques", tabName = "tests", icon = icon("fa-light fa-vial",verify_fa = FALSE)),
+                                           menuItem("Concordance", tabName = "concordance", icon = icon("fa-light fa-equals",verify_fa = FALSE))
                                          )
                                        ),
                                        dashboardBody(
