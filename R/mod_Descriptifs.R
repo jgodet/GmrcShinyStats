@@ -9,7 +9,6 @@
 #' @importFrom shiny NS tagList
 #' @import ggplot2
 #' @import xtable
-#' @import DataExplorer
 #' @import ggthemes
 
 
@@ -194,8 +193,8 @@ mod_Descriptifs_server <- function(id,r){
 
     observe({ 
     output$plotNAbase1 <- renderPlot({
-      #plot.na(r$BDD)
-      DataExplorer::plot_missing(r$BDD)+theme_clean()
+      plot.na(r$BDD)
+      #DataExplorer::plot_missing(r$BDD)+theme_clean()
     })
 
     output$plotNAbase2 <- renderPlot({
