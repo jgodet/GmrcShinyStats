@@ -160,7 +160,7 @@ mod_Concordance_server <- function(id,r){
     
     output$PDFconcordance = downloadHandler(
       filename    = '6_Concordance.pdf',
-      content     = function(file) file.copy('6_Concordance.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy('www/6_Concordance.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     ) 
     

@@ -220,7 +220,7 @@ striping:
     
     output$PDFcroisements = downloadHandler(
       filename    = '3_Croisements.pdf',
-      content     = function(file) file.copy('3_Croisements.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy('www/3_Croisements.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     ) 
     

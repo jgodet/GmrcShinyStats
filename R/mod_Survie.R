@@ -84,7 +84,7 @@ mod_Survie_server <- function(id, r){
     
     output$PDFsurvie = downloadHandler(
       filename    = '4_Survie.pdf',
-      content     = function(file) file.copy('4_Survie.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy('www/4_Survie.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     ) 
 

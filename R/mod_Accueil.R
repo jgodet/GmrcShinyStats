@@ -103,16 +103,16 @@ mod_Accueil_server <- function(id){
     )
     
     output$PDFbase = downloadHandler(
-      filename    = 'www/1_BaseDeDonnees.pdf',
-      content     = function(file) file.copy('1_BaseDeDonnees.pdf', file, overwrite = TRUE),
+      filename    = '1_BaseDeDonnees.pdf',
+      content     = function(file) file.copy('www/1_BaseDeDonnees.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
 
     
     output$PDFdescriptif2 = downloadHandler(
-      filename    = 'www/2_DescriptifVAR.pdf',
-      content     = function(file) file.copy('2_DescriptifVAR.pdf', file, overwrite = TRUE),
+      filename    = '2_DescriptifVAR.pdf',
+      content     = function(file) file.copy('www/2_DescriptifVAR.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
@@ -125,14 +125,14 @@ mod_Accueil_server <- function(id){
 
     
     output$DLcnil = downloadHandler(
-      filename    = 'www/DBnonCRIH.pdf',
-      content     = function(file) file.copy('DBnonCRIH.pdf', file, overwrite = TRUE),
+      filename    = 'DBnonCRIH.pdf',
+      content     = function(file) file.copy('www/DBnonCRIH.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
     output$DLcsv <- downloadHandler(
-      filename ='www/ExempleCSV.csv',
-      content = function(file) file.copy('ExempleCSV.csv', file, overwrite = TRUE),
+      filename ='ExempleCSV.csv',
+      content = function(file) file.copy('www/ExempleCSV.csv', file, overwrite = TRUE),
       contentType = 'application/csv'
       
     )
