@@ -129,7 +129,7 @@ striping:
                                                    plotOutput(ns('plotCROISE' )),
                                                    # debut conditionnal panel QualiQuali
                                                    conditionalPanel(
-                                                     condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",
+                                                     condition = "input.qualiquantiCROISE1 == 'qual' && input.qualiquantiCROISE2 == 'qual'",ns=ns,
                                                      h3("Tableau croisé",align = "left",style = "color:#08088A"),
                                                      tableOutput(ns("montableauCroisAUTO")),br(),
                                                      tableOutput(ns("montableauCroise2AUTO")),
@@ -147,7 +147,7 @@ striping:
                                                    ),# fin panelQualiQuali,
                                                    # debut conditionnal panel QuantiQuali
                                                    conditionalPanel(
-                                                     condition = "input.qualiquantiCROISE1 != input.qualiquantiCROISE2",
+                                                     condition = "input.qualiquantiCROISE1 != input.qualiquantiCROISE2",ns=ns,
                                                      h3("Descriptif complet",align = "left",style = "color:#08088A"),
                                                      tableOutput(ns('descr3DESCRIPTIF')),
                                                      h3("Tests de comparaisons:",align = "left",style = "color:#08088A"),
@@ -160,7 +160,7 @@ striping:
                                                    ), # fin Panel Quali Quanti
                                                    # debut conditionnal panel QuantiQuanti
                                                    conditionalPanel(
-                                                     condition = "input.qualiquantiCROISE1 == 'quant' && input.qualiquantiCROISE2 == 'quant'",
+                                                     condition = "input.qualiquantiCROISE1 == 'quant' && input.qualiquantiCROISE2 == 'quant'",ns=ns,
                                                      h3("Corrélation entre deux variables quantitatives",align = "left",style = "color:#08088A"),
                                                      verbatimTextOutput (ns("CorrelationCROISE"))
                                                    ),# fin panelQuantiQuali,
@@ -202,7 +202,7 @@ striping:
                                           
                                           # tags$head(tags$style(".butt{background-color:#E9967A;} .butt{color: black;}")),
                                           h3("Tableau de comparaison de population"),
-                                          conditionalPanel(condition = "!is.null(input$VariableCroisees)", tableOutput(ns('tableauCroisement')))
+                                          conditionalPanel(condition = "!is.null(input$VariableCroisees)",ns=ns, tableOutput(ns('tableauCroisement')))
                                           
                                         )# fin MainPanel
                                         
