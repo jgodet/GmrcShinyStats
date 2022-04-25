@@ -22,6 +22,7 @@ mod_Croisements_ui <- function(id){
 #' @noRd 
 mod_Croisements_server <- function(id, r){
   moduleServer( id, function(input, output, session){
+    print(r)
     ns <- session$ns
     
     pasDeBase <-   fluidPage(   
