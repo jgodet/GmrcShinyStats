@@ -17,10 +17,9 @@ Lancer le logiciel R.
 Coller les lignes de codes suivantes 
 ```r
 if(!require(remotes)){install.packages('remotes',quiet=T,dep = FALSE)}
-if(!require('GmrcShinyStats')){
-  remotes::install_github('DrFabach/GmrcShinyStats',dep = T, INSTALL_opts = c('--no-lock'))  }
 
- }
+remotes::install_github('DrFabach/GmrcShinyStats',dep = T, INSTALL_opts = c('--no-lock'))  
+
 ```
 Appuyer sur "entrée", après quelques minutes d'installation le logiciel devrait pouvoir être lancé.
 
