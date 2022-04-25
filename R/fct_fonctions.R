@@ -1,17 +1,26 @@
+#' fonctions 
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+
+
 formule<- function(x){
   
   return(as.formula(paste("~", x)))
 }
 tablePourcent<- function(base){
-pourcent <-  prop.table(table(base)) 
-pourcent<- pourcent[order(pourcent)]
-
-data<- data.frame(pourcent = as.numeric(pourcent), nom = names(pourcent))
-
-
-
-return(data)
-
+  pourcent <-  prop.table(table(base)) 
+  pourcent<- pourcent[order(pourcent)]
+  
+  data<- data.frame(pourcent = as.numeric(pourcent), nom = names(pourcent))
+  
+  
+  
+  return(data)
+  
 }
 
 pieChart<- function(base){
@@ -19,44 +28,44 @@ pieChart<- function(base){
   bp<- ggplot(data=data, aes(x=0 ,y=pourcent, fill=reorder(nom, 1/pourcent)))+
     coord_polar(theta='y')
   df <- try(data %>% mutate(pos = cumsum(sort(data$pourcent))- sort(data$pourcent)/2))
-
-if(length(df)>0){
-  label <- (sort(round(data$pourcent*100,1)))
-  label <- as.character(ifelse(label<4,"",paste(label ,"%")))
   
-  nom <- data$nom[order(data$pourcent,decreasing = F)]
-
-  y<- df$pos
-
-  pie <- bp +
-    labs(title="Diagramme circulaire", 
-         x="", y = "")+
-    theme(axis.text.x=element_blank())+
-    geom_bar(stat="identity", color='black')+
-    guides(fill=guide_legend(override.aes=list(colour="black")))+
-    theme(axis.ticks=element_blank(), 
-          axis.title=element_blank(), 
-          axis.text.y=element_blank()) +
+  if(length(df)>0){
+    label <- (sort(round(data$pourcent*100,1)))
+    label <- as.character(ifelse(label<4,"",paste(label ,"%")))
     
-    theme_void()+
-    geom_text(aes( x= 0.2,y=df$pos, label = label), size=6) +
-    theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))
-  
-  
-  pie$labels$fill <- ""
-  pie$theme$legend.title$size <- 15
-  return(pie)
-  
-}else{
-  return("une erreur c'est produite")
-}
+    nom <- data$nom[order(data$pourcent,decreasing = F)]
+    
+    y<- df$pos
+    
+    pie <- bp +
+      labs(title="Diagramme circulaire", 
+           x="", y = "")+
+      theme(axis.text.x=element_blank())+
+      geom_bar(stat="identity", color='black')+
+      guides(fill=guide_legend(override.aes=list(colour="black")))+
+      theme(axis.ticks=element_blank(), 
+            axis.title=element_blank(), 
+            axis.text.y=element_blank()) +
+      
+      theme_void()+
+      geom_text(aes( x= 0.2,y=df$pos, label = label), size=6) +
+      theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))
+    
+    
+    pie$labels$fill <- ""
+    pie$theme$legend.title$size <- 15
+    return(pie)
+    
+  }else{
+    return("une erreur c'est produite")
+  }
 }
 
 
 diagrammeBarre <- function(base){
   data<- tablePourcent(base)
   bp<-ggplot(data=data, aes(x=nom ,y=pourcent*100, fill=reorder(nom, 1/pourcent)))
-
+  
   maxPourcent<- max(data$pourcent, na.rm = T)
   label<-  paste(round(data$pourcent,3)*100,"%")
   vjust<- unlist(as.list(ifelse(data$pourcent< maxPourcent/5, -1.6, 1.6)), use.names = F)
@@ -67,11 +76,11 @@ diagrammeBarre <- function(base){
     geom_bar(stat="identity", color='black')+
     guides(fill=guide_legend(override.aes=list(colour=NULL)))+
     
- 
+    
     geom_text(aes( label = label), vjust=vjust, color="black", size=5) +
     theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))
- 
-   barre$labels$fill <- ""
+  
+  barre$labels$fill <- ""
   return(barre)
   
 }
@@ -88,7 +97,7 @@ tests_autoGMRC<-function (var, grp){
     if ( tryCatch(stats::chisq.test(var , grp)$p.value>=0 , warning = function(e) F, error = function(e) F))
       ~ chisq.test
   else ~fisher.test
-    else {
+  else {
     all_normal <- all(var %>% tapply(grp, desctable::is.normal))
     if (nlevels(grp) == 2) 
       if (all_normal) 

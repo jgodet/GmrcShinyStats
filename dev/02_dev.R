@@ -20,6 +20,9 @@ golem::add_module(name = "Concordance", with_test = FALSE) # Name of the module
 golem::add_module(name = "SaisieManuelle", with_test = FALSE) # Name of the module
 golem::add_module(name = "Redaction", with_test = FALSE) # Name of the module
 
+
+golem::add_fct( "fonctions" ) 
+golem::add_fct( "code_sans_dep" ) 
 ## 2.2 Add dependencies
 
 usethis::use_package( "shiny" ) 

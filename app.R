@@ -4,4 +4,4 @@
 
 pkgload::load_all(export_all = FALSE,helpers = FALSE,attach_testthat = FALSE)
 options( "golem.app.prod" = TRUE)
-gmrc::run_app() # add parameters here (if any)
+GmrcShinyStats::run_app() # add parameters here (if any)

@@ -1,3 +1,10 @@
+#' code_sans_dep 
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
 
 library(utils)
 
@@ -16,71 +23,71 @@ rdpv<-function(x){
 
 
 IC.diff.prop<-function(x1,n1,x2,n2,alpha01=0.5,alpha02=0.5,beta01=0.5,beta02=0.5,val=0.95){
-
-if( n1>1 & n2>1 & x1<=n1 & x2<=n2 ) {situation=1}else{situation=0}
-
-if(situation==1){delta<-x2/n2-x1/n1
-a1<-x1+alpha01
-a2<-x2+alpha02
-b1<-n1-x1+beta01
-b2<-n2-x2+beta02
-f<-function(t){
-integrate(function(p1) { 
-sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value
-})
-},-t,1)$value
-}
-g<-function(t){
-1-integrate(function(p1) { 
-sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*(1-integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value)
-})
-},0,1-t)$value
-}
-ifelse(f(0)<(1-val)/2,Binf<-optimize(function(x) abs((1-val)/2-g(x)),lower=0,upper=abs(delta)+0.001,maximum=FALSE,tol=1e-16)$minimum
-,Binf<-optimize(function(x) abs((1-val)/2-f(x)),lower=-1,upper=min(delta+0.001,0),maximum=FALSE,tol=1e-16)$minimum)
-
-f<-function(t){
-integrate(function(p1) { 
-sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value
-})
-},-t,1)$value
-}
-g<-function(t){
-1-integrate(function(p1) { 
-sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*(1-integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value)
-})
-},0,1-t)$value
-}
-ifelse(f(0)<(1+val)/2,Bsup<-optimize(function(x) abs((1+val)/2-g(x)),lower=0,upper=1,maximum=FALSE,tol=1e-16)$minimum,Bsup<-optimize(function(x) abs((1+val)/2-f(x)),lower=-1,upper=0,maximum=FALSE,tol=1e-16)$minimum)
-
-BinfW<-x2/n2-x1/n1-qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)
-BsupW<-x2/n2-x1/n1+qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)
-
-BinfWCC<-x2/n2-x1/n1-qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)-(1/n1+1/n2)/2
-BsupWCC<-x2/n2-x1/n1+qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)+(1/n1+1/n2)/2
-
-BinfBapp<-a2/(a2+b2)-a1/(a1+b1)-qnorm((val+1)/2,0,1)*sqrt((a2/(a2+b2)*b2/(a2+b2))/(a2+b2)+(a1/(a1+b1)*b1/(a1+b1))/(a1+b1))
-BsupBapp<-a2/(a2+b2)-a1/(a1+b1)+qnorm((val+1)/2,0,1)*sqrt((a2/(a2+b2)*b2/(a2+b2))/(a2+b2)+(a1/(a1+b1)*b1/(a1+b1))/(a1+b1))
-
-M<-matrix(NA,nrow=4,ncol=2)
-M[1,]<-c(Binf,Bsup)
-M[2,]<-c(BinfW,BsupW)
-M[3,]<-c(BinfWCC,BsupWCC)
-M[4,]<-c(BinfBapp,BsupBapp)
-colnames(M)<-c("B.inf","B.sup")
-rownames(M)<-c("Bayésien","Wald","Wald.corr.conti","Bay.approche")
-
-R<-list(Estimation=delta,IC=M)
-
-} # fin if situation
-
-
-if(situation!=1)
-{
-print("Conditions non vérifiées	 n1>1 	 n2>1 	 x1<=n1  x2<=n2")
-R<-""
-}
-return(R)
+  
+  if( n1>1 & n2>1 & x1<=n1 & x2<=n2 ) {situation=1}else{situation=0}
+  
+  if(situation==1){delta<-x2/n2-x1/n1
+  a1<-x1+alpha01
+  a2<-x2+alpha02
+  b1<-n1-x1+beta01
+  b2<-n2-x2+beta02
+  f<-function(t){
+    integrate(function(p1) { 
+      sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value
+      })
+    },-t,1)$value
+  }
+  g<-function(t){
+    1-integrate(function(p1) { 
+      sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*(1-integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value)
+      })
+    },0,1-t)$value
+  }
+  ifelse(f(0)<(1-val)/2,Binf<-optimize(function(x) abs((1-val)/2-g(x)),lower=0,upper=abs(delta)+0.001,maximum=FALSE,tol=1e-16)$minimum
+         ,Binf<-optimize(function(x) abs((1-val)/2-f(x)),lower=-1,upper=min(delta+0.001,0),maximum=FALSE,tol=1e-16)$minimum)
+  
+  f<-function(t){
+    integrate(function(p1) { 
+      sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value
+      })
+    },-t,1)$value
+  }
+  g<-function(t){
+    1-integrate(function(p1) { 
+      sapply(p1, function(p1) {p1^(a1-1)*(1-p1)^(b1-1)/beta(a1,b1)*(1-integrate(function(p2) p2^(a2-1)*(1-p2)^(b2-1)/beta(a2,b2),0,t+p1)$value)
+      })
+    },0,1-t)$value
+  }
+  ifelse(f(0)<(1+val)/2,Bsup<-optimize(function(x) abs((1+val)/2-g(x)),lower=0,upper=1,maximum=FALSE,tol=1e-16)$minimum,Bsup<-optimize(function(x) abs((1+val)/2-f(x)),lower=-1,upper=0,maximum=FALSE,tol=1e-16)$minimum)
+  
+  BinfW<-x2/n2-x1/n1-qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)
+  BsupW<-x2/n2-x1/n1+qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)
+  
+  BinfWCC<-x2/n2-x1/n1-qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)-(1/n1+1/n2)/2
+  BsupWCC<-x2/n2-x1/n1+qnorm((val+1)/2,0,1)*sqrt((x1/n1*(n1-x1)/n1)/n1+(x2/n2*(n2-x2)/n2)/n2)+(1/n1+1/n2)/2
+  
+  BinfBapp<-a2/(a2+b2)-a1/(a1+b1)-qnorm((val+1)/2,0,1)*sqrt((a2/(a2+b2)*b2/(a2+b2))/(a2+b2)+(a1/(a1+b1)*b1/(a1+b1))/(a1+b1))
+  BsupBapp<-a2/(a2+b2)-a1/(a1+b1)+qnorm((val+1)/2,0,1)*sqrt((a2/(a2+b2)*b2/(a2+b2))/(a2+b2)+(a1/(a1+b1)*b1/(a1+b1))/(a1+b1))
+  
+  M<-matrix(NA,nrow=4,ncol=2)
+  M[1,]<-c(Binf,Bsup)
+  M[2,]<-c(BinfW,BsupW)
+  M[3,]<-c(BinfWCC,BsupWCC)
+  M[4,]<-c(BinfBapp,BsupBapp)
+  colnames(M)<-c("B.inf","B.sup")
+  rownames(M)<-c("Bayésien","Wald","Wald.corr.conti","Bay.approche")
+  
+  R<-list(Estimation=delta,IC=M)
+  
+  } # fin if situation
+  
+  
+  if(situation!=1)
+  {
+    print("Conditions non vérifiées	 n1>1 	 n2>1 	 x1<=n1  x2<=n2")
+    R<-""
+  }
+  return(R)
 }
 
 ###########################################################################################################
@@ -98,144 +105,144 @@ return(R)
 # }
 
 logistique.variable.cont<-function(y,x,ic=FALSE,titre=""){
-if(!require(pROC))install.packages('pROC'); library(pROC)
-situation<-99
-if(missing(x) | missing(y)) {situation=0}
-if( nlevels(as.factor(x))==2    ) {situation=0;print("Variable binaire et non quantitative")}
-if( nlevels(as.factor(y))!=2    ) {situation=0;print("Variable réponse non binaire")}
-
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-
-if (situation==99){
-m                       <-glm(y~x,family="binomial")
-predictions				<-rep(NA,length(y))
-predictions[!is.na(x)]	<-predict(m,type="response")
-coefs                   <-cbind(summary(m)$coefficients[,1],confint(m),summary(m)$coefficients[,-1])
-AIC                             <-summary(m)$aic
-OR                              <-round(exp(coefs[,1:3]),3)
-p.values                <-coefs[,6]
-p.values                <-noquote(ifelse(p.values>0.01,round(p.values,2),"<0.01"))
-coefs                   <-noquote(cbind(round(coefs[,1:5],3),p.values))
-rocobj                  <- plot.roc(y,predictions,main=titre, percent=TRUE,ci=TRUE,print.auc=TRUE)                                         
-roc1                    <- roc(y~x)
-roc2                    <- roc(y, rep(1,length(y)))
-p.AUC                   <- roc.test(roc1, roc2)$p.value
-AUC                             <-c(    round(rocobj$ci[1],2),
-                                round(rocobj$ci[2],2),
-                                round(rocobj$ci[3],2),
-                                ifelse(p.AUC>=0.01,round(p.AUC,2),"<0.01"),
-                                ifelse(p.AUC<0.05,"***",""))
-
-##      INT CONF        ##
-if(ic==TRUE){
-ciobj           <- ci.se(rocobj, specificities=seq(0, 100, 5))
-plot(ciobj, type="shape", col="#1c61b6AA") # plot as a blue shape
-}
-##      PERFORMANCE     ##
-ci.thresholds(rocobj)
-optimums                <-ci(rocobj, of="thresholds", thresholds="best")
-plot(optimums) 
-best.cut                <-as.numeric(rownames(round(optimums$sensitivity,2)))
-best.sen                <-c(round(optimums$sensitivity,2),"","")
-best.spe                <-c(round(optimums$specificity,2),"","")
-
-y2                              <-y
-x2                              <-ifelse(predictions>best.cut,1,0)
-T                               <-table(x2,y2)
-VP                              <-T[2,2]
-VN                              <-T[1,1]
-FP                              <-T[2,1]
-FN                              <-T[1,2]
-V1                              <-cbind(VP,VN,FP,FN);colnames(V1)=c("VP","VN","FP","FN")
-
-VPP                             <-round(VP/(VP+FP),2)
-VPN                             <-round(VN/(VN+FN),2)
-Exact                   <-round((VP+VN)/(VP+VN+FP+FN),2)
-Erreur                  <-round((FP+FN)/(VP+VN+FP+FN),2)
-V2                              <-cbind(VPP,VPN,Exact,Erreur);colnames(V2)=c("VPP","VPN","Exactitude","Taux d'erreur")
-
-        
-####    RESULTATS       ####
-SeSp                    <-noquote(rbind(best.sen,best.spe,AUC))
-rownames(SeSp)  =c("Sensibilité","Spécificité","AUC")
-colnames(SeSp)  =c("2.5%","Val","97.5%","p.val","")
-R                               <-list(coefs=coefs,OR=OR,seuil=paste(round(best.cut,2),"(Sur predictions)"),Performance=SeSp,Valeurs=V1,Valeurs2=V2)
-return(R)}
+  if(!require(pROC))install.packages('pROC'); library(pROC)
+  situation<-99
+  if(missing(x) | missing(y)) {situation=0}
+  if( nlevels(as.factor(x))==2    ) {situation=0;print("Variable binaire et non quantitative")}
+  if( nlevels(as.factor(y))!=2    ) {situation=0;print("Variable réponse non binaire")}
+  
+  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+  
+  if (situation==99){
+    m                       <-glm(y~x,family="binomial")
+    predictions				<-rep(NA,length(y))
+    predictions[!is.na(x)]	<-predict(m,type="response")
+    coefs                   <-cbind(summary(m)$coefficients[,1],confint(m),summary(m)$coefficients[,-1])
+    AIC                             <-summary(m)$aic
+    OR                              <-round(exp(coefs[,1:3]),3)
+    p.values                <-coefs[,6]
+    p.values                <-noquote(ifelse(p.values>0.01,round(p.values,2),"<0.01"))
+    coefs                   <-noquote(cbind(round(coefs[,1:5],3),p.values))
+    rocobj                  <- plot.roc(y,predictions,main=titre, percent=TRUE,ci=TRUE,print.auc=TRUE)                                         
+    roc1                    <- roc(y~x)
+    roc2                    <- roc(y, rep(1,length(y)))
+    p.AUC                   <- roc.test(roc1, roc2)$p.value
+    AUC                             <-c(    round(rocobj$ci[1],2),
+                                            round(rocobj$ci[2],2),
+                                            round(rocobj$ci[3],2),
+                                            ifelse(p.AUC>=0.01,round(p.AUC,2),"<0.01"),
+                                            ifelse(p.AUC<0.05,"***",""))
+    
+    ##      INT CONF        ##
+    if(ic==TRUE){
+      ciobj           <- ci.se(rocobj, specificities=seq(0, 100, 5))
+      plot(ciobj, type="shape", col="#1c61b6AA") # plot as a blue shape
+    }
+    ##      PERFORMANCE     ##
+    ci.thresholds(rocobj)
+    optimums                <-ci(rocobj, of="thresholds", thresholds="best")
+    plot(optimums) 
+    best.cut                <-as.numeric(rownames(round(optimums$sensitivity,2)))
+    best.sen                <-c(round(optimums$sensitivity,2),"","")
+    best.spe                <-c(round(optimums$specificity,2),"","")
+    
+    y2                              <-y
+    x2                              <-ifelse(predictions>best.cut,1,0)
+    T                               <-table(x2,y2)
+    VP                              <-T[2,2]
+    VN                              <-T[1,1]
+    FP                              <-T[2,1]
+    FN                              <-T[1,2]
+    V1                              <-cbind(VP,VN,FP,FN);colnames(V1)=c("VP","VN","FP","FN")
+    
+    VPP                             <-round(VP/(VP+FP),2)
+    VPN                             <-round(VN/(VN+FN),2)
+    Exact                   <-round((VP+VN)/(VP+VN+FP+FN),2)
+    Erreur                  <-round((FP+FN)/(VP+VN+FP+FN),2)
+    V2                              <-cbind(VPP,VPN,Exact,Erreur);colnames(V2)=c("VPP","VPN","Exactitude","Taux d'erreur")
+    
+    
+    ####    RESULTATS       ####
+    SeSp                    <-noquote(rbind(best.sen,best.spe,AUC))
+    rownames(SeSp)  =c("Sensibilité","Spécificité","AUC")
+    colnames(SeSp)  =c("2.5%","Val","97.5%","p.val","")
+    R                               <-list(coefs=coefs,OR=OR,seuil=paste(round(best.cut,2),"(Sur predictions)"),Performance=SeSp,Valeurs=V1,Valeurs2=V2)
+    return(R)}
 }
 logistique.variable.bin<-function(y,x){
-situation=99
-if(nlevels(as.factor(x))!=2){situation=0;print("Variable non binaire")}
-if(nlevels(as.factor(y))!=2){situation=0;print("Variable non binaire")}
-
-if(situation==99){
-m				<-glm(y~as.factor(x),family="binomial")
-coefs			<-cbind(summary(m)$coefficients[,1],confint(m),summary(m)$coefficients[,-1])
-AIC				<-summary(m)$aic
-OR				<-round(exp(coefs[,1:3]),3)
-p.values		<-round(coefs[,6],2)
-p.values		<-noquote(ifelse(p.values>0.01,round(p.values,2),"<0.01"))
-coefs			<-cbind(round(coefs[,1:5],3),p.values)
-
-Response		<-y
-T				<-table(x,Response)
-VP				<-T[2,2]
-VN				<-T[1,1]
-FP				<-T[2,1]
-FN				<-T[1,2]
-V1				<-cbind(VP,VN,FP,FN);colnames(V1)=c("VP","VN","FP","FN")
-
-Sens			<-VP/(VP+FN)
-Spec			<-VN/(VN+FP)
-VPP				<-VP/(VP+FP)
-VPN				<-VN/(VN+FN)
-Exact			<-(VP+VN)/(VP+VN+FP+FN)
-Erreur			<-(FP+FN)/(VP+VN+FP+FN)
-V2				<-round(cbind(Sens,Spec,VPP,VPN,Exact,Erreur),2)
-colnames(V2)	=c("Sens","Spec","VPP","VPN","Exactitude","Taux d'erreur")
-
-R<-list(Table=T,Valeurs=V1,Performance=V2,Regression.Logistique=coefs,OR=OR)
-return(R)}
+  situation=99
+  if(nlevels(as.factor(x))!=2){situation=0;print("Variable non binaire")}
+  if(nlevels(as.factor(y))!=2){situation=0;print("Variable non binaire")}
+  
+  if(situation==99){
+    m				<-glm(y~as.factor(x),family="binomial")
+    coefs			<-cbind(summary(m)$coefficients[,1],confint(m),summary(m)$coefficients[,-1])
+    AIC				<-summary(m)$aic
+    OR				<-round(exp(coefs[,1:3]),3)
+    p.values		<-round(coefs[,6],2)
+    p.values		<-noquote(ifelse(p.values>0.01,round(p.values,2),"<0.01"))
+    coefs			<-cbind(round(coefs[,1:5],3),p.values)
+    
+    Response		<-y
+    T				<-table(x,Response)
+    VP				<-T[2,2]
+    VN				<-T[1,1]
+    FP				<-T[2,1]
+    FN				<-T[1,2]
+    V1				<-cbind(VP,VN,FP,FN);colnames(V1)=c("VP","VN","FP","FN")
+    
+    Sens			<-VP/(VP+FN)
+    Spec			<-VN/(VN+FP)
+    VPP				<-VP/(VP+FP)
+    VPN				<-VN/(VN+FN)
+    Exact			<-(VP+VN)/(VP+VN+FP+FN)
+    Erreur			<-(FP+FN)/(VP+VN+FP+FN)
+    V2				<-round(cbind(Sens,Spec,VPP,VPN,Exact,Erreur),2)
+    colnames(V2)	=c("Sens","Spec","VPP","VPN","Exactitude","Taux d'erreur")
+    
+    R<-list(Table=T,Valeurs=V1,Performance=V2,Regression.Logistique=coefs,OR=OR)
+    return(R)}
 }
 logit.ss.latex<-function(y,x,ic=FALSE,titreSL=""){
-if(     nlevels(as.factor(y))!=2        )       {cas=0}
-if(             all(levels(as.factor(as.numeric(y)))==c("0","1")) ) {y2<-y}
-if(             all(levels(as.factor(as.numeric(y)))==c("1","2")) ) {y2<-as.numeric(y)-1}
-
-
-if(     nlevels(as.factor(x))<2 )       {cas=0}
-if(     nlevels(as.factor(x))==2        )       {cas=1}
-if(     nlevels(as.factor(x))>2 )       {cas=2}
-
-if(cas==1){return(logistique.variable.bin(y2,x))}
-if(cas==2){return(logistique.variable.cont(y2,x,ic,titre=titreSL))}
+  if(     nlevels(as.factor(y))!=2        )       {cas=0}
+  if(             all(levels(as.factor(as.numeric(y)))==c("0","1")) ) {y2<-y}
+  if(             all(levels(as.factor(as.numeric(y)))==c("1","2")) ) {y2<-as.numeric(y)-1}
+  
+  
+  if(     nlevels(as.factor(x))<2 )       {cas=0}
+  if(     nlevels(as.factor(x))==2        )       {cas=1}
+  if(     nlevels(as.factor(x))>2 )       {cas=2}
+  
+  if(cas==1){return(logistique.variable.bin(y2,x))}
+  if(cas==2){return(logistique.variable.cont(y2,x,ic,titre=titreSL))}
 }
 
 logist<-function(y,x,ic=FALSE,latex=FALSE,titre=0){
- 
- nomX<-deparse(substitute(x))
- nomY<-deparse(substitute(y))
- cat("--------------------------------------------------------------\n")
- cat("\nCriteres diagnostiques de la variable ",nomX, " sur la variable ",nomY ," \n") 
- cat("--------------------------------------------------------------\n\n")
- 
-if(titre==0){MainT<-paste("Courbe ROC :",deparse(substitute(y)),"~",deparse(substitute(x)))} else{MainT=titre}
-	
-if(latex==FALSE	){return(			logit.ss.latex(y,x,ic,titreSL=MainT))}
-if(latex==TRUE	){              L<-	logit.ss.latex(y,x,ic,titreSL=MainT)
-                                print(L)
-                                Mat.performances<-matrix(as.numeric(as.character(L$Performance[,1:3])),ncol=3)
-								#colnames(Mat.performances)<-c("2.5%","Valeur","97.5%")
-								#rownames(Mat.performances)<-c("Sensibilite","Specificite",paste("AUC ","(p=",rdpv(as.numeric(L$Performance[3,4])),")",sep=""))
-								Mat.Valeurs<-cbind(L$Valeurs,L$Valeurs2)
-								rownames(Mat.Valeurs)<-c("")
-								library(xtable)
-								cat("---------------CODE LATEX-------------------------\n")
-								cat("\\uline{\\textbf{Performances}}\\\\ \n~\\\\\n")
-								print(xtable(Mat.performances))
-								print(xtable(Mat.Valeurs))      
-								cat("\n~\\\\\n \\uline{\\textbf{Courbe ROC}}\\\\ \n~\\\\\n")
-								cat("\\begin{figure}[H]\n \\begin{center}\n  \\includegraphics[width=\\textwidth]{ROC.pdf} \n  \\end{center}\n  \\caption{Courbe ROC associee au modele logistique}\n  \\end{figure} \n")
-					}
+  
+  nomX<-deparse(substitute(x))
+  nomY<-deparse(substitute(y))
+  cat("--------------------------------------------------------------\n")
+  cat("\nCriteres diagnostiques de la variable ",nomX, " sur la variable ",nomY ," \n") 
+  cat("--------------------------------------------------------------\n\n")
+  
+  if(titre==0){MainT<-paste("Courbe ROC :",deparse(substitute(y)),"~",deparse(substitute(x)))} else{MainT=titre}
+  
+  if(latex==FALSE	){return(			logit.ss.latex(y,x,ic,titreSL=MainT))}
+  if(latex==TRUE	){              L<-	logit.ss.latex(y,x,ic,titreSL=MainT)
+  print(L)
+  Mat.performances<-matrix(as.numeric(as.character(L$Performance[,1:3])),ncol=3)
+  #colnames(Mat.performances)<-c("2.5%","Valeur","97.5%")
+  #rownames(Mat.performances)<-c("Sensibilite","Specificite",paste("AUC ","(p=",rdpv(as.numeric(L$Performance[3,4])),")",sep=""))
+  Mat.Valeurs<-cbind(L$Valeurs,L$Valeurs2)
+  rownames(Mat.Valeurs)<-c("")
+  library(xtable)
+  cat("---------------CODE LATEX-------------------------\n")
+  cat("\\uline{\\textbf{Performances}}\\\\ \n~\\\\\n")
+  print(xtable(Mat.performances))
+  print(xtable(Mat.Valeurs))      
+  cat("\n~\\\\\n \\uline{\\textbf{Courbe ROC}}\\\\ \n~\\\\\n")
+  cat("\\begin{figure}[H]\n \\begin{center}\n  \\includegraphics[width=\\textwidth]{ROC.pdf} \n  \\end{center}\n  \\caption{Courbe ROC associee au modele logistique}\n  \\end{figure} \n")
+  }
 }
 
 
@@ -1203,7 +1210,7 @@ compare<-function(x,y,paired,modmax){
 ###########################################################################################################
 ###########################################################################################################
 
- descd<-function(D){
+descd<-function(D){
   
   
   if(is.data.frame(D)){situation=2}else{
@@ -1221,10 +1228,10 @@ compare<-function(x,y,paired,modmax){
       if(length(table(as.factor(x)))==1){nature.variable=-1}else{
         if(is.character(x)){nature.variable<-0;res<-"Variable textuelle"}
         if(is.factor(x)){
-        if(nlevels(x)<modmax){nature.variable<-2}else{nature.variable<-3;res<-"Facteur nombreuses modalites, a verifier manuellement"}}else{
-          if(is.numeric(x))
-                { if (nlevels(as.factor(x))<modmax) {nature.variable<-2} else{nature.variable<-1}}
-          else{nature.variable<-0     } }
+          if(nlevels(x)<modmax){nature.variable<-2}else{nature.variable<-3;res<-"Facteur nombreuses modalites, a verifier manuellement"}}else{
+            if(is.numeric(x))
+            { if (nlevels(as.factor(x))<modmax) {nature.variable<-2} else{nature.variable<-1}}
+            else{nature.variable<-0     } }
       }
       if(nature.variable==1)                          {n.quanti   =n.quanti+1}
       if(nature.variable==2)                          {n.quali    =n.quali+1}}
@@ -2178,8 +2185,8 @@ ggboxplot<-function(x,y,Groupe=NULL)
 
 ggcompar<-function(x,y, DDD= NULL)
 {
-if( is.null(DDD)) {  DDD<-as.data.frame(cbind(x,y)) 
-}else{ DDD<- DDD[,c(x,y)]}
+  if( is.null(DDD)) {  DDD<-as.data.frame(cbind(x,y)) 
+  }else{ DDD<- DDD[,c(x,y)]}
   titre<-paste("Distributions de",x,"en fonction de",y)
   DDD[,2]<- as.factor(DDD[,2])
   return(
