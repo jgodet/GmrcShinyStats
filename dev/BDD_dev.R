@@ -1,5 +1,6 @@
 # Values: 
 
+library(shiny)
 BDD<- mtcars
 r<-reactiveValues(
 )
@@ -20,18 +21,19 @@ r$variableNormale<-ret
 r$listeVariableNonNormale<-names(BDD)[!ret]
 r$listeVariableNormale<-names(BDD)[ret]
 
-source("R/mod_Croisements.R")
 
+ source("R/fct_code_sans_dep.R")
+source("R/fct_fonctions.R")
+
+library(gmrcfun)
 ui <- shiny::fluidPage(mod_Croisements_ui(1))
-
+source("R/mod_Croisements.R")
 server <- function(input, output, session) {
   
   mod_Croisements_server(1,r=r)
 }
 
+
 shinyApp(ui, server)
 
 
-app_ui <- mod_Croisements_ui("Croisements_1")
-
-shiny::shin(ui=app_ui, server = app_server(r=r))

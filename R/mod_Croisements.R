@@ -258,22 +258,7 @@ striping:
       if(input$qualiquantiCROISE1=="qual" & input$qualiquantiCROISE2=="qual"){
 
         # print(ggpie(as.factor(variableCROISE1),as.factor(variableCROISE2)))
-        BDD<- base[,c(input$variableCROISE1,input$variableCROISE2)]
-        pourcent <-  prop.table(table(BDD),1)
-        data<-as.data.frame(pourcent)
-        maxPourcent<- max(data$Freq, na.rm = T)
-        label<-  paste(round(data$Freq,3)*100,"%")
-        vjust<- unlist(as.list(ifelse(data$Freq< maxPourcent/5, -1.6, 1.6)), use.names = F)
-
-        barplotCroise <- ggplot(data=data, aes(x=rep(levels(data[,2]),length(levels(data[,1]))) ,y=Freq))+
-          geom_bar(stat="identity", position = "dodge",color='black',aes(fill = rep(levels(data[,2]),length(levels(data[,1])))))+
-          facet_wrap(formule(input$variableCROISE1))+
-          geom_text(data=data,aes( label = paste(round(Freq,3)*100,"%")) , vjust=vjust, color="black", size=5) +
-          theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))+
-          ggtitle(paste("En fonction de ", input$variableCROISE1, sep = ""))+
-          xlab(input$variableCROISE2)+
-          labs(fill = input$variableCROISE2)
-
+        barplotCroise<-barplot_croise(base = base,var1=input$variableCROISE1,var2=input$variableCROISE2)
         print(barplotCroise)
 
 

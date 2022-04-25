@@ -11,6 +11,29 @@ formule<- function(x){
   
   return(as.formula(paste("~", x)))
 }
+
+barplot_croise<-function(base,var1,var2){
+  BDD<- base[,c(var1,var2)]
+  pourcent <-  prop.table(table(BDD),1)
+  data<-as.data.frame(pourcent)
+  names(data)<- c("var1","var2","Freq")
+  data[,1]<-as.factor(data[,1])
+  data[,2]<-as.factor(data[,2])
+  maxPourcent<- max(data$Freq, na.rm = T)
+  label<-  paste(round(data$Freq,3)*100,"%")
+  vjust<- unlist(as.list(ifelse(data$Freq< maxPourcent/5, -1.6, 1.6)), use.names = F)
+  
+  barplotCroise <- ggplot(data=data, aes(x=var2 ,y=Freq))+
+    geom_col( position = "dodge",color='black',aes(fill = var2))+
+    facet_wrap( ~var1)+
+    geom_text(data=data,aes( label = paste(round(Freq,3)*100,"%")) , vjust=vjust, color="black", size=5) +
+    theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=17))+
+    ggtitle(paste("En fonction de ", var1, sep = ""))+
+    xlab(var2)+
+    labs(fill = var2)
+  return(barplotCroise)
+}
+
 tablePourcent<- function(base){
   pourcent <-  prop.table(table(base)) 
   pourcent<- pourcent[order(pourcent)]
