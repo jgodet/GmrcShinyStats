@@ -1,3 +1,5 @@
+Modification test .
+
 # GMRC Shiny stat
 
 ## Procédure d'installation
