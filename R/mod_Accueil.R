@@ -50,7 +50,7 @@ mod_Accueil_ui <- function(id){
         tags$p("En cas de doute ou si un problème persiste, assurez-vous d'avoir respecté toutes les modalités du fichier de recommantations traitant du format d'une base, que vous pouvez télécharger ici :", style="text-align: justify"),
         tags$br(),tags$br(),
         column(6,
-               actionButton(ns("do"), "An action button"),
+             
                strong("* Instructions sur le format d'un tableau : saisie des données"),
                downloadButton(ns('formatBASE'),label="Télécharger Instructions format\n d'une base de données",class = "BOUTON"),
                tags$head(tags$style(".BOUTON{background-color:#F1F1F7;} .BOUTON{color: black;}")),
@@ -102,7 +102,7 @@ mod_Accueil_server <- function(id){
     })
     output$formatBASE = downloadHandler(
       filename    = '0_Instructions.pdf',
-      content     = function(file) file.copy('./inst/app/www/0_Instructions.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy('0_Instructions.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
