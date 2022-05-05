@@ -253,10 +253,10 @@ golem_add_external_resources <- function() {
 
   tags$head(
     favicon(),
-    bundle_resources(
-      path =  system.file('app/www', package = 'GmrcShinyStats'),
-      app_title = "GmrcShinyStats"
-    )
+    # bundle_resources(
+    #   path =  system.file('app/www', package = 'GmrcShinyStats'),
+    #   app_title = "GmrcShinyStats"
+    # )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
