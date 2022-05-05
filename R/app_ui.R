@@ -254,7 +254,7 @@ golem_add_external_resources <- function() {
   tags$head(
     favicon(),
     bundle_resources(
-      path = app_sys("app/www"),
+      path =  system.file('app/www', package = 'GmrcShinyStats'),
       app_title = "GmrcShinyStats"
     )
     # Add here other external resources
