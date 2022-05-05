@@ -102,7 +102,7 @@ mod_Accueil_server <- function(id){
     })
     output$formatBASE = downloadHandler(
       filename    = '0_Instructions.pdf',
-      content     = function(file) file.copy('www/0_Instructions.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy('./0_Instructions.pdf', file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
