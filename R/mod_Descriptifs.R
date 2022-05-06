@@ -169,18 +169,18 @@ mod_Descriptifs_server <- function(id,r){
     
     output$PDFdescriptif1o1 = downloadHandler(
       filename    = '2_Descriptif.pdf',
-      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/2_Descriptif.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
     output$PDFdescriptif1o2 = downloadHandler(
       filename    = '2_Descriptif.pdf',
-      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/2_Descriptif.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     output$PDFdescriptif1o3 = downloadHandler(
       filename    = '2_Descriptif.pdf',
-      content     = function(file) file.copy('2_Descriptif.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/2_Descriptif.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
 

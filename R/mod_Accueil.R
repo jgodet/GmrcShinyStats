@@ -102,13 +102,13 @@ mod_Accueil_server <- function(id){
     })
     output$formatBASE = downloadHandler(
       filename    = '0_Instructions.pdf',
-      content     = function(file) file.copy('./0_Instructions.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(  system.file("app/www/0_Instructions.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
     output$PDFbase = downloadHandler(
       filename    = '1_BaseDeDonnees.pdf',
-      content     = function(file) file.copy('www/1_BaseDeDonnees.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file('www/1_BaseDeDonnees.pdf', package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
@@ -116,7 +116,7 @@ mod_Accueil_server <- function(id){
     
     output$PDFdescriptif2 = downloadHandler(
       filename    = '2_DescriptifVAR.pdf',
-      content     = function(file) file.copy('./2_DescriptifVAR.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/2_DescriptifVAR.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
@@ -130,13 +130,13 @@ mod_Accueil_server <- function(id){
     
     output$DLcnil = downloadHandler(
       filename    = 'DBnonCRIH.pdf',
-      content     = function(file) file.copy('www/DBnonCRIH.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/DBnonCRIH.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     )
     
     output$DLcsv <- downloadHandler(
       filename ='ExempleCSV.csv',
-      content = function(file) file.copy('www/ExempleCSV.csv', file, overwrite = TRUE),
+      content = function(file) file.copy(system.file("app/www/ExempleCSV.csv", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/csv'
       
     )

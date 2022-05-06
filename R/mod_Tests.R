@@ -121,7 +121,7 @@ mod_Tests_server <- function(id,r){
     
     output$PDFdiag = downloadHandler(
       filename    = '5_Diagnostiques.pdf',
-      content     = function(file) file.copy('5_Diagnostiques.pdf', file, overwrite = TRUE),
+      content     = function(file) file.copy(system.file("app/www/5_Diagnostiques.pdf", package = 'GmrcShinyStats'), file, overwrite = TRUE),
       contentType = 'application/pdf'
     ) 
     
