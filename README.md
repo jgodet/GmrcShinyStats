@@ -1,6 +1,10 @@
 
 # GMRC Shiny stat
 
+## Lien vers la chaine youtube :
+
+https://youtube.com/playlist?list=PLRC56KyFX6kk3FJ6FuwvTFRd3ZoNFSLlG
+
 ## Procédure d'installation
 
 ### Téléchargement du logiciel R :
