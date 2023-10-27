@@ -34,7 +34,7 @@ Lancer le logiciel R.
 
 Coller les lignes de codes suivantes 
 ```r
-GmrcShinyStats::run_app()
+GmrcShinyStats::run_app(options = list(launch.browser = TRUE))
 ```
 
 
